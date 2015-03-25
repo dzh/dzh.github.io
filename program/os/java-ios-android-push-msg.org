@@ -1,0 +1,12 @@
+#+STARTUP: showall
+#+TITLE： IOS和Andriod
+
+* 
+
+* ios消息推送
+
+
+* andriod消息推送
+
+
+

@@ -1,0 +1,9 @@
+* 增强的数据结构
+
+* import增强
+
+* scala与java的关系
+语言层: 语法，语言特性方面     scala与java没有关系；
+本质上， scala最后也是class文件(当然scala运行在JVM/.NET虚拟机上), class是Java语言的一部分.
+
+语言->(编译器生成)中间语言->运行系统

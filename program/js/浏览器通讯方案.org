@@ -1,0 +1,45 @@
+#+STARTUP: showall
+* 概述
+文章将介绍BS[fn:BS:Browser-Server, 浏览器与服务器]架构中常见通讯技术, 如Comet, WebSockets, Socket.IO等. 比较它们的优缺点, 给予在技术选型上的意见.
+
+* 技术介绍
+** Comet
+Comet 是一个 Web 应用模型，在该模型中，请求被发送到服务器端并保持一个很长的存活期，直到超时或是有服务器端事件发生。
+*** 流Comet
+Forever Iframe（或者 hidden IFrame）, 
+技术涉及了一个置于页面中的隐藏 Iframe 标签，该标签的 src 属性指向返回服务器端事件的 servlet 路径.
+每次在事件到达时，servlet 写入并刷新一个新的 script 标签，该标签内部带有 JavaScript 代码，iframe 的内容被附加上这一 script 标签，标签中的内容就会得到执行。
+
+
+优点：实现简单，在所有支持 iframe 的浏览器上都可用。
+缺点：没有方法可用来实现可靠的错误处理或是跟踪连接的状态，因为所有的连接和数据都是由浏览器通过 HTML 标签来处理的，因此您没有办法知道连接何时在哪一端已被断开了。
+
+
+XMLHttpRequest 对象的多部分 (multi-part) 特性
+在 XMLHttpRequest 对象上使用某些浏览器（比如 Firefox）支持的 multi-part 标志。
+Ajax 请求被发送给服务器端并保持打开状态，每次有事件到来时，一个多部分的响应就会通过这同一连接来写入
+
+
+*** 长轮询(long polling)
+
+
+** WebSockets
+
+** Socket.IO
+
+
+WebSocket
+Flash Socket
+AJAX long-polling
+AJAX multipart streaming
+IFrame
+JSONP polling
+
+** 总结
+
+* 技术比较
+
+* 总结
+
+* 参考
+http://davidwalsh.name/websocket

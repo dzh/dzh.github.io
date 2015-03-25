@@ -1,0 +1,42 @@
+#+STARTUP: showall
+
+
+* install
+
+
+* version
+** Versions Maven Plugin
+http://mojo.codehaus.org/versions-maven-plugin/
+** use
+- 更新子模块版本
+mvn versions:set -DnewVersion=1.0.1-SNAPSHOT
+mvn versions:set -DnewVersion=2.1.0-SNAPSHOT -f enforcer/enforcer-api/pom.xml
+mvn -N versions:update-child-modules
+- 回滚版本
+mvn versions:revert 
+- Checking for new plugin updates
+mvn versions:display-plugin-updates
+
+* properties
+** Local user settings
+- ${settings.localRepository} refers to the path of the user's local repository.
+- ${maven.repo.local} also works for backward compatibility with maven1 ??
+** Pom/Project properties
+- ${project.build.directory} results in the path to your "target" dir, this is the same as ${pom.project.build.directory}
+- ${project.build.outputDirectory} results in the path to your "target/classes" dir
+- ${project.name} or ${pom.name} refers to the name of the project.
+- ${project.version} or ${pom.version} refers to the version of the project.
+- ${project.build.finalName} refers to the final name of the file created when the built project is packaged
+** Build in properties
+- ${basedir} represents the directory containing pom.xml
+- ${version} equivalent to ${project.version} or ${pom.version}
+- ${parent.version}
+** 
+http://www.oschina.net/question/158170_29026
+
+
+
+
+
+
+

@@ -1,0 +1,20 @@
+#+STARTUP: showall
+
+* configuring solr
+** solr.xml
+- 
+
+
+** solrconfig.xml
+- 
+- 
+
+
+
+** schema.xml
+- 
+
+
+** global variable
+- solr.solr.home
+

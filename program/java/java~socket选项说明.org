@@ -1,0 +1,61 @@
+#+STARTUP: showall
+
+* 概述
+此文说明java.net.SocketOptions里socket相关常量的含义及使用方法。
+
+* 选项
+- TCP_NODELAY
+true表示无须等待前一个包的回应（Nagle算法），在包就绪后直接发送。适合快速响应的系统，且数据量较小。
+方法：setTcpNoDelay()
+默认值：
+问题：总体的吞吐量是提升还是降低
+- SO_BINDADDR
+
+- SO_TIMEOUT
+设置read()的超时时间，单位毫秒，非负数.
+方法：setSoTimeOut()
+默认值：0，表示无限超时
+- SO_LINGER
+socket关闭时影响未发送的数据，默认情况,socket关闭后，继续发送/接受数据剩余数据.
+方法：setSoLinger(boolean on,int seconds); int getSoLinger();
+默认值：
+问题：
+- SO_SNDBUF
+输出缓冲区大小
+方法：setSendBufferSize(),getSendBufferSize()
+默认值：
+- SO_RCVBUF
+设置接受数据缓存大小
+方法：setReceiveBufferSize(int size),getReceiveBufferSize()
+默认值：
+问题：缓冲区大小对性能的影响？
+大缓冲区：适合大的连续数据传输
+小缓冲区：适合小数据量、即时应用
+- SO_KEEPALIVE
+设置的话，利用空闲连接发送数据包给服务器，最多等待11多分钟，测试服务器是否正常，12分钟没有回应则关闭socket。
+没有设置SO_KEEPALIVE的话，则客户端不会检测与服务端的连接情况，客户端socket一直存在。
+方法：setKeepAlive(boolean on),getKeepAlive()
+默认值：false
+- SO_OOBINLINE
+启动接收紧急数据，
+方法：setOOBInline(boolean on),getOOBInline()
+sendUrgentData(int data) //发送最低位字节，缓冲数据首先给刷新
+默认值：false，忽略紧急数据
+java紧急数据处理方式：放入输入流，不区分紧急数据和正常数据。
+- SO_REUSEADDR
+新的socket能使用前一个socket的地址
+方法：setReuseAddress(boolean on),getReuseAddress() //在connect（）之前设置
+默认值：false
+- IP_TOS
+- SO_BROADCAST
+- IP_MULTICAST_IF / IP_MULTICAST_IF2
+- IP_MULTICAST_LOOP
+
+* 示例
++BEGIN_SRC java
+
++END_SRC
+
+
+
+

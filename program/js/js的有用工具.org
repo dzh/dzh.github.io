@@ -1,0 +1,10 @@
+#+STARTUP: showall
+
+* 代码校验
+jslint
+
+* 代码压缩
+compress
+
+* 文档生成
+ doc

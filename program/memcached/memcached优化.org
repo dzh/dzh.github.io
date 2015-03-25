@@ -1,0 +1,43 @@
+#+STARTUP: showall
+
+
+#配置服务器信息  
+serverNum=2  
+server1=192.168.11.159:12000  
+server2=192.168.11.158:12000  
+  
+#配置服务器权重信息  
+weight1=3  
+weight2=3  
+  
+#初始连接数  
+initConn=5  
+  
+#最小连接数  
+minConn=5  
+  
+#最大连接数  
+maxConn=250  
+  
+#最大处理时间,超时时间1000 * 60 * 60 * 6  
+maxIdle=21600000  
+  
+#主线程的睡眠时间  
+maintSleep=30  
+  
+#Tcp的规则就是在发送一个包之前，本地机器会等待远程主机        
+#对上一次发送的包的确认信息到来；这个方法就可以关闭套接字的缓存，        
+#以至这个包准备好了就发；   
+nagle=false  
+  
+#连接建立后对超时的控制  
+socketTo=3000  
+  
+#连接建立时对超时的控制  
+socketConnectTo=0  
+  
+#是否开启压缩设置  
+compressEnable=true  
+  
+#超过指定大小（单位为K）的数据都会被压缩64 * 1024  
+compressThreshold=65536  

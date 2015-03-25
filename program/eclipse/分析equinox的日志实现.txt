@@ -1,0 +1,27 @@
+
+*eclipse会将异常等信息记录到workspace/.metadata/.log中,下面我将介绍代码的实现过程
+
+
+eclipse框架的日志
+1)loggerName=org.eclipse.equinox.logger  org.eclipse.core.runtime.internal.adaptor.EclipseLogWriter  consoleLog=true enabled=true logLevel=0
+outFile =/home/dzh/lx/gala/.metadata/.plugins/org.eclipse.pde.core/IDE_SRV/1326353827611.log
+2)loggerName=org.eclipse.performance.logger org.eclipse.core.runtime.internal.adaptor.EclipseLogWriter consoleLog=false enabled=true logLevel=0
+outFile=/home/dzh/lx/gala/.metadata/.plugins/org.eclipse.pde.core/IDE_SRV/performance.log
+3)org.eclipse.core.internal.runtime.PlatformLogWriter 
+
+*自定义日志监听器
+
+
+*注册log服务
+org.eclipse.core.internal.runtime.InternalPlatform
+
+
+
+* 参考
+http://www.eclipsezone.com/eclipse/forums/t99588.html (Using Log4J in Eclipse Equinox/OSGi )
+
+
+
+
+
+

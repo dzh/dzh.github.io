@@ -1,0 +1,29 @@
+#+STARTUP: showall
+
+
+* scalac
+-X Print a synopsis of advanced options.
+-bootclasspath path Override location of bootstrap class files.
+-classpath path Specify where to find user class files.
+-d directory Specify where to place generated class files.
+-dependencyfile file Specify the file in which dependencies are tracked. (version 2.8)
+-deprecation Output source locations where deprecated APIs are used.
+-encoding encoding Specify character encoding used by source files.
+-explaintypes Explain type errors in more detail.
+-extdirs dirs Override location of installed compiler extensions.
+-g:level Specify level of generated debugging info: none, source, line, vars, notailcalls.
+-help Print a synopsis of standard options.
+-make:strategy Specify recompilation detection strategy: all, changed, immediate, transitive.
+              (version 2.8)
+-nowarn Generate no warnings.
+-optimise Generate faster byte code by applying optimizations to the program.
+-print Print program with all Scala-specific features removed.
+-sourcepath path Specify where to find input source files.
+-target:target Specify for which target JVM object files should be built: jvm-1.5, jvm-1.4, msil.
+-unchecked Enable detailed unchecked warnings.
+-uniqid Print identifiers with unique names for debugging.
+-verbose Output messages about what the compiler is doing.
+-version Print product version and exit.
+@ file A text file containing compiler arguments (options and source files).
+
+

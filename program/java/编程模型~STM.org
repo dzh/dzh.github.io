@@ -1,0 +1,21 @@
+* 什么是STM(Software Transactional Memory)
+
+* STM适合的并发环境
+适合频繁读, 很少写冲突.
+
+* STM特性
+STM的事务特性包含如下特性, 与数据库的操作类似:
+1) 原子性(Atomicity), 
+2) 一致性(Consistency), 事务执行结果只有2种情况：成功, 或者不产生任何效果;
+3) 隔离性(Isolation), 其他事务仅能看到一个事务完全执行成功后的改变;
+STM与数据库ACID不同的在于, 没有持久性(Durability), 数据全部在内存保存在内存中.
+
+transactions are idempotent and don’t have any side effects
+
+
+* STM的并发控制
+STM concurrency control is similar to optimistic locking in databases
+
+
+
+

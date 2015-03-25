@@ -1,0 +1,5 @@
+#+STARTUP: showall
+
+* anonymous variable 
+strings.map((s:String) => s.toUpperCase())
+strings.map(_.toUpperCase())

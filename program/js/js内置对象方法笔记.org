@@ -1,0 +1,138 @@
+#+STARTUP: showall
+
+* 内容概述
+js包含一些内置对象，如Array，Function，String等，这些是基本的，常用的js类，所以了解它们十分重要；把他们的方法，用例子和文字简要的记录下来，方便今后参看。
+
+* Array
+** array.concat(item...)
+返回一个新数组；\\
+新数组的内容包括：1. array自己的浅拷贝；2. item項，注意，若item是数组，则把这个数组的各项浅拷贝后，添加到新数组中。
+** array.join(separator)
+返回array的字符串表示，表达格式是array的内容通过separator连接成的字符串。默认separator是‘,’。
+** array.pop()
+移除数组的最后一个元素，并将这个元素作为返回值。array为空时，返回undefined。
+** array.push(item...)
+将item添加到array的尾部，返回array的新长度值。\\
+注意，若item是数组，则把它作为array的一项直接加入，这和concat的处理方式不同.\\
+与concat的区别：1. push()修改array，而concat()生成新数组；2. 对于item是数组的情况，处理方式不同。
+** array.reverse()
+倒置array的内容，并返回array。
+** array.shift()
+移除array的第一个項，返回被删除的这个項。array为空时，返回undefined。
+** array.unshift(item...)
+与push()类似, 将item们插入array头部, 返回array的新长度.
+** array.slice(start, end)
+浅复制array的内容, 复制范围[array[start], array[end]), 返回一个新数组。\\
+说明: 1. end是可选的, 默认是array.length; 2.start和end负数时, 处理方式是把start,end与array.length相加; 3.start>=array.length时, 返回空数组.
+例如,\\
+#+NAME: slice()示例
+#+BEGIN_SRC js
+  var a = [1, 2, 3];
+  var b = a.slice(1, 2); // b is [2]
+#+END_SRC
+** array.sort(compareFunction)
+将数组根据比较函数定义的规则重新排序后，返回array.
+默认是将array的内容按照字符串的形式比较, 所以通常需要自定义比较函数; 比较函数的一般形式是function (a, b) {...}, 若a<=b时则a在b之前, a>b时则a在b之后.
+** array.splice(start, deleteCount, newItem...)
+把array从start位置开始, 删除deleteCount个項, 并将newItem加入到start位置; 最后返回一个数组, 包含被删除的元素.newItem是可选参数.
+例如,\\
+#+NAME: splice()示例
+#+BEGIN_SRC js 
+  var a = ['a', 'b', 'c'];
+  var b = a.splice(1, 1, 'd');
+  // a is ['a', 'd', 'c'], b is ['b']
+#+END_SRC
+
+* Number
+** number.toExponential(fractionDigits)
+将数字转换为指数表示形式字符串，fractionDigits指定指数的小数位的位数, 取值区间[0,20].
+** number.toFixed(fractionDigits)
+将数字表示成10进制字符串, fractionDigits同上.
+** number.toPrecision(precision)
+与toFixed()类同, 只是precision指定的是数字的有效位数, 取值范围[0,21].
+** number.toString(radix)
+将number转换为需要的进制字符串形式，radix默认是10.
+
+* RegExp
+** regexp.exec(String)
+匹配成功, 返回数组,数组第一个項是匹配的整个字符串, 此后項是匹配分组,最后是匹配信息如配置位置,输入的字符串;若找不到匹配, 返回null.\\
+lastIndex属性: 当regexp带有'g'全局标识时, regexp对象维护一个lastIndex属性,每次exec()从lastIndex开始查找;\\
+这个值在exec每次成功执行后, 取值配置成功字符串的后一个字符开始位置.在配置失败后, lastIndex被设置为0.\\
+使用注意的地方, 就在于若在配置成功又不再执行exec时, 需要手动将lastIndex设置为0.\\
+常规使用模式,\\
+#+NAME: regexp样例
+#+BEGIN_SRC js
+  var text = 'string';
+  var regexp = /regexp/g;;
+  var array;
+  while (array = regexp.exec(string)) {
+      ..... //todo something
+  }
+#+END_SRC
+** regexp.test(String)
+regexp配置string, 则返回true, 否则返回false.\\
+test()时, 不应使用g, 性能优于exec().
+
+* String
+** string.charAt(pos)
+返回pos位置上的字符串(js没有char类型). 若pos<0或>=string.length, 则返回空字符串.
+** string.charCodeAt(pos)
+与charAt()的区别在于返回位置上字符串对应的字符编码值(unicode), 若pos不在合法范围内, 就返回NaN.
+示例,
+#+BEGIN_SRC js
+  var s = '戴忠';
+  var i;
+  for (i = 0; i < s.length; i++) {
+      console.log(i + ' ' + s.charAt(i) + ' ' + s.charCodeAt(i));  // 0 戴 25140 1 忠 24544
+  }
+#+END_SRC
+** string.concat(string...)
+将字符串连接在一起并返回.
+** string.indexOf(searchString, pos)
+从string的pos开始向后查找searchString， 若找到则返回searchString出现的初始位置，否则返回-1.
+** string.lastIndexOf(searchString, pos)
+它与indexOf(searchString, pos)的区别在于查找方向相反, 从pos位置开始向前查找.
+** str1.localeCompare(str2)
+比较两个字符串, 若str1<str2则返回负数, 若相等则返回0, 否则正数.
+** string.match(regexp)
+若regexp带'g', 则返回包含匹配内容的数组(不包含分组).没有'g'时, 则和regexp.exec(string)返回相同的结果.
+例如,\\
+#+BEGIN_SRC js
+  var s1 = '1a2b';
+  var reg1 = /\d+/;
+  var reg2 = /[^\d]+/g;
+  var reg3 = /(\d)+/;
+  console.log(reg1.exec(s1));  // [ '1', index: 0, input: '1a2b' ]
+  console.log(s1.match(reg1)); // [ '1', index: 0, input: '1a2b' ]
+  console.log(s1.match(reg3)); // [ '1', '1', index: 0, input: '1a2b' ]
+  console.log(s1.match(reg2)); // [ 'a', 'b' ]
+#+END_SRC
+** string.replace(searchValue, replaceValue)
+将string中匹配searchValue的内容, 用repalceValue取代, 最后返回生成的新字符串.一般只替换第一次配置的内容, 在包含'g'时, 全部替换.
+参数说明:\\
+1. searchValue是字符串, 或者是正则表达式;
+2. repalceValue可包含一些特殊含义的内容, 如
+| 特殊字符 | 替换值         |
+|----------+----------------|
+| $$       | $              |
+| $&       | 整个匹配的文本 |
+| $number  | 分组捕获的文本 |
+| $`       | 匹配之前的文本 |
+| $'       | 匹配之后的文本 |
+3.replaceValue可以是函数, 在匹配时依次传入, 匹配的整个文本, 第一个捕获分组, 第二个捕获分组, 依次其他分组. 这个函数的返回值作为实际的取代值.
+** string.search(regexp)
+与indexOf()功能类似, 返回值情况相同. 这个方法忽略'g'.
+** string.slice(start, end)
+复制string的内容, 范围[start, end), 不包含end位置的内容. 这个函数的参数取值情况和array.slice()参数取值情况差不多.
+** string.split(separator, limit)
+将string根据separator的要求分隔内容, 返回形成的数组.limit参数是可选的, 表示分隔的最大个数.separator是一个字符串或者正则表达式.这个方法忽略'g'.
+** string.toLowerCase()
+返回小写的新字符串.
+** string.toUpperCase()
+返回大写的新字符串.
+** String.fromCharCode(code...)
+参数是一些数值, 把这些数值作为字符的编码值对待, 返回一个字符串. 这个方法和charCodeAt()相反.
+#+BEGIN_SRC js
+  var str = String.fromCharCode(25140, 24544);
+  console.log(str); // '戴忠'
+#+END_SRC

@@ -1,0 +1,8 @@
+#+STARTUP: showall
+
+* linux里表示设备
+** ATA(IDE) Disk
+** SCSI Disk
+** Terminal 
+
+* 增加设备文件

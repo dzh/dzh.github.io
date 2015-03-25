@@ -1,0 +1,35 @@
+#+STARTUP: showall
+
+* URLConnection功能
+- 
+
+* 提交表单
+
+
+* HttpURLConnection
+** 请求方法
+- get
+- post
+- head
+告诉http服务器只返回HTTP首部
+- put
+上传文件到网站的相对路径中，不需要知道网站是如何映射到实际本地文件系统的
+- options
+查询对URL支持的操作，在ALLOW字段中找到有效的命令列表
+- delete
+删除url对应的文件
+- trace
+请求查看服务器接收的客户端http首部
+** 缓存
+java.net.ResponseCache
+java.net.CacheRequest
+
+* JarURLConnection
+jar:http://www.../!/...
+
+
+* 问题
+代理服务器
+
+
+

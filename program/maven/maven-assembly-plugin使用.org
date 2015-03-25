@@ -1,0 +1,6 @@
+#+STARTUP: showall
+
+* maven-assembly-plugin功能
+- 
+
+* 

@@ -1,0 +1,45 @@
+#+STARTUP: showall
+
+* 概述
+本文说明mongo启动时相关的参数作用
+
+
+* 启动选项
+** -dbpath
+指定数据目录，默认/usr/data
+
+** --objcheck
+在插入文档前，检查其有效性，如文档是否超长（BSON>18M，不同版本限制不同）、含非utf-8字符等，性能有一定损失。
+注:Object.bsonsize(doc)查看doc转bson后大小，单位字节。
+
+
+* Shell命令
+db.runCommand({});
+** getLastError
+返回最后操作状态
+** findAndModify
+具备查找、更新、删除功能的原子操作。
+示例
+db.runCommand({
+"findAndModify": 字符串/集合名
+"query": 查找文档，检索文档的条件
+"sort": 排序结果的条件
+"update":修改器
+"remove": boolean类型，表示是否删除文档
+"new": boolean类型，表示返回更新前都文档，还是更新后的文档。默认是更新前的文档。
+})
+
+* shell操作
+** insert
+** remove
+** update
+** upsert
+** 
+
+
+* 查询
+
+
+
+
+

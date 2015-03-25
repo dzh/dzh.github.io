@@ -1,0 +1,10 @@
+#+STARTUP: showall
+
+* Any
+- 所有scala类的父类
+- AnyVal AnyRef
+
+* Nothing
+- Nothing是所有scala类的子类
+
+* Option

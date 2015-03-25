@@ -1,0 +1,39 @@
+#+STARTUP: showall
+
+* 命令
+- 备份数据库
+mysqldump -hhostname -uusername -ppassword databasename > backupfile.sql
+mysqldump -–add-drop-table -uusername -ppassword databasename > backupfile.sql
+mysqldump -hhostname -uusername -ppassword databasename | gzip > backupfile.sql.gz
+mysqldump -hhostname -uusername -ppassword databasename specific_table1 specific_table2 > backupfile.sql
+mysqldump -hhostname -uusername -ppassword –databases databasename1 databasename2 databasename3 > multibackupfile.sql
+mysqldump –no-data –databases databasename1 databasename2 databasename3 > structurebackupfile.sql
+mysqldump –all-databases > allbackupfile.sql
+- 还原数据库
+mysql -hhostname -uusername -ppassword databasename < backupfile.sql
+gunzip < backupfile.sql.gz | mysql -uusername -ppassword databasename
+mysqldump -uusername -ppassword databasename | mysql –host=*.*.*.* -C databasename #迁移数据库
+- 查看用户信息
+show grants for 你的用户
+select host,user from mysql.user;
+- 创建用户
+CREATE USER yy IDENTIFIED BY '123';
+CREATE USER yy@localhost IDENTIFIED BY '123';
+GRANT ALL PRIVILEGES ON *.* TO user;@localhost
+flush privileges;
+grant   all   privileges   on   pureftpd.*   to   koko@localhost   identified   by   'mimi';  
+
+
+
+
+
+
+
+
+
+* 参考
+http://www.iteye.com/topic/855793
+
+
+
+

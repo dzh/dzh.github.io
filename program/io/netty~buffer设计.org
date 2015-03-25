@@ -1,0 +1,18 @@
+#+STARTUP: showall
+* 
+buffer type
+zero-copy
+dynamic buffer
+无需flip()
+
+
+
+* 示例
+
+* 类框架
+
+* 功能
+
+ChannelBuffer
+ChannelBuffers
+

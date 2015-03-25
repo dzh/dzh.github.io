@@ -1,0 +1,17 @@
+shell:history/1 and shell:results/1
+or by setting the application configuration parameters shell_history_length and shell_saved_results for the application STDLIB
+
+
+By default the evaluator process is killed when an exception occurs, but by calling shell:catch_exception/1 or by setting the application configuration parameter shell_catch_exception for the application STDLIB this behavior can be changed.
+
+
+shell命令的查找过程
+If a command (local function call) is not recognized by the shell, an attempt is first made to find the function in the module user_default, where customized local commands can be placed. If found, then the function is evaluated. Otherwise, an attempt is made to evaluate the function in the module shell_default. The module user_default must be explicitly loaded.
+
+
+
+*erlang的shell有哪些功能
+1)支持多任务,
+The shell also permits the user to start multiple concurrent jobs. A job can be regarded as a set of processes which can communicate with the shell.
+
+

@@ -1,0 +1,40 @@
+#+STARTUP: showall
+
+* hadoop
+** NameNode
+记录文件元信息，给DataNode发送指令
+
+单节点故障问题
+
+** DataNode
+存储文件块
+
+
+** Secondary NameNode
+从NameNode获取数据的快照，
+
+
+
+** JobTracker
+任务管理，一个集群在主节点上一个JobTracker
+
+
+
+** TaskTracker
+管理从节点的私有任务
+
+
+
+* hadoop架构
+Hadoop employs a master/slave architecture for both distributed storage and distributed computation. 
+
+
+
+* HDFS
+
+
+
+
+* 管理集群
+
+

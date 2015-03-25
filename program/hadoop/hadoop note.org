@@ -1,0 +1,46 @@
+#+STARTUP: showall
+
+* install
+ssh-keygen -t rsa
+cat id_isa.pub >> authorized_keys
+
+bin/hadoop namenode --format
+bin/start-all.sh
+
+http://localhost:50030 mapred
+http://localhost:50070 hdfs
+
+* hadoop shell
+- hdfs
+hadoop fs -mkdir <dir>
+- job
+hadoop job -list
+hadoop jar <jar> [mainclass] args...
+-debug
+export HADOOP_JOBTRACKER_OPTS="-Xdebug -Xrunjdwp:transport=dt_socket,address=878
+8,server=y,suspend=y"
+- log
+bin/hadoop daemonlog -getlevel ${tasktracker -host}:50075 \
+org.apache.hadoop.mapred.TaskTracker
+bin/hadoop daemonlog -setlevel ${tasktracker-host}:50075 \
+org.apache.hadoop.mapred.TaskTracker DEBUG
+http://${tasktracker-host}:50075/logLevel
+
+* map/reduce
+** basicinterface
+InputFormat
+Mapper
+Partitioner
+Reducer
+OutputFormat
+** tool
+- JobControl, DAG(Directed Acyclic Graph)
+编写有依赖关系的作业
+- ChainMapper/ChainReducer
+编写链式作业
+- Hadoop Streaming
+允许执行可执行文件/脚本，采用非java语言编写作业
+- Hadoop Pipes 
+专门为C/C++程序员编写MapReduce程序提供的工具包
+
+

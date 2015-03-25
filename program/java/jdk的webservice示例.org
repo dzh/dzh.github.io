@@ -1,0 +1,25 @@
+#+STARTUP: showall
+* 概述
+  axis、cxf功能强大但依赖很多其他类库，如spring等，而且和web容器绑定，适合复杂应用。jdk6之后自带的webservice功能无需依赖其他类库，适合简单的应用开发。
+  
+* 命令行工具
+** wsimport
+wsimport [options] <WSDL_URI>
+主要选项：
+-d 指定生成的 class 文件的位置。
+-s 指定生成的 Java source 文件的位置。
+-WSDLlocation 指定生成的 Java source 中 @WebService.WSDLLocation 和 @WebServiceClient.WSDLLocation 的值。
+清单 12. wsimport 使用实例
+wsimport.sh -d classes -s src -WSDLlocation /WEB-INF/WSDL/SimpleBeanService.WSDL 
+ SimpleBeanService.WSDL 
+wsimport -p ws.client -keep http://192.168.1.99:9999/test?wsdl
+** wsgen
+wsgen [options] < SEI >
+主要选项：
+-d 指定生成的 class 文件的位置。
+-s 指定生成的 Java source 文件的位置。
+-r 指定生成的 resources 文件的位置。如 WSDL，xsd 的位置。
+-WSDL，-servicename，-portname 三个参数指定生成的 WSDL 文件中的 service 和 port 的名称。
+wsgen.sh -cp classes -s src -d bin -r web -WSDL com.ibm.ws.demo.server.SimpleBeanDelegate
+
+  

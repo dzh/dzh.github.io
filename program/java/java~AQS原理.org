@@ -1,0 +1,15 @@
+* AQS概述
+AQS[fn:AQS定义:AQS全称Abstract Queued Synchronizer, java类java.util.concurrent.locks.AbstractQueuedSynchronizer]是
+
+
+
+* Synchronizer基本功能
+- 阻塞方法(acquire)和释放阻塞方法(realease)
+- 非阻塞方法(tryLock)
+- 支持超时的阻塞
+- 支持可中断的阻塞
+- 排它(exclusive)和共享(share)模式管理, 锁是否可被多个线程同时持有.
+
+* 
+  
+* 示例

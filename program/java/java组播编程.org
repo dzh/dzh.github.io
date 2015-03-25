@@ -1,0 +1,28 @@
+#+STARTUP: showall
+
+* 
+组播解决数据流最有效（对网络流量压力小，传输路径最近）的广播机制，
+
+* 组播地址
+
+* MulticastSocket
+
+* DatagramChannel,MulticastChannel
+
+
+
+* 组播路由器
+ping all-routers.mcast.net
+
+
+
+* 问题
+在哪些节点上复制流，减少网络流量
+组播数据包结构
+TTL值
+组播隧道软件
+组播的限制和
+Multicast接口可变指发送中随机使用接口？还是接口以后可以改变？setInterface()
+路由器开放组播通讯
+
+

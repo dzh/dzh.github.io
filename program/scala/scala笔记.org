@@ -1,0 +1,6 @@
+* 特性
+all Scala methods have a facility for delaying the evaluation
+of their arguments, or even declining to evaluate them at all. The facility is
+called by-name parameters and is discussed in Section 9.5.
+
+

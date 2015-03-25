@@ -1,0 +1,26 @@
+#+STARTUP: showall
+* 概述
+socket相关有哪些
+
+
+* socket相关配置
+** 通讯策略
+- 值
+0x02: 低成本
+0x04: 高可靠性
+0x08: 最高吞吐量
+0x10: 最小延迟
+- 方法
+getTrafficClass()
+setTrafficClass(int)
+setPerformancePreferences(int connectionTime,int latency,int bandwidth) //设置连接权重，由VM具体实现
+
+
+
+
+
+* 默认设置
+new Socket()时，socket有哪些默认设置
+
+* 优化设置
+

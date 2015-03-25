@@ -1,0 +1,65 @@
+#+STARTUP: showall
+
+* 概述
+本文是对《Programming Erlang》异常处理内容都总结
+
+* erlang异常产生原因
+** 函数执行异常
+函数体内无匹配成功时，抛出异常.
+** 显示抛出异常
+- exit(Exception)
+结束当前进程；
+若未捕获异常，则向所有当前进程相关的进程广播{'EXIT',Pid,Excepiton}.
+ExceptonType = exit
+- throw(Exception)
+不会结束当前进程，ExceptionType = throw
+- erlang:error(Exception）
+ExceptionType = error
+
+
+* 捕获异常
+** try...catch表达式
+- 语法格式:
+try FuncOrExpressionSequence of
+    Pattern1 [when Guard1] -> Expression1;
+    Pattern2 [when Guard2] -> Expression2;
+    ...
+catch 
+    ExceptionType1: ExPattern1 [when ExGuard1] -> ExExpressions1;
+    ExceptionType2: Ex...
+[after
+    AfterExpressions]
+end.
+- ExceptionType1说明
+ExceptionType1是exit,throw,error等抛出的异常,默认值是throw;
+由Erlang运行时系统检测的系统异常为error
+- after
+以后的语句一定会执行, afterExpressions的返回值被自动舍弃
+** catch表达式
+- 语法格式:
+catch Expression.
+- 说明
+catch返回描述错误的元组，如{'EXIT',内容}
+
+* 获取异常栈
+** 显示最近栈
+erlang:get_stacktrace()
+不包含任何尾递归调用的路径信息
+
+* 示例
+- try/catch
+#+NAME: try/catch example
+#+BEGIN_SRC erlang 
+
+
+#+END_SRC
+- catch
+#+NAME: catch example
+#+BEGIN_SRC erlang
+
+
+#+END_SRC
+
+
+
+

@@ -1,0 +1,11 @@
+#+STARTUP: showall
+
+fseek
+ftell
+
+
+适合大文件
+fsetpos
+fgetpos
+
+区别

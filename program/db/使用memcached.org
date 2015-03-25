@@ -1,0 +1,92 @@
+#+STARTUP: showall
+
+* memcached概述
+** 安装
+启动/结束
+memcached -d -m 10 -u root -l 192.168.0.122 -p 11200 -c 256 -P /tmp/memcached.pid
+-d 选项是启动一个守护进程， 
+-m 是分配给Memcache使用的内存数量，单位是MB，这里是10MB
+-u 是运行Memcache的用户，这里是root
+-l 是监听的服务器IP地址，如果有多个地址的话，这里指定了服务器的IP地址192.168.0.122 
+-p 是设置Memcache监听的端口，这里设置了12000，最好是1024以上的端口
+-c 选项是最大运行的并发连接数，默认是1024，这里设置了256，按照你服务器的负载量来设定
+-P 是设置保存Memcache的pid文件
+kill `cat /tmp/memcached.pid`
+** 配置
+*** 集群
+客户机，key散列值，计算放到那个memcached，
+均匀散列值
+
+** 命令
+get(key) — 从存储了特定键的 memcached 获得信息。 如果键不存在，就返回错误。
+set(key, value [, expiry]) — 使用缓存内的标识符键存储这个特定的值。如果键已经存在，那么它就会被更新。期满时间的单位为秒，并且如果值小于 30 天 (30*24*60*60)，那么就用作相对时间，如果值大于 30 天，那么就用作绝对时间 (epoch)。
+add(key, value [, expiry]) — 如果键不存在就将这个键添加到缓存内，如果键已经存在就返回错误。如果您想要显式地添加一个新键而又不会因它已经存在而更新它，那么这个函数将十分有用。
+replace(key, value [, expiry]) — 更新此特定键的值，如果键不存在就返回一个错误。
+delete(key [, time]) — 从缓存中删除此键/值对。如果您提供一个时间，那么添加具有此键的一个新值就会被阻塞这个特定的时期。超时让您可以确保此值总是可以重新读取自您的数据中心。
+incr(key [, value]) — 为特定的键增 1 或特定的值。只适用于数值。
+decr(key [, value]) — 为特定的键减 1 或特定的值，只适用于数值。
+flush_all — 让缓存内的所有当前条目无效（或到期失效）。
+** 原理
+** 注意
+- 最大的存储对象为1M
+- 
+
+
+* memcached客户端
+** 可选客户端
+*** Spymemcached
+http://code.google.com/p/spymemcached/
+*** Memcached-Java-Client
+https://github.com/gwhalin/Memcached-Java-Client
+*** xmemcached
+http://code.google.com/p/xmemcached/
+** 客户端优化
+
+
+
+* memcached使用技巧
+** 设计key/value格式，实质是设计某种协议约定
+- key命名空间，如code.google.com，这样key的表意就是多维；
+- 方便解析的value存储格式，最理想的是让查询者能直接使用；或采用如json，xml之类的中间格式。
+** 存储格式化后的数据，而不是数据库的数据
+
+
+* mysql+memcached方案
+
+* linux安装
+** 编译
+yum -i gcc
+- 安装libevent：
+# tar zxvf libevent-1.2.tar.gz
+# cd libevent-1.2
+# ./configure --prefix=/usr
+# make
+# make install
+- 安装memcached，同时需要安装中指定libevent的安装位置：
+# cd /tmp
+# tar zxvf memcached-1.2.0.tar.gz
+# cd memcached-1.2.0
+# ./configure --with-libevent=/usr
+# make
+# make install
+** 软件源安装
+yum -i libevent-devel
+apt-get install libevent
+** 启动
+/etc/init.d/memcached -d -m 10 -u root -l 192.168.0.200 -p 12000 -c 256 -P /tmp/memcached.pid
+-d选项是启动一个守护进程，
+-m是分配给Memcache使用的内存数量，单位是MB，我这里是10MB，
+-u是运行Memcache的用户，我这里是root，
+-l是监听的服务器IP地址，如果有多个地址的话，我这里指定了服务器的IP地址192.168.0.200，
+-p是设置Memcache监听的端口，我这里设置了12000，最好是1024以上的端口，
+-c选项是最大运行的并发连接数，默认是1024，我这里设置了256，按照你服务器的负载量来设定，
+-P是设置保存Memcache的pid文件，我这里是保存在 /tmp/memcached.pid，
+
+
+* 参考
+http://code.google.com/p/memcached/wiki/NewStart
+http://www.ibm.com/developerworks/cn/java/j-memcached1/
+http://www.ibm.com/developerworks/cn/opensource/os-memcached/
+http://www.infoq.com/cn/articles/memcached-java
+
+

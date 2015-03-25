@@ -1,0 +1,152 @@
+#+STARTUP: showall
+
+
+* 
+
+/usr/local/bin/redis-server /alternate-location-for-redis-config.conf
+redis-server /usr/local/etc/redis.conf
+
+sudo apt-get install redis-server
+sudo yum install redis
+
+
+
+
+** redis.conf
+*** master/slave
+- slave
+slaveof master-ip-or-hostname masterport
+SLAVEOF NO ONE This # will stop replication and effectively promote your slave into a master.
+
+
+- master
+masterauth master-password
+SLAVEOF master-ip-or-hostname [masterport] # master->slave
+CONFIG SET masterauth password
+*** vm
+- vm-enabled yes
+- vm-swap-file specifies the location of the swap file in your filesystem.
+- vm-max-memory allows you to specify the maximum amount of memory Redis should
+use before beginning to swap values. Beware that this is a soft limit, because keys
+are always kept in memory and because Redis won’t swap values to disk while
+creating a new snapshot.
+- vm-pages specifies the number of pages in your swap file.
+- vm-page-size defines the size of a page in bytes. 
+- vm-max-threads is the maximum number of threads available to perform I/O op-
+erations.
+*** upgrade
+info master_link_status:up
+info connected_clients
+*** backup
+
+
+
+
+
+** datatype
+
+** client
+redis-cli -h
+redis-cli -h serverip
+redis-cli -p 6380
+
+** cmds
+*** simple
+- set key value
+Sets the key to hold the given value. Existing data is overwritten (even if of a dif-
+ferent data type).
+- get key
+Returns the content held by the key. Works only with string values.
+- incr key 
+Increments the integer stored at key by 1.
+- INCRBY key value
+Performs the same operation as INCR, but incrementing by value instead.
+- DECR key
+Decrements the integer stored at key by 1
+- DECRBY key value
+Performs the same operation as DECR, but decrementing by value instead.
+- del key
+*** hash key
+- hset namespace name value
+- hget namespace name
+- hincrby namespace name value
+- hgetall namespace
+- hkeys namespace
+- hvals namespace
+- hdel namespace name
+*** set value
+- sadd namespace value
+给集合添加值
+- smembers
+列举集合内的值
+- sinter setname1 setname2
+取交集
+- sunion setname1 setname2
+取并集
+*** Inspect
+- keys k?[ey]* 
+Lists all the keys in the current database that match the given pattern.support wildward
+- type keyname
+Tells the type of the key. Possible types are: string, list, hash, set, zset, and none.
+- monitor
+Outputs the commands received by the Redis server in real time.
+*** OAuth
+HMSET /consumers/key:dpf43f3p2l4k3l03 secret kd94hf93k423kf44 created_at 201103060000
+redirect_url http://www.example.com/oauth_redirect name test_application
+- HSET hash-name key value
+Sets a value on a hash with the given key. As with other Redis commands, if the
+hash doesn’t exist, it’s created.
+- HMSET hash-name key1 value1 [key2 value2 ...]
+Allows you to set several values in a hash with a single command.
+- HGETALL /consumers/key:dpf43f3p2l4k3l03
+SADD /nonces/key:dpf43f3p2l4k3l03/timestamp:20110306182600 dji430splmx33448
+EXPIRE /nonces/key:dpf43f3p2l4k3l03/timestamp:20110306182600 1800
+- HGETALL hash-name
+Returns all the key/value pairs in the given hash.
+- SADD set-name element
+Adds the element to the given set unless it’s already a member. The return value
+is 1 if the element is added and 0 if it was already a member.
+- EXPIRE key seconds
+Sets an expiration timeout on a key, after which it will be deleted. This can be used
+on any type of key (strings, hashes, lists, sets or sorted sets) and is one of the most
+powerful Redis features.
+- EXPIREAT key timestamp
+Performs the same operation as EXPIRE, except you can specify a UNIX timestamp
+(seconds since midnight, January 1, 1970) instead of the number of elapsed sec-
+onds.
+- TTL key
+Tells you the remaining time to live of a key with an expiration timeout.
+- PERSIST key
+Removes the expiration timeout on the given key.
+*** Pub/Sub
+- publish 
+- subscribe
+- unsubscribe
+- psubscribe
+- punsubscribe
+
+
+
+* 参考
+- redis cookbook 2011
+
+
+
+959  chkconfig --list | grep ntp
+  960  chkconfig --level 2345 ntpd on
+  961  ntpdate time.windows.com
+  962  ntpdate time.windows.com && hwclock -w
+  963  date -R
+  964  less /etc/localtime 
+  965  timeconfig
+  966  tzselect
+  967  date -R
+  968  ntpdate time.windows.com && hwclock -w
+  969  date -R
+  970  date
+  971  tzselect
+  972  TZ='Asia/Shanghai'; export TZ
+  973  date -R
+  974  ntpdate time.windows.com && hwclock -w
+
+

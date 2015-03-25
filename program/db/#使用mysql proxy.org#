@@ -1,0 +1,29 @@
+
+#+STARTUP: showall
+
+ mysql-proxy --proxy-backend-addresses=sakila:3306
+
+mysql-proxy \
+     --proxy-backend-addresses=narcissus:3306 \
+     --proxy-backend-addresses=nostromo:3306
+
+/usr/local/pay/mysql-proxy/bin/mysql-proxy --keepalive --proxy-backend-addresses=rdsvvzva2e7ribu.mysql.rds.aliyuncs.com:3306 --daemon
+
+mysql -u pay -ppay20140814 -h rdsvvzva2e7ribu.mysql.rds.aliyuncs.com -D dono_pay
+
+mysql-proxy --proxy-lua-script=mc.lua --proxy-backend-addresses=sakila:3306
+
+* command
+Format	Description
+--help	Show help options
+--help-admin	Show admin module options
+--help-all	Show all help options
+--help-proxy	Show proxy module options
+
+mysql -u share -pshare123 -h 121.40.92.93 -P 4040 -D dono_share
+
+
+
+
+http://dev.mysql.com/doc/refman/5.6/en/mysql-proxy-configuration.html
+

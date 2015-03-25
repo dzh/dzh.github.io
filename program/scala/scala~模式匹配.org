@@ -1,0 +1,11 @@
+* P/70
+
+
+Liskov Substitution Principle P/87
+
+
+中缀 P/139
+
+
+
+

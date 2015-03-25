@@ -1,0 +1,43 @@
+xtype,the default xtype is a panel
+
+textfield
+timefield
+numberfield
+datefield
+combo
+textarea
+
+
+建立表单45,提交表单
+
+
+{
+xtype: 'textfield',
+fieldLabel: 'Title',
+name: 'title',
+allowBlank: false
+}
+    
+
+form field的事件监听
+ they "add value" to the native
+DOM event
+
+DOM Listeners p/69
+
+
+ui的编程模型
+
+表单的数据加载
+静态数据
+movie_form.getForm().findField('title'). 
+setValue('Dumb & Dumber');
+
+movie_form.getForm().load({
+url:'data/movie.php',
+params:{
+id: 1
+}
+});
+
+

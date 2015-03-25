@@ -1,0 +1,45 @@
+#+STARTUP: showall
+
+* 概述
+本文的内容说明nginx在linux上的安装、负载均衡配置。
+
+* nginx安装
+
+* nginx负载均衡策略
+** 轮询
+每一个请求按顺序逐一分配到不同的后端服务器，如果后端服务器down掉了，则能自动剔除
+** IP哈希
+ip_hash 解决了session问题：每个请求按访问IP的hash结果分配，这样每个访客可以固定一个后端服务器。
+** 权重
+weight是设置权重，用于后端服务器性能不均的情况，访问比率约等于权重之比
+** fair
+fair （第三方）按后端服务器的响应时间来分配请求，响应时间短的优先分配。
+** url哈希
+按访问URL的hash结果来分配请求，使每个URL定向到同一个后端服务器
+
+* 
+
+upstream backend {
+    ip_hash;
+    server blog.csdn.net/poechant down;
+    server 145.223.156.89:8090;
+    server unix:/tmp/backend3;
+    server 192.168.109.5:81 weight=1;
+    server backend2.example.com backup;
+    server 54.244.56.3:8081 max_fails=3 fail_timeout=30s;
+    fair;
+}
+
+server {
+    location / {
+        proxy_pass http://backend;
+    }
+}
+
+ IP地址与端口、域名、UNIX 套接字（socket）
+
+* 参考
+http://1234567aaa.blog.51cto.com/373182/317802
+http://outofmemory.cn/code-snippet/3040/Nginx-load-junheng-configuration-strategy
+
+

@@ -1,0 +1,223 @@
+#+STARTUP: showall
+
+* 概述
+Mysql Cluster是mysql的集群解决方案，面向大数据量，支持数据自动备份、分片等，使用NDB存储引擎（分布式）。
+搭建mysql cluster至少需要3台机器，功能分布：
+- 集群管理节点，sql代理，以下简称M
+- 数据存储、sql操作节点，以下简称D1
+- 数据存储、sql操作节点，以下检查D2
+*本文不做详细技术解释，只记录关键步骤，作为参考*
+
+* 资源分配
+- M： M对性能没什么要求，配置可以低点，因为M只是连接管理、监控，没有数据计算、存储。
+- D1/D2： 内存和CPU越高越好，硬盘容量越大。
+
+* CentOS配置
+** 安装fastmirror
+yum install yum-fastestmirror
+** 打开ssh
+/etc/init.d/sshd start
+** 配置ftp
+- yum install vsftpd
+- 
+getsebool -a | grep ftp
+  163  setsebool -P ftp_home_dir 1
+  164  setsebool -P ftp_home_dir on
+  165  setsebool -P ftp_home_dir=1
+  167  setsebool -P ftp_home_dir=1
+  168  setsebool -p ftp_home_dir 1
+  169  setsebool -P ftp_home_dir 1
+  174  setsebool -P ftp_home_dir 1
+  175  setsebool ftp_home_dir 1
+  176  setsebool -P ftp_home_dir 1
+  180  setsebool ftpd_use_passive_mode 1
+  181  setsebool -P ftpd_use_passive_mode 1
+  193  setsebool allow_ftpd_full_access 1
+  976  history | grep setsebool
+- /etc/vsftpd
+pam_service_name=vsftpd
+userlist_enable=yes
+tcp_wrappers=yes
+- /etc/userlist
+- /etc/hosts.access
+sshd:all
+vsftpd:all
+httpd:all
+** iptables
+开启： chkconfig iptables on 
+关闭： chkconfig iptables off 
+开启： service iptables start 
+关闭： service iptables stop
+
+*** 权限问题
+** 设置固定ip
+/etc/sysconfig/network-script/ifcfg-eth0
+DEVICE=eth0
+#BOOTPROTO=dhcp
+BOOTPROTO=static
+IPADDR=192.168.1.15
+NETMASK=255.255.255.0
+TYPE=Ethernet
+IPV6INIT=no
+PEERDNS=yes
+#HOSTNAME=CentOS-M
+#GATEWAY
+ONBOOT=yes
+HWADDR=08:00:27:77:4A:26
+DNS1=192.168.1.1
+DNS2=8.8.8.8
+*** 
+vi /etc/sysctl.conf
+** route
+route add -net 11.1.1.0 netmask 255.255.255.0 gw 11.1.1.1
+在/etc/sysconfig/network-script/目录下创建名为route- eth0的文件 
+192.168.1.0/24 via 192.168.0.1 
+/etc/sysconfig/static-routes
+
+
+* MGM安装
+** 安装目录
+** 配置文件
+** 初次启动
+
+* NDB安装
+** 安装目录
+** 配置文件
+** 初次启动
+** 创建数据库
+
+
+
+
+-
+/etc/sysconfig/selinux:
+SELINUX=disabled
+-
+$ service iptables stop
+$ chkconfig iptables off
+- /etc/hosts
+mysql-mysqld1      192.168.1.99
+mysql-mysqld2      10.0.2.15
+mysql-management   192.168.1.99
+mysql-data1        192.168.1.99
+mysql-data2        10.0.2.15
+mysql-data3        
+- 
+
+
+[mysqld]
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+user=mysql
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+ndbcluster
+ndb-connectstring=192.168.1.15
+character-set-server=utf8
+collation-server=utf8_general_ci
+skip-character-set-client-handshake
+default-storage-engine=ndbcluster
+[mysql_cluster]
+ndb-connectstring=192.168.1.15
+[ndb_mgm]
+connect-string=192.168.1.15
+
+[mysqld_safe]
+log-error=/var/log/mysqld.log
+pid-file=/var/run/mysqld/mysqld.pid
+
+
+# /etc/init.d/mysql stop
+# mysqld_safe --user=mysql --skip-grant-tables --skip-networking &
+# mysql -u root mysql
+CREATE USER yy IDENTIFIED BY '123';
+grant   all   privileges   on   pureftpd.*   to   koko@localhost   identified   by   'mimi'; 
+GRANT ALL PRIVILEGES ON *.* TO 'monty'@'%' 
+mysql> UPDATE user SET Password=PASSWORD('newpassword') where USER='root';
+mysql> FLUSH PRIVILEGES;
+mysql> quit
+
+create database phplampDB;
+grant select on 数据库.* to 用户名@登录主机 identified by "密码"
+grant select on 数据库.* to 用户名@登录主机 identified by "密码"
+flush privileges
+select host,user from mysql.user; 
+
+dump:
+mysqldump -uroot -p monitor > monitor.sql
+mysqldump -u wcnc -p smgp_apps_wcnc users> wcnc_users.sql
+mysqldump -u wcnc -p -d --add-drop-table smgp_apps_wcnc >d:\wcnc_db.sql
+mysqldump –no-data –databases databasename1 databasename2 databasename3 > structurebackupfile.sql
+mysqldump –all-databases > allbackupfile.sql
+
+mysql -uroot -p montir < monitor.sql
+4.导入数据库
+  常用source 命令
+  进入mysql数据库控制台，
+  如mysql -u root -p 
+  
+  mysql>use 数据库
+  然后使用source命令，后面参数为脚本文件（如这里用到的.sql）
+  mysql>source d:\wcnc_db.sql
+
+
+chkconfig --level 35 vsftpd off 
+/ect/sysconfig/i18n内容为：
+LANG="zh_CN.UTF-8"
+LANG="en_US.UTF-8"
+SUPPORTED="zh_CN.GB18030:zh_CN:zh:en_US:en"
+
+* Reference
+http://www.cnblogs.com/zhoulf/archive/2013/01/30/2883207.html
+
+
+
+* aliyun
+** swap
+dd if=/dev/zero of=/home/swap bs=1024 count=4194304
+  count的计算公式： count=SIZE*1024  (size以MB为单位）
+ mkswap /home/swap 
+swapon /home/swap ( swapoff /home/swap)
+   vi /etc/fstab  /home/swap swap swap defaults 0 0
+
+sysctl -q vm.swappiness 
+sudo sysctl vm.swappiness=10 
+** fdisk and mount
+fdisk /dev/xvdb
+mkfs.ext4 /dev/xvdb1
+echo '/dev/xvdb1 /mnt/xvdb1 ext3 defaults 0 0' >> /etc/fstab
+mount -a
+** redis
+编辑/etc/sysctl.conf ，改vm.overcommit_memory=1，然后sysctl -p 使配置文件生效
+** ssh
+ClientAliveInterval 120
+ClientAliveCountMax 3  ### 0 不允许超时次数
+** memcached
+wget http://memcached.org/latest
+tar -zxvf memcached-1.x.x.tar.gz
+cd memcached-1.x.x
+./configure --prefix=/usr/local/memcached --with-libevent=/usr/local/libevent/
+./configure && make && make test && sudo make install
+/usr/bin/memcached -m 64 -p 11211 -l 127.0.0.1
+memcached -d -u root -m 64 -c 1024
+-d选项是启动一个守护进程
+-m分配给Memcache使用的内存数量，单位是MB
+-u运行Memcache的用户
+-l监听的服务器IP地址
+-p设置Memcache监听的端口,最好是1024以上的端口
+-c最大运行的并发连接数，默认是1024，按照你服务器的负载量来设定
+-P设置保存Memcache的pid文件
+** libevent
+./configure --prefix=/usr/local/libevent/  
+make  
+make install  
+ln -s /usr/local/libevent/lib/libevent-2.0.so.5  /lib64/libevent-2.0.so.5 
+
+
+
+wget http://zlib.net/zlib-1.2.8.tar.gz
+wget http://www.openssl.org/source/openssl-1.0.1i.tar.gz
+
+ln -s /usr/local/lib/libpcre.so.1 /lib64/
+
+

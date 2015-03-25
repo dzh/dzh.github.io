@@ -1,0 +1,9 @@
+#+STARTUP: showall
+
+
+./configure --prefix=/usr/local/nginx
+yum install pcre pcre-devel
+yum install -y zlib-devel
+
+
+403 

@@ -1,0 +1,102 @@
+#+STARTUP: showall
+
+vi /etc/sysconfig/network
+GATEWAY=192.168.1.1
+
+/etc/sysconfig/network-scripts/ifcfg-eth0
+DEVICE=eth0
+#BOOTPROTO=dhcp
+BOOTPROTO=static
+IPADDR=192.168.1.15
+GATEWAY=
+NETMASK=255.255.255.0
+TYPE=Ethernet
+IPV6INIT=NO
+PEERDNS=yes
+#HOSTNAME=CentOS-M
+ONBOOT=yes
+HWADDR=08:00:27:77:4A:26
+DNS1=202.96.209.5
+
+
+/etc/resolv.conf
+nameserver 192.168.1.1
+search localdomain
+
+/etc/hosts.deny
+sshd:ALL
+/etc/hosts.allow
+sshd:192.168.1.
+
+sshd restart
+
+service network restart
+
+chkconfig sshd on
+chkconfig sshd on --level
+
+vi /etc/ssh/sshd_config
+PermitRootLogin no
+AllowUsers tom jerry
+Port 1235
+
+
+yum-fastestmirror
+
+
+system-config-firewall
+
+getsebool -a 
+setsebool -P 
+
+ndb_mgmd --initial -f config.ini
+
+/sbin/iptables -A INPUT -i eth0 -p tcp --destination-port 3306 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp --dport 143 -j ACCEPT
+-A INPUT -m state --state NEW -m tcp -p tcp -m multiport --dports 22,80,143 -j ACCEPT
+
+-A: append a rule
+INPUT: to the INPUT chain
+-m state: use the 'state' module
+--state NEW: only look for NEW connections (i.e. not those that are previously established/related)
+-m tcp: use the tcp module
+-p tcp: look for packets using the TCP protocol
+--dport 143: look for packets with a destination port of 143
+
+yum remove mysql-libs -y
+
+/usr/local/mysql/bin/ndbd --initial
+/usr/local/mysql/bin/ndbd: unknown variable 'log-bin=mysql-bin'
+解：vim /etc/my.cnf注释log-bin=mysql-bin、server-id=1、skip-locking
+/etc/my.cnf是数据节点的mysql。
+
+
+[mysqld]
+ndbcluster
+ndb-connectstring=sql1,sql2
+port=3306
+default_storage_engine=ndbcluster
+ 
+[mysql_cluster]
+ndb-connectstring=sql1,sql2
+
+[user1@ws2 my_cluster]$ $HOME/mysqlc/bin/mysqladmin -u root -h 127.0.0.1 -P 5000 shutdown 
+[user1@ws2 my_cluster]$ $HOME/mysqlc/bin/ndb_mgm -e shutdown
+
+ndb_restore -n 3 -b 1 -m /usr/local/mysql/data/BACKUP/BACKUP-1/
+没有-m 这个恢复过程，会出现Unable to find table错误
+-n 和 -b 的数值，对应备份文件 BACKUP-n.b.ctl，这里是 BACKUP-1.2.ctl
+ndb_restore -n 3 -b 1 -r /usr/local/mysql/data/BACKUP/BACKUP-1/ 
+
+mysqladmin --protocol=SOCKET --socket=/tmp/mysql.sock version
+
+skip-networking
+bind-address
+
+create user dzh identified by 'daizhong';
+ flush privileges;
+ GRANT ALL PRIVILEGES ON *.* TO 'root'@'%' IDENTIFIED BY 'rootpasswd' WITH GRANT OPTION;
+select host,user from mysql.user; 
+DELETE FROM user WHERE User="phplamp" and Host="localhost";
+update mysql.user set password=password('新密码') where User="phplamp" and Host="localhost";
+mysql -u dzh -p -h 192.168.1.16 -P 3306 -D testdzh

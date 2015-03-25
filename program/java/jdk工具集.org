@@ -1,0 +1,8 @@
+* 概述
+下文说明了jdk提供的一些工具及其使用方法, 详细的工具介绍在[[http://docs.oracle.com/javase/1.5.0/docs/tooldocs/index.html][这里]].
+
+* 监控管理工具
+** jps[fn:jps网址:http://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jps.html]
+jps使用
+
+

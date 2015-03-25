@@ -1,0 +1,18 @@
+#+STARTUP: showall
+
+* 概述
+
+
+shared/heap memory
+All instance fields, static fields, and array elements are stored in heap memory
+
+Local variables (§14.4), formal method parameters (§8.4.1), and exception handler
+parameters (§14.20) are never shared between threads and are unaffected by the
+memory model.
+
+
+* JVM内存分区
+** 堆内存(heap memory)
+
+** 栈内存(stack memory)
+

@@ -1,0 +1,67 @@
+#+STARTUP: showall
+* 目标
+使用Java获取本地和远程计算机的CPU、内存、磁盘等实时数据，同时支持多种操作系统(windows、linux等)。
+
+* 技术方案
+** windows
+j-Interop
+*** j-Interop简介[fn:http://j-interop.org/]
+
+
+*** 什么是DCOM
+*** 使用前配置
+- services.msc
+	- remote registry
+	- 	
+- the j-Interop library comes with a progIdVsClsidDB.properties file
+
+** linux
+ssh+shell command
+
+
+* 实现代码
+
+
+
+* 参考
+http://nadeausoftware.com/articles/2008/03/java_tip_how_get_cpu_and_user_time_benchmarking
+http://support.microsoft.com/kb/268550/en-us （配置DCOM）
+
+
+a、windows要开启Remote Registry与Windows Management Instrumentation服务
+
+b、修改安全策略
+
+我系统是英文的，如果是中文系统，翻译为中文，相对应的查找并修改。
+
+Administrative Tools>Local Security Policy>Local Policy>Security Policy>Network access: Sharing and security model for local accounts
+
+修改为Classic（经典）
+
+c、禁用放火墙
+
+d、window2008系统注册表越狱（高版本的win）
+
+需要修改regedit中HKEY_CLASSES_ROOT\CLSID\{76A64158-CB41-11D1-8B02-00600806D9B6}的权限，windows2008不再给Administrators完全控制权。
+
+下载SetACL.exe，下载地址：http://files.helgeklein.com/downloads/SetACL/current/SetACL%20(executable%20version).zip
+
+set_wmi_reg_acl.cmd
+
+1
+SetACL.exe -on "HKEY_CLASSES_ROOT\CLSID\{76A64158-CB41-11D1-8B02-00600806D9B6}" -ot reg -actn setowner -ownr "n:Administrators"
+2
+SetACL.exe -on "HKEY_CLASSES_ROOT\CLSID\{76A64158-CB41-11D1-8B02-00600806D9B6}" -ot reg -actn ace -ace "n:Administrators;p:full"
+以超级管理员身份执行这个cms，就会把owner与完全控制权限授予Administrators组
+
+Firewall
+By default, Windows Firewall prevents the TCP connections necessary to make this mechanism work. The firewall on the slave must allow the following exceptions (see List of TCP&UDP port numbers:
+
+TCP Port 135 (DCE/RPC Locator service)
+TCP Port 139 (NetBIOS Session Service)
+TCP Port 445 (Windows shares)
+C:\WINDOWS\system32\dllhost.exe (dllhost.exe seems to use a random port number)
+C:\WINDOWS\system32\javaw.exe (Hudson also uses a random port number)
+File and Printer sharing (TCP 139, TCP 445, UDP 137, UDP 138 (possibly only a subset of these is required))
+
+Control Panel -> Administrative Tools -> Computer Management -> Services and Applications -> WMI Control 

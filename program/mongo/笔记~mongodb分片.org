@@ -1,0 +1,51 @@
+#+STARTUP: showall
+* 分片概述(sharding)
+- 主从复制、副本集适合读操作密集型场景，分片适合写操作密集型场景。
+- 基本思想是把数据存在不同的数据库上
+- 支持自动分片
+
+注：以下内容主要来自《mongoDB权威指南》
+
+* 原理
+** mongos
+- 路由进程
+** 
+
+** 片键
+
+* 使用
+** 配置过程
+- 启动配置服务器，它是一个普通都mongod实例，作用是存储分片和服务器的关系。
+$ ./bin/mongod --dbpath ./dbs/conf --port 20000
+- 启动mongos
+$ ./bin/mongos --port 30000 --configdb localhost:20000
+- 添加片，片就是普通的mongod实例
+$ ./bin/mongos --dbpath ./dbs/shard1 -- port 10000
+$ ./bin/mongo localhost:30000/admin #启动mongo，连接mongos 
+在shell中添加：
+>db.runCommand({addshard:"localhost:10000",allowLocal:true}) #在本地创建shard时需要设置"allowLocal"
+- 切分数据
+在数据库和集合上开启分片功能,
+db.runCommand({"enablesharding":"foo"})
+db.runCommand({"shardCollection":"foo.bar","key":{"_id":1}})
+** 
+
+* 分片命令
+** db.printShardingStatus()
+** db.runCommand({"removeshard":"localhost:10000"})
+片移除时，它的数据被转移到其他片上
+db.runCommand({"moveprimary":"test","to":"localhost:10001"}) #mongo早期的版本
+** 
+
+
+
+
+* 总结
+- 均匀地分布写操作是分片的目标，因此于片键的选择设计是关键。
+- 片键的选择设计方法： 选择键值变化要多键；组合多个键；让键值随机话(如计算键的hash)
+- 本质上片键是索引
+
+
+
+
+ 

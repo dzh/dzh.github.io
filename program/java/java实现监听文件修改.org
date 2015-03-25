@@ -1,0 +1,39 @@
+#+STARTUP: showall
+
+* 文件监听
+
+* 实现文件监听的类库
+
+* jnotify
+
+* jpoller
+http://sourceforge.net/projects/jpoller/?source=recommended
+
+* jpathwatch
+http://sourceforge.net/projects/jpathwatch/?source=navbar
+
+* javafilenotify
+http://sourceforge.net/projects/jfilenotify/?source=recommended
+
+* watchservice
+** 类关系
+
+** 示例
+
+** 使用步骤
+- 
+** 实现原理
+
+** 时间处理流程
+
+* 问题
+FileSystems.getDefault().newWatchService(); 创建WatchService的方法有哪些，为啥这样做
+
+
+
+* 参考
+http://docs.oracle.com/javase/tutorial/essential/io/notification.html
+http://docs.oracle.com/javase/tutorial/essential/io/walk.html
+http://docs.oracle.com/javase/7/docs/api/java/nio/file/Watchable.html
+http://docs.oracle.com/javase/tutorial/essential/io/find.html
+

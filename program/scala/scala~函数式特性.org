@@ -1,0 +1,18 @@
+#+STARTUP: showall
+
+* 概述
+
+* FP原则
+- 一致性, 任何方法传入相同的参数, 那么必须返回相同的值;
+
+* 柯里
+
+* 函数值
+
+* 闭包
+
+* higher-order function
+
+* pattern matching
+
+* 

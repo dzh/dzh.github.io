@@ -1,0 +1,28 @@
+#+STARTUP: showall
+
+* npm概述
+npm在默认情况下会从http://npmjs.org搜索或下载包,
+将包安装到当前目录的node_modules
+子目录下
+
+
+* 创建安装包
+** 标准格式包
+package.json 必须在包的顶层目录下;
+二进制文件应该在 bin 目录下;
+JavaScript 代码应该在 lib 目录下;
+文档应该在 doc 目录下;
+单元测试应该在 test 目录下。
+
+
+Node.js 在调用某个包时,会首先检查包中 package.json 文件的 main 字段,将其作为
+包的接口模块,如果 package.json 或 main 字段不存在,会尝试寻找 index.js 或 index.node 作
+为包的接口。
+
+*** package.json
+
+
+
+** NodeJS格式安装包
+
+** 示例

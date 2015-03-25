@@ -1,0 +1,39 @@
+#+STARTUP: showall
+* 概述
+
+
+
+* DatagramPacket
+
+
+
+* DatagramSocket
+
+
+
+* DatagramChannel
+
+
+
+* MulticastSocket
+
+
+
+
+* 包大小限制
+理论最大值65507字节
+实现限制8192（8K）
+一般保持在最多512字节
+
+查看io缓冲区大小
+
+
+* 示例
+
+
+
+
+* 参考
+
+
+

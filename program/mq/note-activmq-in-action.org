@@ -1,0 +1,48 @@
+#+STARTUP: showall
+
+* introduction
+** install
+
+** start
+
+* jm
+** producer
+
+** consumer
+
+** message
+*** producer header
+
+*** consumer header
+
+*** provider header
+
+*** jms properties
+JMSXAppID —Identifies the application sending the message
+JMSXConsumerTXID —The transaction identifier for the transaction within which
+this message was consumed
+JMSXDeliveryCount—The number of message delivery attempts
+JMSXGroupID —The message group of which this message is a part
+JMSXGroupSeq—The sequence number of this message within the group
+JMSXProducerTXID —The transaction identifier for the transaction within which
+this message was produced
+JMSXRcvTimestamp —The time the JMS provider delivered the message to the
+consumer
+JMSXState—Used to define a provider-specific state
+JMSXUserID —Identifies the user sending the message
+*** message selector
+Literals Booleans TRUE/FALSE; numbers such as 5, -10, +34; numbers with decimal or
+        scientific notation such as 43.3E7, +10.5239
+Identifiers A header or property field
+Operators AND, OR, LIKE, BETWEEN, =, <>, <, >, <=, =>, +, -, *, /, IS NULL, IS NOT NULL
+
+** connector
+<transportConnectors>
+<transportConnector name="tcp"
+uri="tcp://localhost:61616?trace=true"/>
+</transportConnectors>
+
+
+
+
+

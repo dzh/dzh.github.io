@@ -1,0 +1,22 @@
+#+BEGIN_VERSE
+Great clouds overhead
+Tiny black birds rise and fall
+Snow covers Emacs
+-- AlexSchroeder
+#+END_VERSE
+
+#+BEGIN_QUOTE
+Everything should be made as simple as possible,
+but not any simpler -- Albert Einstein
+#+END_QUOTE
+
+#+BEGIN_CENTER
+Everything should be made as simple as possible, \\
+but not any simpler
+#+END_CENTER
+
+图片
+[[/home/dzh/Pictures/shanghai.jpg]]
+
+You can make words *bold*, /italic/,_underlined , =code= and ~verbatim~, and, if you
+must, ‘+strike-through+’

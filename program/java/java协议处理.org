@@ -1,0 +1,21 @@
+#+STARTUP: showall
+
+URL
+URLStreamHandler
+解析URL，创建URLConnection
+URLConnection
+将服务器数据转换为InputStream,将本地数据装换为OutputStream
+URLStreamHandlerFactory
+
+
+
+.hotjava/properties
+java.protocol.handler.pkgs
+
+创建协议处理器步骤：
+- 根据需要设计URL
+- 确定协议处理器放回的MIME类型，getContentType（），text/plain
+- 编写协议处理URLConnection子类
+- 编写URLStreamHandler子类
+- 实现URLStreamHandlerFactory，createStreamHandler()
+

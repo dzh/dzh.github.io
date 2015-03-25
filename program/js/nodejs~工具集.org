@@ -1,0 +1,14 @@
+#+STARTUP: showall
+
+* npm
+** link
+全局->本地
+本地->全局
+** init
+** adduser
+** whoami
+** publish/unpublish
+** install
+
+* nvm
+

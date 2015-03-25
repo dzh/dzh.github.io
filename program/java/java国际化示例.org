@@ -1,0 +1,18 @@
+#+STARTUP: showall
+
+* native2ascii
+native2ascii -encoding 编码 source.properties target.properties
+
+* Locale
+
+* ResourceBundle
+
+* ListResourceBundle
+
+* eclipse
+Externalize String...
+
+
+
+
+

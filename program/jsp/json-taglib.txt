@@ -1,0 +1,14 @@
+*概述
+---json-taglib提供了jsp对json的标记支持,用以实现json数据的拼装.
+官方的教程介绍,网址如下: 
+http://json-taglib.sourceforge.net/tutorial.html
+http://json-taglib.sourceforge.net/xref/index.html
+http://json-taglib.sourceforge.net/examples.html
+这已经完整介绍了通过标记封装为json数据的使用方式,就不再多此一举.(Question,"What's XML Escaping")
+---下面主要讨论2个问题:
+1)使用tag封装的数据后,然后如何处理
+2)收到json数据后,jsp如何解析
+
+*json-taglib.jar的组成
+---
+

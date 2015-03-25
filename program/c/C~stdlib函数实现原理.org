@@ -1,0 +1,12 @@
+#+STARTUP: showall
+
+exit
+atexit()
+
+int abort()
+
+char *getenv(char *)
+system(char *)
+
+搜索排序
+

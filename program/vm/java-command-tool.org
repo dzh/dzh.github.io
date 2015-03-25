@@ -1,0 +1,61 @@
+
+#+STARTUP: showall
+
+* 概述 
+本文详细介绍jdk/bin里工具的功能和使用方法。我的环境是xubuntu12.04,jdk1.8.0_05.
+
+* jstatd
+** 功能
+
+** 选项
+-nr 当一个存在的RMI Registry没有找到时，不尝试创建一个内部的RMI Registry
+-p port 端口号，默认为1099
+-n rminame 默认为JStatRemoteHost；如果多个jstatd服务开始在同一台主机上，rminame唯一确定一个jstatd服务
+-J jvm选项
+** 使用
+- 创建安全策略
+创建安全策略文件，并命名为jstatd.all.policy
+grant codebase "file:${java.home}/../lib/tools.jar" {
+    permission java.security.AllPermission;
+};
+jstatd -J-Djava.security.policy=jstatd.all.policy
+
+* jstat
+** 功能
+监视java内存
+** 选项
+ jstat -class pid:显示加载class的数量，及所占空间等信息。  
+    jstat -compiler pid:显示VM实时编译的数量等信息。  
+    jstat -gc pid:可以显示gc的信息，查看gc的次数，及时间。其中最后五项，分别是young gc的次数，young gc的时间，full gc的次数，full gc的时间，gc的总时间。  
+    jstat -gccapacity:可以显示，VM内存中三代（young,old,perm）对象的使用和占用大小，如：PGCMN显示的是最小perm的内存使用量，PGCMX显示的是perm的内存最大使用量，PGC是当前新生成的perm内存占用量，PC是但前perm内存占用量。其他的可以根据这个类推， OC是old内纯的占用量。  
+    jstat -gcnew pid:new对象的信息。  
+    jstat -gcnewcapacity pid:new对象的信息及其占用量。  
+    jstat -gcold pid:old对象的信息。  
+    jstat -gcoldcapacity pid:old对象的信息及其占用量。  
+    jstat -gcpermcapacity pid: perm对象的信息及其占用量。  
+    jstat -util pid:统计gc信息统计。  
+    jstat -printcompilation pid:当前VM执行的信息。  
+
+** 使用
+
+** 参考
+http://docs.oracle.com/javase/1.5.0/docs/tooldocs/share/jstat.html
+
+* jmap
+** 功能
+查看jvm运行情况
+** 选項
+jmap -dump:format=b,file=f1
+** 使用
+
+* jps
+** 功能
+显示本地java进程
+
+* jconsole
+** 功能
+GUI工具，查看jvm内存，支持远程监控
+
+
+
+

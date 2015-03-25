@@ -1,0 +1,25 @@
+#+STARTUP: showall
+
+* 概述
+此文是“C标准库”的笔记，花点时间记录些笔记，发挥点作用。当然我只是随意记些东西,记些感受，主要给自己看的。
+书写的条理清晰，每个头文件介绍涵盖背景知识、源码说明、使用方式和示例。
+
+* ch1 assert.h
+
+* ch2 ctypes.h
+
+* ch3 errno.h
+
+* ch4 float.h
+** 
+
+* ch5 limits.h
+
+* ch6 locale.h
+
+
+* ch7 math.h
+
+
+
+

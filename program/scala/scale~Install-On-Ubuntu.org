@@ -1,0 +1,12 @@
+#+STARTUP: showall
+
+* Environment	Variable	Value
+** Unix	
+   $SCALA_HOME	/usr/local/share/scala
+   $PATH	$PATH:$SCALA_HOME/bin
+** Windows
+   %SCALA_HOME%	c:\Progra~1\Scala
+   %PATH%	%PATH%;%SCALA_HOME%\bin
+   
+
+

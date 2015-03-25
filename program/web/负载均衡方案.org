@@ -1,0 +1,11 @@
+#+STARTUP: showall
+
+
+* 常用负载均衡方案
+
+
+* nginx+keepalived
+
+* lvs+HA
+
+

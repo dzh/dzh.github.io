@@ -1,0 +1,88 @@
+ JNDI consists of two components:
+the client API and a driver. 
+
+he components are layered. JNDI handles the
+communication between the client and the service provider.
+
+
+jndi api
+5个核心包
+javax.naming: This package provides the methods that enable you to access naming services and
+defines the Context interface, the primary interface for interacting with a naming service. It also
+defines the methods for you to look up, retrieve, bind, and unbind objects.
+• javax.naming.directory: Just as a directory service extends a naming service, this package extends the
+javax.naming package. As a result, you can still look up and retrieve objects from the directory
+service, just as you would with a naming service. This package works specifically with directory
+services to provide access to create, delete, modify, and search attributes.
+• javax.naming.ldap: This package works with features associated with LDAP v3 directory services.
+javax.naming.event: This package monitors a directory service for certain activities, such as the
+addition of an object or the rebinding of a new name to an existing object. Modeled after the
+JavaBean architecture, it uses event listeners. The following event listeners are available for your use:
+♦ NamespaceChangeListener: Handles events generated when a namespace changes.
+♦ ObjectChangeListener: Handles events generated within a naming or directory service when
+an object changes.
+javax.naming.spi: Used by service provider vendors to build support for additional directory services
+
+
+Package
+javax.naming
+javax.naming.directory
+javax.naming.event
+javax.naming.ldap
+javax.naming.spi
+Description
+Defines classes and interfaces that enable you to interact
+with naming services.
+Defines classes and interfaces that enable you to interact
+with directory services.
+Defines classes and interfaces that handle event notifications
+when you’re working with naming and directory services.
+Defines classes and interfaces for working with LDAP v3.0.
+Defines the service−provider interface that vendors of
+naming and directory service providers must implement.
+
+
+jndi可用的服务端211
+Service Provider
+LDAP
+COS
+NIS
+Description
+Enables you to access directory services that use LDAP as their directory protocol.
+Provides access to CORBA’s COS (Common Object Services).
+Enables clients to access the Network Information Services (NIS) used in Sun’s
+Solaris operating systems.
+RMI Registry
+Enables a client to use JNDI to search for objects and retrieve them from an RMI
+Registry.
+1
+File System
+Provides standardized access to different file systems regardless of the platform.
+The File System service provider treats a file system as a naming and directory
+service.
+1
+DNS
+Provides access to a Domain Name Service using JNDI.
+1
+DSML
+Provides support for Directory Service Markup Language (DSML). With this
+service provider you can read and manipulate DSML documents as well as export
+the directory data in the DSML format. (See http://www.dsml.org/ for more
+information on the DSML specification.)
+1
+Novell NDS
+Provides access to Novell Directory Services (NDS). (Check out
+http://www.novell.com/ for more information.)
+1
+Available as a separate download from Sun.
+
+jndi的应用场景
+• User authentication and access control.
+• Storage of objects, or object locations, in a distributed computing architecture.
+• Corporate address books for e−mail addresses, phone numbers, and other information about
+employees.
+• Personalization data for Web−site users.
+
+
+
+

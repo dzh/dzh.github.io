@@ -1,0 +1,63 @@
+#+STARTUP: showall
+
+org.jboss.netty.channel
+channel核心api,包括异步和事件驱动等各种传送接口
+org.jboss.netty.channel.group
+channel group,帮助用户维护channel列表
+org.jboss.netty.channel.local
+一种虚拟传输方式,允许同一个虚拟机上的两个部分可以互相通信
+org.jboss.netty.channel.socket
+TCP, UDP接口,继承了核心的channel API
+org.jboss.netty.channel.socket.nio
+基于nio的Socket channel实现
+org.jboss.netty.channel.socket.oio
+基于老io的Socket channel实现
+org.jboss.netty.channel.socket.http
+基于http的客户端和相应的server端的实现,工作在有防火墙的情况
+
+org.jboss.netty.container
+各种容器的兼容
+org.jboss.netty.container.microcontainer
+JBoss Microcontainer 集成接口
+org.jboss.netty.container.osgi
+OSGi framework集成接口
+org.jboss.netty.container.spring
+Spring framework集成接口
+
+org.jboss.netty.handler
+处理器
+org.jboss.netty.handler.codec
+编码解码器
+org.jboss.netty.handler.execution
+基于Executor的实现
+org.jboss.netty.handler.queue
+将event存入内部队列的处理
+org.jboss.netty.handler.ssl
+基于SSLEngine的SSL以及TLS实现
+org.jboss.netty.handler.stream
+异步写入大数据,丌会产生outOfMemory 也丌会花费很多内存
+org.jboss.netty.handler.timeout
+通过Timer来对读写超时或者闲置链接进行通知
+
+
+org.jboss.netty.handler.codec.base64 Base64 编码
+org.jboss.netty.handler.codec.compression 压缩格式
+org.jboss.netty.handler.codec.embedder 嵌入模式下编码和解码
+org.jboss.netty.handler.codec.frame 评估流的数据的排列和内容
+org.jboss.netty.handler.codec.http.websocket websocket编码解码
+org.jboss.netty.handler.codec.http http的编码解码以及类型信息
+org.jboss.netty.handler.codec.oneone 对象到对象编码解码
+org.jboss.netty.handler.codec.protobuf Protocol Buffers的编码解码
+org.jboss.netty.handler.codec.replay 在阻塞io中实现非阻塞解码
+org.jboss.netty.handler.codec.rtsp RTSP的编码解码
+org.jboss.netty.handler.codec.serialization 序列化对象到bytebuffer实现
+org.jboss.netty.handler.codec.string 字符串编码解码,继承oneone
+
+
+org.jboss.netty.logging
+根据丌同的log framework 实现的类
+org.jboss.netty.util
+netty util类
+org.jboss.netty.util.internal
+netty内部util类,丌被外部使用
+

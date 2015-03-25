@@ -1,0 +1,5 @@
++STARTUP: showall
+
+* 
+http://nodejs.org/api/process.html P/66
+

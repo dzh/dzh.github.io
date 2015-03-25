@@ -1,0 +1,17 @@
+#+STARTUP: showall
+
+* 示例
+Remote
+UnicastRemoteObject
+Naming.rebind()
+
+* rmic
+
+
+
+stub 
+skeleton
+
+IIOP协议
+
+远程加载类的方式

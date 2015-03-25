@@ -1,0 +1,11 @@
+#+STARTUP: showall
+
+
+
+* monitor
+promiscuous mode ,libpcap/WinPcap
+port mirroring
+hubbing out
+using a tap
+ARP cache poisoning
+

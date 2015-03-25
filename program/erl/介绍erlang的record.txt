@@ -1,0 +1,32 @@
+*概述
+1)
+
+
+*Record概述
+---概念
+record是erlang提供的一种作用于元组的语法,提供了给元组中元素命名的机制,以方便操作元组中的元素,实现了更加有序的元组.
+---语法
+-record(Record_Name,   %%或许更合适的说法是Record_Type,以后通过#RecordName的方式创建记录的实例,这里的Record_Name并非表示定义中的元组/记录实例.
+            {
+                key1 = Default1,
+                key2 = Default2,
+                ...
+                keyn,  //keyn = undefined
+                ...
+            }).
+
+*记录的一般使用
+以下以记录示例:
+-record(dzh_info,{name=dzh,age=26}).
+1)复制/更新记录,根据记录的名称复制产生记录,原来记录的内容不改变.语法:变量 = #记录类型{有内容时更新原有的定义}
+X1 = #dzh_info{name=daizhong}. ->#dzh_info{name=daizhong,age=26}.  %%"{...}"里面可以对dzh_info定义的内容重新赋值,但是不会改变dzh_info.
+2)通过记录实现变量的模式匹配
+#dzh_info{name=Name,age=Age} = X1.                  %%Name.->daizhong,Age.->26.
+3)获取记录的一个域值,语法:记录实例#记录类型.域名
+X1#dzh_info.name. ->daizhong
+
+
+*记录在shell中的操作
+--rr(记录定义文件)        %%加载记录定义
+--rf(记录名)                   %%删除记录定义
+

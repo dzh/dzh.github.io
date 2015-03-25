@@ -1,0 +1,76 @@
+#+STARTUP 
+
+* 概述
+在这论述2个问题
+- Memcached在linux上的安装，示例使用CentOS
+- Memcached集群设置
+
+* 安装
+** 从源码安装
+yum install libevent-devel
+yum install gcc
+./configure
+make(注意Makefile chmod +x)
+
+
+* 配置
+** 启动参数
+-m
+-d
+-v
+-p tcp端口
+-l
+-U udp端口
+-s <file> unix domain socket
+-p <num>          监听的端口
+-l <ip_addr>      连接的IP地址, 默认是本机
+-d start          启动memcached服务
+-d restart        重起memcached服务
+-d stop|shutdown  关闭正在运行的memcached服务
+-d install        安装memcached服务
+-d uninstall      卸载memcached服务
+-u <username>     以<username>的身份运行 (仅在以root运行的时候有效)
+-m <num>          最大内存使用，单位MB。默认64MB
+-M                内存耗尽时返回错误，而不是删除项
+-c <num>          最大同时连接数，默认是1024
+-f <factor>       块大小增长因子，默认是1.25
+-n <bytes>        最小分配空间，key+value+flags默认是48
+-h                显示帮助
+** 连接限制
+1024 默认连接数
+** 命令
+- stats
+listen_disabled_run
+echo "stats settings" | nc localhost 11211
+
+** 
+
+* 集群代理
+  -h this message
+  -u uid
+  -g gid
+  -p port, default is 11211. (0 to disable tcp support)
+  -s ip:port, set memcached server ip and port
+  -b ip:port, set backup memcached server ip and port
+  -l ip, local bind ip address, default is 0.0.0.0
+  -n number, set max connections, default is 4096
+  -D do not go to background
+  -k use ketama key allocation algorithm
+  -f file, unix socket path to listen on. default is off
+  -i number, max keep alive connections for one memcached server, default is 20
+  -v verbose
+
+
+
+
+* 脚本
+
+
+
+* 参考
+http://code.google.com/p/memcached/wiki/NewStart
+https://code.google.com/p/memagent/
+
+
+
+

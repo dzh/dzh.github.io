@@ -1,0 +1,18 @@
+#+STARTUP: showall
+
+
+* proactor模式
+windows 完成端口模型（IOCP）
+
+
+
+AsynchronousSocketChannel：connect，read，write
+AsynchronousFileChannel：lock，read，write
+AsynchronousServerSocketChannel：accept
+AsynchronousDatagramChannel：read，write，send，receive
+
+
+
+* 参考
+http://www.ibm.com/developerworks/cn/java/j-lo-nio2/
+

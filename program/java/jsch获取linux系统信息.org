@@ -1,0 +1,8 @@
+#+STARTUP: showall
+
+
+
+* 注意
+** jsch问题
+- jsch每个channel是一个独立的线程，内部没有使用线程池，所以在io处理上，jsch的设计是简洁的，但在高频率执行command时性能不会很好。
+

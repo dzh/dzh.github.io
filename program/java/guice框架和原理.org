@@ -1,0 +1,29 @@
+#+STARTUP: showall
+
+* guice简介
+
+
+* guice功能
+** 注入方式
+构造器
+方法
+字段
+提供者
+
+
+* guice使用
+** 编程步骤
+- 使用注解定义各个依赖类
+- module（模块）配置依赖关系
+- 通过module创建injector（注入器）， Guice.createInjector()
+** 技术点
+
+* 源码分析
+** guice框架
+
+** 
+
+* 问题
+** lazy easer
+** On-demand Injection
+

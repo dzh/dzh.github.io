@@ -1,0 +1,10 @@
+*基本的数据类型都有对应的包装类:Number,String,Boolean
+
+*包装类和非包装类注意点:
+1)在需要的环境下,转换为瞬态对应值.
+如var s = "dzh";var len = s.length;此时s.length时实即上产生了一个String对象,并且
+在执行执后,就被即时释放.
+同理,var S = new String("dzh");var msg = "!"+S;时,也产生瞬态的基本数据类型;
+2)eval()对待字苻串值和String对象不同,一般穿入字苻串;
+3)Object(1);将返回对应的包装对象.
+

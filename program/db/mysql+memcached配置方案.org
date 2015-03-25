@@ -1,0 +1,20 @@
+#+STARTUP: showall
+
+* 概述
+
+
+* mysql分片
+
+
+* mysql集群(master/slave)
+
+
+* memcached
+
+
+
+
+
+* 参考
+http://www.ibm.com/developerworks/cn/java/j-memcached1/
+

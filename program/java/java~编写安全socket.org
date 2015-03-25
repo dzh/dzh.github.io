@@ -1,0 +1,94 @@
+#+STARTUP: showall
+
+* 注册密码提供者
+jre/lib/ext/security/java.security
+security.provider.1=sun.security.provider.Sun
+security.provider.2=com.sun.rsajca.Provider
+security.provider.3=com.sun.net.ssl.internal.ssl.Provider
+
+java.security.Security.addProvider(new com.sun.net.ssl.internal.ssl.Provider())
+
+* javax.net.ssl.SSLSocketFactory
+getDefault()
+createSocket()
+eg.
+createSocket(Socket proxy,String host,int port,boolean autuclose)
+
+** createSocket(Socket proxy,String host,int port,boolean autoclean)
+
+* javax.net.ssl.SSLSocket
+配置认证、加密
+** 选择密码组
+** 会话
+SSLSession getSession()
+setEnableSessionCreation(boolean allowSessions)
+startHandshake() //启动一个新会话，抛弃之前的会话
+** 客户端认证模式
+//client socket
+setUseClientMode() 说明socket是否在第一次握手时进行认证// true不认证，fasle认证；只能设置一次
+getUseClientMode()
+// server socket
+setNeedClientAuth(boolean needsAuthentication)
+getNeedClientAuth()
+
+* 创建安全的服务器socket
+** 
+javax.net.SSLServerSocket
+SSLServerSocketFactory
+** sun参考实现 com.sum.net.ssl.SSLContext
+- 使用keytool生成公开密钥和证书
+- 花钱请可信任的第三方认证你的整数
+- 为使用的算法创建一个SSLContext
+- 为使用的证书源创建一个TrustManagerFactory
+- 为使用的密钥类型创建一个KeyMangerFactory
+- 为密钥和证书数据库创建一个KeyStore对象
+- 用密钥和证书填充KeyStore对象
+- 用KeyStore及其口令短语初始化KeyManagerFactory
+- 用KeyManagerFactory中必要的密钥管理器、TrustManagerFactory中的信任管理器和随机源来初始化上下文
+** 选择密钥组
+setEnabledCipherSuites(String[] suites)
+** 会话管理,默认允许会话
+setEnableSessionCreate()
+** 客户端
+setNeedClientAuth(),true指定只有能认证自身的客户端，才接收
+setUseClientMode(),
+
+
+
+* 示例
+
+** 服务端
+Security.addProvider();
+SSLSocketFactory.getDefault();
+SSLSocketFactory.createSocket();
+
+** 客户端
+SSLSocketFactory.getDefault();
+SSLSocketFactory.createSocket();
+String[] supported = socket.getSupportedCipherSuites();
+socket.setEnabledCipherSuites(supported)
+//write
+socket.getOutputStream()
+//read
+new SafeBufferedReader(new InputStreamReader(socket.getInputStream()))
+
+** 安全套接字异步处理
+HandshakeCompletedListener
+HandshakeCompletedEvent
+SSLSocket.addHandshakeCompletedListener
+SSLSocket.removeHandshakeCompletedListener
+** 安全套接字的会话管理
+默认同一个端口的socket之间自动重用会话，可以使用SSLSession管理
+
+
+
+
+
+
+
+
+
+
+
+
+

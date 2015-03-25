@@ -1,0 +1,40 @@
+#+STARTUP: showall
+
+信号作用 
+
+
+* signal.h
+** 信号宏定义
+| 宏      | 含义         |
+|---------+--------------|
+| SIGABRT | 异常终止     |
+| SIGFPE  | 数学计算错误 |
+| SIGILL  | 非法指令     |
+| SIGINT  | 中断         |
+| SIGSEGV | 非法存储访问 |
+| SIGTERM | 终止请求     |
+** 信号处理函数
+通过宏表示函数，
+- SIG_DFL
+按实现方式处理信号，通常是终止程序
+- SIG_ING
+当触发信号时，忽略此信号
+
+
+signal函数调用失败，signal返回SIG_ERR,errno变量存入正值，
+
+
+* 信号处理函数
+不支持调用库函数，sigal的第一个参数同类型则sigal可以
+
+由raise（），abort（）引起的信号处理函数内，可以调用库函数
+
+
+* 信号处理机制
+
+
+raise()
+
+x
+
+

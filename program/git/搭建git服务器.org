@@ -1,0 +1,9 @@
+#+STARTUP: showall
+
+* 搭建环境
+- 操作系统, Centos
+- 使用http协议
+
+* 
+
+

@@ -1,0 +1,32 @@
+#+STARTUP: showall
+
+* 概述
+本文是对《Programming Erlang》的顺序编程内容总结
+
+* BIF内建函数
+** 列表相关
+- tuple_to_list/1
+e.g. 
+tuple_to_list
+** 时间
+- time
+
+
+** 总结
+- BIF erlang模块
+
+* 二进制数据
+<<"字符">>,
+<<数字,数字>>
+
+* 比特语法
+
+
+* 问题
+- erlang模块的文档
+
+- erlang模块的源码
+下载地址: https://github.com/erlang/otp
+- 如何实现内建函数
+- BIF实现过程
+

@@ -1,0 +1,17 @@
+    RCP夸平台打包的
+
+
+
+
+
+
+
+
+
+
+
+
+*参考资料
+http://www.vogella.de/articles/EclipsePDEBuild/article.html
+http://ugosan.org/eclipse-rcp-delta-pack/
+http://archive.eclipse.org/eclipse/downloads/drops/R-3.6-201006080911/index.php#DeltaPack (3.7对应的下载地址)

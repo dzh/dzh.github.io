@@ -1,0 +1,104 @@
+#+STARTUP: showall
+
+* mysql集群的概念
+mysql+NDB（Network Database）组件
+NDBcluster存储引擎
+** 集群组件
+mysqld mysql服务器，sql节点
+NDBd 数据节点，数据存储引擎
+NDBmtd 多线程数据节点
+NDB_mgmd 集群管理服务端， 读配置文件，把信息分发到集群的所有节点上。
+NDB_mgm 集群管理的客户端，检查集群状态，备份，执行其他的管理功能
+
+* 分片
+mysql5.1之后允许通过自定义函数分片,基于表关键字的哈希算法
+mysql
+
+* Master/slave
+
+* 数据库内存
+（数据库大小*replica数量*1.1） / 数据节点数量
+
+NDB_size.pl 计算mysql集群可能需要的内存
+
+* 事务管理
+事务协调器：每个数据节点都能作为事务协调器，集权选择各个作为协调器，他和每个本地查询处理器协同两阶段提交
+本地查询处理器：管理数据节点本地的数据和事务，协调节点间的两阶段提交
+read-committed事务隔离级别：只有已提交的事务，才是可读的。保证集群中数据的一致性
+
+* 联机操作
+NDB备份 NDB restore
+使用ONLINE关键字：增加/删除索引 CREATE INDEX DROP INDEX；ALTER TABLE；
+添加数据节点和数据组
+
+* 集群方案
+** 机器数量：至少3台，一台mysqld和ndb_mgmd,2台ndbd
+** 最小配置
+*** 配置文件 
+NDB Default 全局设置默认配置項
+NDB_MGMD 
+NDBD
+MYSQLD mysql服务器和sql节点的配置文件
+文件的标准名称是confin.ini,路径是/var/lib/mysql-cluster
+*** 示例 P533 config.ini
+*** 启动集群
+步骤：启动管理节点->启动数据节点->启动mysql服务器
++ 启动管理守护进程
+/libexec/NDB_mgmd --initial -f /var/lib/mysql-cluster/config.ini
+--initial 清楚以前的配置信息
+-f 指定配置文件
+NDB_mgmd --help "Default options are read from" 查看默认的位置
+NDB_restore
++ 启动管理控制台(可选)
+/mysql/bin/NDB_mgm [--NDB-connectstring连接远程NDB_mgmd]
+命令：
+show
+help
+status 查看节点状态
+All status
++ 启动数据节点
+创建NDBd守护进程,创建文件夹/var/lib/mysql-cluster,复制NDBd至这个目录
+->NDBd --initial-start --NDB-connecting NDB_mgmd的IP地址
+默认1186端口
++ 启动SQL节点
+/libexec/mysqld -NDBcluster --console -umysql
+配置my.cnf或者在命令行设置
+NDBcluster 加一个NDB集群存储引擎
+NDB_connectstring NDB管理守护进程的位置
+*** 关闭集群
+- 集群有复制在进行，则完成后再停止；
+- 关闭sql节点
+- 在管理控制台中发出SHUTDOWN命令
+- 退出NDB管理控制台
+*** 系统恢复
+- 从备份中执行完整的系统恢复，设置集群为单用户模式
+在NDB管理台，
+ENTER SINGLE USER MODE node-id
+....
+EXIT SINGLE USER MODE
+*** 节点恢复
+*** cluster复制和mysql复制
+- cluster复制
+同步复制
+- mysql、集群之间复制
+异步复制
+- 外部复制的限制
+外部复制必须基于行
+外部复制不能是环形
+外部复制不支持auto_increment_*选项
+二进制日志的大小可能比常规的MySQL复制更大
+*** 集群性能
+replica能提高可用性，但会降低性能。
+数据节点能提高写性能
+
+
+*Q
+epoch：两个检查点之间的时间跨度
+ndb_binlog_index:记录操作日志
+ndb_apply_status:维护已同步操作的状态，有epoch字段
+
+
+于是就修改Mysql的配置文件/etc/my.cnf，在[mysqld]下添加/修改两行：
+tmp_table_size = 256M
+max_heap_table_size = 256M
+

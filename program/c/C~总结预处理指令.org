@@ -1,0 +1,100 @@
+#+STARTUP: showall
+
+* 宏定义
+** #define
+- <ctype.h>中定义了很多有用的宏.
+- 用法：
+#define 标识符 替换列表
+#define 标识符(x1, x2, x3, ..., xn) 替换列表
+** #undef
+- 与#define作用相反, 删除#define定义的宏.
+- 形如, #undef 标识符
+** #include
+- 格式, #include <文件名>, 从/usr/include系统路径中查找, 或#include "文件名", 从当前路径找, 允许绝对路径.
+- 作用, 将头文件定义的共享信息加到#include所在的文件.
+** 条件编译
+*** #if #ifdef #ifndef #elif #endif #else
+形如,
+#if 表达式 \\
+... \\
+#elif 表达式 \\
+... \\
+#else \\
+... \\
+#endif
+*** 案例,
+- 注释代码包括注释
+#+NAME: 条件屏蔽
+#+BEGIN_SRC C
+#if 0
+...代码和注释
+#endif
+#+END_SRC
+- 提供默认宏定义
+#+NAME: 为宏提供默认值
+#+BEGIN_SRC C
+#ifndef ARRAY_SIZE
+#define ARRAY_SIZE 11
+#endif
+#+END_SRC
+- 提供跨系统的移植性
+#+NAME: 条件宏增加一致性
+#+BUGIN_SRC C
+#if defined UNIX
+...
+#elif defined WINDOWS
+...
+#endif 
+#+END_SRC
+- 避免重复包含同一个头文件
+#+NAME: 条件宏在头文件中的一般使用
+#+BUGIN_SRC C
+#ifudef HEAD_H /*HEAD_H表示头文件名称*/
+#define HEAD_H
+... /*头文件内容*/
+#endif 
+#+END_SRC
+** #line
+- 格式, #line 数字行号, 或#line 数字行号 "文件名"
+- 作用, 改变编译器处理C源文件时源码的行号, #line位置之后的行号按照#line的定义开始.
+例子,
+a.c的第2行处, 有#line 6 "b.c" 
+这样a.c中第3, 4..N行号, 就看成b.c的6, 7..N+3行号.
+** #pragma
+- 格式, #pragma 记号
+- 作用, 记号告诉编译器启用一些特定的功能. 
+** #error
+- 格式, #error 错误消息
+- 作用, 预处理处理遇到#error时, 停止工作并输出错误消息.
+
+* 宏运算符
+** #
+- 作用: 将宏参数转换为字符串字面量. 形如, #参数
+- 例如:
+*#define calc\_square(i) printf(#i " * " #i " = %d", i * i), 预处理calc\_square(2); -> printf("2 * 2 = %d", 2 * 2);*
+** ##
+- 作用: 将前后2个记号在预处理替换后连结在一起, 若记号是宏参数则将其预处理后再连结.
+- 例如: 
+*#define prefix\_name(x) name\_##x, 预处理prefix\_name(dzh); -> name\_dzh;*
+** defined
+- 作用: 判断一个标识符是否用#define定义过. 形如, defined 标识符, 或defined(标识符).
+- 例如:
+#if defined(DEBUG) \\
+#endif
+
+* 预定义宏
+以下宏是预处理器内置定义的特殊含义的宏:
++ __FILE_
+被编译文件的名字
++ __LINE__
+被编译文件的行数
++ __DATE__
+编译日期, 格式: mm dd yyyy
++ __TIME__
+编译时间, 格式: hh:mm:ss
++ __STDC__
+检测编译器是否用标准编译, 若是则值为1.
++ assert宏 用于错误检测
+
+* 总结
+C程序面对差异的环境, 如何提高程序的复用和通用性, 预处理是编译的辅助功能, 在工程开发中是十分有益的一项技术.

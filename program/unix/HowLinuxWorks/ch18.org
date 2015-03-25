@@ -1,0 +1,11 @@
+#+STARTUP: showall
+
+#+TITLE: 原书名： How Linux Works-What Every Super-User Should Know
+#+AUTHOR: Brian Ward 翻译: 戴忠
+#+EMAIL: archer.dzh@gmail.com
+
+#+include: "ch17.org"
+
+* 未来的方向
+
+

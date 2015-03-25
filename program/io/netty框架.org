@@ -1,0 +1,24 @@
+#+STARTUP: showall
+
+* 编程示例
+
+* 架构设计
+
+** server side
+ServerBootstrap bind
+NioServerSocketChannelFactory
+
+ChannelPipelineFactory
+
+ChannelHandlerContext
+ChannelStateEvent
+
+** client side
+ClientBootstrap connect
+NioClientSocketChannelFactory
+
+** ConnectionlessBootstrap
+
+
+
+

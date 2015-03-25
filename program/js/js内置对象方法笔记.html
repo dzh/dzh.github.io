@@ -1,0 +1,593 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>js内置对象方法笔记</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="js内置对象方法笔记"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2012-10-11T11:16+0800"/>
+<meta name="author" content="dzh"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">js内置对象方法笔记</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 内容概述</a></li>
+<li><a href="#sec-2">2 Array</a>
+<ul>
+<li><a href="#sec-2-1">2.1 array.concat(item&hellip;)</a></li>
+<li><a href="#sec-2-2">2.2 array.join(separator)</a></li>
+<li><a href="#sec-2-3">2.3 array.pop()</a></li>
+<li><a href="#sec-2-4">2.4 array.push(item&hellip;)</a></li>
+<li><a href="#sec-2-5">2.5 array.reverse()</a></li>
+<li><a href="#sec-2-6">2.6 array.shift()</a></li>
+<li><a href="#sec-2-7">2.7 array.unshift(item&hellip;)</a></li>
+<li><a href="#sec-2-8">2.8 array.slice(start, end)</a></li>
+<li><a href="#sec-2-9">2.9 array.sort(compareFunction)</a></li>
+<li><a href="#sec-2-10">2.10 array.splice(start, deleteCount, newItem&hellip;)</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 Number</a>
+<ul>
+<li><a href="#sec-3-1">3.1 number.toExponential(fractionDigits)</a></li>
+<li><a href="#sec-3-2">3.2 number.toFixed(fractionDigits)</a></li>
+<li><a href="#sec-3-3">3.3 number.toPrecision(precision)</a></li>
+<li><a href="#sec-3-4">3.4 number.toString(radix)</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4 RegExp</a>
+<ul>
+<li><a href="#sec-4-1">4.1 regexp.exec(String)</a></li>
+<li><a href="#sec-4-2">4.2 regexp.test(String)</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5 String</a>
+<ul>
+<li><a href="#sec-5-1">5.1 string.charAt(pos)</a></li>
+<li><a href="#sec-5-2">5.2 string.charCodeAt(pos)</a></li>
+<li><a href="#sec-5-3">5.3 string.concat(string&hellip;)</a></li>
+<li><a href="#sec-5-4">5.4 string.indexOf(searchString, pos)</a></li>
+<li><a href="#sec-5-5">5.5 string.lastIndexOf(searchString, pos)</a></li>
+<li><a href="#sec-5-6">5.6 str1.localeCompare(str2)</a></li>
+<li><a href="#sec-5-7">5.7 string.match(regexp)</a></li>
+<li><a href="#sec-5-8">5.8 string.replace(searchValue, replaceValue)</a></li>
+<li><a href="#sec-5-9">5.9 string.search(regexp)</a></li>
+<li><a href="#sec-5-10">5.10 string.slice(start, end)</a></li>
+<li><a href="#sec-5-11">5.11 string.split(separator, limit)</a></li>
+<li><a href="#sec-5-12">5.12 string.toLowerCase()</a></li>
+<li><a href="#sec-5-13">5.13 string.toUpperCase()</a></li>
+<li><a href="#sec-5-14">5.14 String.fromCharCode(code&hellip;)</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 内容概述</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>js包含一些内置对象，如Array，Function，String等，这些是基本的，常用的js类，所以了解它们十分重要；把他们的方法，用例子和文字简要的记录下来，方便今后参看。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> Array</h2>
+<div class="outline-text-2" id="text-2">
+
+
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> array.concat(item&hellip;)</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>返回一个新数组；<br/>
+新数组的内容包括：1. array自己的浅拷贝；2. item項，注意，若item是数组，则把这个数组的各项浅拷贝后，添加到新数组中。
+</p></div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> array.join(separator)</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<p>返回array的字符串表示，表达格式是array的内容通过separator连接成的字符串。默认separator是‘,’。
+</p></div>
+
+</div>
+
+<div id="outline-container-2-3" class="outline-3">
+<h3 id="sec-2-3"><span class="section-number-3">2.3</span> array.pop()</h3>
+<div class="outline-text-3" id="text-2-3">
+
+<p>移除数组的最后一个元素，并将这个元素作为返回值。array为空时，返回undefined。
+</p></div>
+
+</div>
+
+<div id="outline-container-2-4" class="outline-3">
+<h3 id="sec-2-4"><span class="section-number-3">2.4</span> array.push(item&hellip;)</h3>
+<div class="outline-text-3" id="text-2-4">
+
+<p>将item添加到array的尾部，返回array的新长度值。<br/>
+注意，若item是数组，则把它作为array的一项直接加入，这和concat的处理方式不同.<br/>
+与concat的区别：1. push()修改array，而concat()生成新数组；2. 对于item是数组的情况，处理方式不同。
+</p></div>
+
+</div>
+
+<div id="outline-container-2-5" class="outline-3">
+<h3 id="sec-2-5"><span class="section-number-3">2.5</span> array.reverse()</h3>
+<div class="outline-text-3" id="text-2-5">
+
+<p>倒置array的内容，并返回array。
+</p></div>
+
+</div>
+
+<div id="outline-container-2-6" class="outline-3">
+<h3 id="sec-2-6"><span class="section-number-3">2.6</span> array.shift()</h3>
+<div class="outline-text-3" id="text-2-6">
+
+<p>移除array的第一个項，返回被删除的这个項。array为空时，返回undefined。
+</p></div>
+
+</div>
+
+<div id="outline-container-2-7" class="outline-3">
+<h3 id="sec-2-7"><span class="section-number-3">2.7</span> array.unshift(item&hellip;)</h3>
+<div class="outline-text-3" id="text-2-7">
+
+<p>与push()类似, 将item们插入array头部, 返回array的新长度.
+</p></div>
+
+</div>
+
+<div id="outline-container-2-8" class="outline-3">
+<h3 id="sec-2-8"><span class="section-number-3">2.8</span> array.slice(start, end)</h3>
+<div class="outline-text-3" id="text-2-8">
+
+<p>浅复制array的内容, 复制范围[array[start], array[end]), 返回一个新数组。<br/>
+说明: 1. end是可选的, 默认是array.length; 2.start和end负数时, 处理方式是把start,end与array.length相加; 3.start&gt;=array.length时, 返回空数组.
+例如,<br/>
+</p>
+
+
+<pre class="src src-js"><span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">a</span> = [1, 2, 3];
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">b</span> = a.slice(1, 2); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">b is [2]</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-2-9" class="outline-3">
+<h3 id="sec-2-9"><span class="section-number-3">2.9</span> array.sort(compareFunction)</h3>
+<div class="outline-text-3" id="text-2-9">
+
+<p>将数组根据比较函数定义的规则重新排序后，返回array.
+默认是将array的内容按照字符串的形式比较, 所以通常需要自定义比较函数; 比较函数的一般形式是function (a, b) {&hellip;}, 若a&lt;=b时则a在b之前, a&gt;b时则a在b之后.
+</p></div>
+
+</div>
+
+<div id="outline-container-2-10" class="outline-3">
+<h3 id="sec-2-10"><span class="section-number-3">2.10</span> array.splice(start, deleteCount, newItem&hellip;)</h3>
+<div class="outline-text-3" id="text-2-10">
+
+<p>把array从start位置开始, 删除deleteCount个項, 并将newItem加入到start位置; 最后返回一个数组, 包含被删除的元素.newItem是可选参数.
+例如,<br/>
+</p>
+
+
+<pre class="src src-js"><span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">a</span> = [<span style="color: #10D010;">'a'</span>, <span style="color: #10D010;">'b'</span>, <span style="color: #10D010;">'c'</span>];
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">b</span> = a.splice(1, 1, <span style="color: #10D010;">'d'</span>);
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">a is ['a', 'd', 'c'], b is ['b']</span>
+</pre>
+
+
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> Number</h2>
+<div class="outline-text-2" id="text-3">
+
+
+</div>
+
+<div id="outline-container-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> number.toExponential(fractionDigits)</h3>
+<div class="outline-text-3" id="text-3-1">
+
+<p>将数字转换为指数表示形式字符串，fractionDigits指定指数的小数位的位数, 取值区间[0,20].
+</p></div>
+
+</div>
+
+<div id="outline-container-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> number.toFixed(fractionDigits)</h3>
+<div class="outline-text-3" id="text-3-2">
+
+<p>将数字表示成10进制字符串, fractionDigits同上.
+</p></div>
+
+</div>
+
+<div id="outline-container-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> number.toPrecision(precision)</h3>
+<div class="outline-text-3" id="text-3-3">
+
+<p>与toFixed()类同, 只是precision指定的是数字的有效位数, 取值范围[0,21].
+</p></div>
+
+</div>
+
+<div id="outline-container-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> number.toString(radix)</h3>
+<div class="outline-text-3" id="text-3-4">
+
+<p>将number转换为需要的进制字符串形式，radix默认是10.
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> RegExp</h2>
+<div class="outline-text-2" id="text-4">
+
+
+</div>
+
+<div id="outline-container-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> regexp.exec(String)</h3>
+<div class="outline-text-3" id="text-4-1">
+
+<p>匹配成功, 返回数组,数组第一个項是匹配的整个字符串, 此后項是匹配分组,最后是匹配信息如配置位置,输入的字符串;若找不到匹配, 返回null.<br/>
+lastIndex属性: 当regexp带有'g'全局标识时, regexp对象维护一个lastIndex属性,每次exec()从lastIndex开始查找;<br/>
+这个值在exec每次成功执行后, 取值配置成功字符串的后一个字符开始位置.在配置失败后, lastIndex被设置为0.<br/>
+使用注意的地方, 就在于若在配置成功又不再执行exec时, 需要手动将lastIndex设置为0.<br/>
+常规使用模式,<br/>
+</p>
+
+
+<pre class="src src-js"><span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">text</span> = <span style="color: #10D010;">'string'</span>;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">regexp</span> = <span style="color: #10D010;">/regexp/</span>g;;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">array</span>;
+<span style="color: #00BBBB;">while</span> (array = regexp.exec(string)) {
+    ..... <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//</span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">todo something</span>
+}
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> regexp.test(String)</h3>
+<div class="outline-text-3" id="text-4-2">
+
+<p>regexp配置string, 则返回true, 否则返回false.<br/>
+test()时, 不应使用g, 性能优于exec().
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> String</h2>
+<div class="outline-text-2" id="text-5">
+
+
+</div>
+
+<div id="outline-container-5-1" class="outline-3">
+<h3 id="sec-5-1"><span class="section-number-3">5.1</span> string.charAt(pos)</h3>
+<div class="outline-text-3" id="text-5-1">
+
+<p>返回pos位置上的字符串(js没有char类型). 若pos&lt;0或&gt;=string.length, 则返回空字符串.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-2" class="outline-3">
+<h3 id="sec-5-2"><span class="section-number-3">5.2</span> string.charCodeAt(pos)</h3>
+<div class="outline-text-3" id="text-5-2">
+
+<p>与charAt()的区别在于返回位置上字符串对应的字符编码值(unicode), 若pos不在合法范围内, 就返回NaN.
+示例,
+</p>
+
+
+<pre class="src src-js"><span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">s</span> = <span style="color: #10D010;">'&#25140;&#24544;'</span>;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">i</span>;
+<span style="color: #00BBBB;">for</span> (i = 0; i &lt; s.length; i++) {
+    console.log(i + <span style="color: #10D010;">' '</span> + s.charAt(i) + <span style="color: #10D010;">' '</span> + s.charCodeAt(i));  <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">0 &#25140; 25140 1 &#24544; 24544</span>
+}
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-3" class="outline-3">
+<h3 id="sec-5-3"><span class="section-number-3">5.3</span> string.concat(string&hellip;)</h3>
+<div class="outline-text-3" id="text-5-3">
+
+<p>将字符串连接在一起并返回.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-4" class="outline-3">
+<h3 id="sec-5-4"><span class="section-number-3">5.4</span> string.indexOf(searchString, pos)</h3>
+<div class="outline-text-3" id="text-5-4">
+
+<p>从string的pos开始向后查找searchString， 若找到则返回searchString出现的初始位置，否则返回-1.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-5" class="outline-3">
+<h3 id="sec-5-5"><span class="section-number-3">5.5</span> string.lastIndexOf(searchString, pos)</h3>
+<div class="outline-text-3" id="text-5-5">
+
+<p>它与indexOf(searchString, pos)的区别在于查找方向相反, 从pos位置开始向前查找.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-6" class="outline-3">
+<h3 id="sec-5-6"><span class="section-number-3">5.6</span> str1.localeCompare(str2)</h3>
+<div class="outline-text-3" id="text-5-6">
+
+<p>比较两个字符串, 若str1&lt;str2则返回负数, 若相等则返回0, 否则正数.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-7" class="outline-3">
+<h3 id="sec-5-7"><span class="section-number-3">5.7</span> string.match(regexp)</h3>
+<div class="outline-text-3" id="text-5-7">
+
+<p>若regexp带'g', 则返回包含匹配内容的数组(不包含分组).没有'g'时, 则和regexp.exec(string)返回相同的结果.
+例如,<br/>
+</p>
+
+
+<pre class="src src-js"><span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">s1</span> = <span style="color: #10D010;">'1a2b'</span>;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">reg1</span> = <span style="color: #10D010;">/\d+/</span>;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">reg2</span> = <span style="color: #10D010;">/[^\d]+/</span>g;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">reg3</span> = <span style="color: #10D010;">/(\d)+/</span>;
+console.log(reg1.exec(s1));  <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">[ '1', index: 0, input: '1a2b' ]</span>
+console.log(s1.match(reg1)); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">[ '1', index: 0, input: '1a2b' ]</span>
+console.log(s1.match(reg3)); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">[ '1', '1', index: 0, input: '1a2b' ]</span>
+console.log(s1.match(reg2)); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">[ 'a', 'b' ]</span>
+</pre>
+
+</div>
+
+</div>
+
+<div id="outline-container-5-8" class="outline-3">
+<h3 id="sec-5-8"><span class="section-number-3">5.8</span> string.replace(searchValue, replaceValue)</h3>
+<div class="outline-text-3" id="text-5-8">
+
+<p>将string中匹配searchValue的内容, 用repalceValue取代, 最后返回生成的新字符串.一般只替换第一次配置的内容, 在包含'g'时, 全部替换.
+参数说明:<br/>
+</p><ol>
+<li>searchValue是字符串, 或者是正则表达式;
+</li>
+<li>repalceValue可包含一些特殊含义的内容, 如
+</li>
+</ol>
+
+<table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+<colgroup><col class="left" /><col class="left" />
+</colgroup>
+<thead>
+<tr><th scope="col" class="left">特殊字符</th><th scope="col" class="left">替换值</th></tr>
+</thead>
+<tbody>
+<tr><td class="left">$$</td><td class="left">$</td></tr>
+<tr><td class="left">$&amp;</td><td class="left">整个匹配的文本</td></tr>
+<tr><td class="left">$number</td><td class="left">分组捕获的文本</td></tr>
+<tr><td class="left">$`</td><td class="left">匹配之前的文本</td></tr>
+<tr><td class="left">$'</td><td class="left">匹配之后的文本</td></tr>
+</tbody>
+</table>
+
+3.replaceValue可以是函数, 在匹配时依次传入, 匹配的整个文本, 第一个捕获分组, 第二个捕获分组, 依次其他分组. 这个函数的返回值作为实际的取代值.
+</div>
+
+</div>
+
+<div id="outline-container-5-9" class="outline-3">
+<h3 id="sec-5-9"><span class="section-number-3">5.9</span> string.search(regexp)</h3>
+<div class="outline-text-3" id="text-5-9">
+
+<p>与indexOf()功能类似, 返回值情况相同. 这个方法忽略'g'.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-10" class="outline-3">
+<h3 id="sec-5-10"><span class="section-number-3">5.10</span> string.slice(start, end)</h3>
+<div class="outline-text-3" id="text-5-10">
+
+<p>复制string的内容, 范围[start, end), 不包含end位置的内容. 这个函数的参数取值情况和array.slice()参数取值情况差不多.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-11" class="outline-3">
+<h3 id="sec-5-11"><span class="section-number-3">5.11</span> string.split(separator, limit)</h3>
+<div class="outline-text-3" id="text-5-11">
+
+<p>将string根据separator的要求分隔内容, 返回形成的数组.limit参数是可选的, 表示分隔的最大个数.separator是一个字符串或者正则表达式.这个方法忽略'g'.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-12" class="outline-3">
+<h3 id="sec-5-12"><span class="section-number-3">5.12</span> string.toLowerCase()</h3>
+<div class="outline-text-3" id="text-5-12">
+
+<p>返回小写的新字符串.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-13" class="outline-3">
+<h3 id="sec-5-13"><span class="section-number-3">5.13</span> string.toUpperCase()</h3>
+<div class="outline-text-3" id="text-5-13">
+
+<p>返回大写的新字符串.
+</p></div>
+
+</div>
+
+<div id="outline-container-5-14" class="outline-3">
+<h3 id="sec-5-14"><span class="section-number-3">5.14</span> String.fromCharCode(code&hellip;)</h3>
+<div class="outline-text-3" id="text-5-14">
+
+<p>参数是一些数值, 把这些数值作为字符的编码值对待, 返回一个字符串. 这个方法和charCodeAt()相反.
+</p>
+
+
+<pre class="src src-js"><span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">str</span> = String.fromCharCode(25140, 24544);
+console.log(str); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// </span><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">'&#25140;&#24544;'</span>
+</pre>
+
+</div>
+</div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2012-10-11T11:16+0800</p>
+<p class="author">Author: dzh</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 23</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

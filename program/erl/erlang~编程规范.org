@@ -1,0 +1,4 @@
+#+STARTUP: showall
+
+* 命名规范
+

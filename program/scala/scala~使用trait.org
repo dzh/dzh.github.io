@@ -1,0 +1,17 @@
+#+STARTUP: showall
+* 理解trait
+- trait是一种编译器技术，
+
+* new trait
+
+* 继承
+
+* trait和class的关系
+
+* extends with 区别
+
+* 什么时候使用trait
+
+* scala的如何调试
+
+

@@ -1,0 +1,42 @@
+*filter  
+:INPUT DROP [0:0]  
+:FORWARD ACCEPT [0:0]  
+:OUTPUT ACCEPT [8:496]  
+
+# -A INPUT -f -m limit --limit 1000/sec --limit-burst 1000 -j ACCEPT
+-A FORWARD -p icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 10 -j ACCEPT
+-A INPUT -p tcp -m tcp --tcp-flags SYN,RST,ACK SYN -m limit --limit 20/sec --limit-burst 200 -j ACCEPT
+
+-A INPUT -p tcp -s 183.129.161.72 -j ACCEPT
+-A FORWARD -p tcp -s 183.129.161.72 -j ACCEPT
+
+-A INPUT -p tcp --dport 8080 -m string --algo kmp --string "html/index.html" -j DROP
+-A FORWARD -p tcp --dport 8080 -m string --algo kmp --string "html/index.html" -j DROP
+
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+
+# 
+-A INPUT -p tcp -m multiport --dport 80,8080,8081,8090,8089,8180 -j ACCEPT  
+
+# mysql 
+-A INPUT -p tcp -m tcp --dport 4040 -j ACCEPT
+#-A INPUT -p tcp -m tcp --dport 3306 -j ACCEPT
+
+# memcached
+-A INPUT -p tcp -m tcp --dport 11211 -j ACCEPT
+
+# SSH
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+
+# FTP
+-A INPUT -p tcp -m tcp --dport 21 -j ACCEPT
+-A OUTPUT -p tcp --dport 21 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 20 -j ACCEPT
+-A OUTPUT -p tcp --dport 20 -j ACCEPT
+
+# lo
+-A INPUT -p icmp -j ACCEPT  
+-A INPUT -i lo -j ACCEPT
+
+COMMIT
+

@@ -1,0 +1,12 @@
+#+STARTUP: showall
+
+* 概述
+
+
+* 
+chmod s 
+chmod go+r 
+chmod go-r
+chmod 022 
+
+* umask

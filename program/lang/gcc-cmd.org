@@ -1,0 +1,43 @@
+#+STARTUP: showall
+
+* 静态链接库
+** argument
+-finline
+-O1
+-funroll-loops,展开循环
+-msse4 Streaming ,
+Intel sse指令，SIMD Extensions ，XMM寄存器可以存放多个值，这就提供了指令级的并行性
+
+** gprof
+*** 使用过程
+gcc -O1 -pg prog.c -o prog
+./prog.out file.txt
+gprof prog
+*** 说明
+不包含库函数调用时间，库函数包含在调用它的函数内
+
+** 静态库
+*** 打包
+ar rcs *.a *.o *.o
+*** 使用
+gcc -static -o p2 m.o ./*.a
+
+* 动态链接库
+** gcc -share -fPIC -o libvector.so addvec.c multvec.c
+-fPIC 生成与位置无关代码
+** gcc -rdynamic -02 -o p3 dll.c -ldl
+-rdynamic ,可以使用全局符号
+** 
+#include <dlfcn.h>
+void *dlopen(const char *filename,int flag);
+void *dlsym(void *handle, char *symbol);
+int dlclose(void *handle);
+const char *dlerror(void);
+** PIC与位置无关代码
+
+
+
+
+
+
+

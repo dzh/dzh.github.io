@@ -1,0 +1,15 @@
+#+STARTUP: showall
+
+在 Java 5 中，Java 进程并不是被设置为默认分析的，而是通过一个命令行参数 —-Dcom.sun.management.jmxremote—
+在启动时告诉 Java 5 VM 打开连接，以便分析器可以找到它们；
+
+
+远程连接
+JMX URL “service:jmx:rmi:///jndi/rmi://webserver:9004/jmxrmi”
+
+* 问题
+JVMTI
+jvm支持的-X标志
+
+
+

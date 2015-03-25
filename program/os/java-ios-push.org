@@ -1,0 +1,18 @@
+#+STARTUP: showall
+
+* 写此文的初衷
+- 一位同事使用原来代码一直没推送成功，怀疑是安全认证问题。
+- 
+
+* java实现iOS的方法
+- java推送类库
+- 安全认证
+- 基本原理
+
+* java实现iOS推送的前提条件
+
+
+* 
+
+* 参考
+http://support.apple.com/kb/HT3576

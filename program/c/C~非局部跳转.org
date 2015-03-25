@@ -1,0 +1,5 @@
+#+STARTUP: showall
+jmp_buf必须是一个数组
+
+- 作为表达式语句
+- 

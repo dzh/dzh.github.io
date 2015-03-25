@@ -1,0 +1,16 @@
+#+STARTUP: showall
+
+
+* assert.h
+** 分析
+
+
+** 示例
+
+
+
+*
+** <stddef.h>
+
+
+   

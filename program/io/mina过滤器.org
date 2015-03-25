@@ -1,0 +1,18 @@
+#+STARTUP: showall
+idle调度的过程
+
+IoBuffer如何实现
+IoBuffer setAutoExpand(boolean autoExpand)
+性能代价
+
+
+IoSession创建过程
+多线程注意，session属性（定义的交互容器）
+session与多线程的关系，多线程可调度session，但同时只有一个线程执行
+DefaultIoSessionAttributeMap
+AbstractIoBuffer
+
+mina的线程池
+
+IoHandlerAdapter
+

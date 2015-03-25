@@ -1,0 +1,56 @@
+#+STARTUP: showall
+
+http://blog.csdn.net/demon168/article/details/16888891
+
+* 打开慢查询日志
+slow_query_log
+long_query_time = 2
+
+* SQL优化
+在MySQL下，在启动参数中设置 --log-slow-queries=[文件名]，就可以在指定的日志文件中记录执行时间超过long_query_time（缺省为10秒）的SQL语句
+
+如何把导出INNODB引擎的内容到错误日志文件中?
+CREATE TABLE innodb_monitor (a INT) ENGINE=INNODB;
+DROP TABLE innodb_monitor;
+ expire_logs_days=10
+
+因此建议，对那些记录数多的表，建议不要使用外键，以避免造成性能效率的严重降低。
+
+
+
+索引原则
+1.索引越少越好
+原因：主要在修改数据时，第个索引都要进行更新，降低写速度。
+2.最窄的字段放在键的左边
+3.避免file sort排序，临时表和表扫描.
+
+
+聚集索引
+联合索引
+ALTER TABLE mytable ADD INDEX name_city_age (name(10),city,age); 
+http://database.51cto.com/art/200910/156685.htm
+
+
+http://liqita.iteye.com/blog/1205544
+联合索引使用总结:
+   1):查询条件中出现联合索引第一列,或者全部,则能利用联合索引.
+   2):条件列中只要条件相连在一起,以本文例子来说就是:
+   last_name=’1′ and first_name=’1′
+   与
+   first_name=’1′ and last_name=’1′
+   ,无论前后,都会利用上联合索引.
+3):查询条件中没有出现联合索引的第一列,而出现联合索引的第二列,或者第三列,都不会利用联合索引查询.
+   单一列索引的应用总结:
+   1):只要条件列中出现索引列,无论在什么位置,都能利用索引查询.
+   两者的共同点:
+   1):要想利用索引,都要符合SARG标准.
+   2) :都是为了提高查询速度.
+   3):都需要额外的系统开销,磁盘空间.
+   补充说明: stmtText信息来产生,在查询语句前面加上:SET STATISTICS PROFILE on.可以通过运行它,来观察你的查询是否合理,这样才能真正做到优化.
+ 
+   总结:即使表上创建了索引,但如果查询语句写的不科学的话(不符合SARG标准),也于事无补,要根据表索引情况来优化查询语句,如没有合适的索引可用,则要创建相应索引.
+
+
+* t-query-digest 
+* mysql -e 'show processlist\G' | grep State: | sort | uniq -c | sort -rn
+

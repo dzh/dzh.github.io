@@ -1,0 +1,61 @@
+#+STARTUP: showall
+* 加速页面展现的方法
+- 利用浏览器缓存
+- 避免多余的检查更新
+- 提高并发性
+- 减少http请求, 减少页面需要的组件
+
+* web响应性能的黄金法则
+后台占用, 20%的时间; 前台占用, 80%的时间.
+
+
+* 前端优化的出发点
+** http协议提供的优化
+
+* 如何利用缓存
+** 配置缓存的方法
+
+* http参数配置
+http协议的头部信息, 可以用来优化响应速度.
+** 请求/响应压缩
+请求, 'Accept-Encoding: gzip,delete', 声明支持压缩;
+响应, 'Content-Encoding: gzip', 确认已压缩.
+** 条件GET请存
+请求, 'If-Modified-Since: last-time', 表示若本地缓存内容最后修改时间是last-time, 则是否可以使用本地缓存.
+响应, '304 Not Modified', 这样就不会有响应体， 浏览器直接使用缓存.
+缺点: 还是走了一次通讯.
+** Expires
+响应, ‘Expires： expire-time’, 这个参数和组件一起保存在缓存中, 告知浏览器若没有过期, 就无需再次请求直接使用缓存.
+这样就避免 *条件GEF请求* 需要一次通讯.
+** 持久连接
+请求/响应, 'Connection: keep-alive'. 启用持久连接的作用是在一个socket中, 实现发送多次http请求.
+关闭连接, 'Connection: close'
+
+
+* 减少http请求
+** 图片地图
+- 一个html功能, 在一张图片上定义很多个热点(超链接), 这样减少需要的图片数量.
+- 例子
+#+NAME: 图片地图示例
+#+BEGIN_SRC html  
+<img usemap="#map1" border=0 src="/images/imagemap.gif?t=1353135950">
+<map name="map1">
+<area shape="rect" coords="0,0,31,31" href="javascript:alert('Home')" title="Home"> <!-- 客户端处理  -->
+<area shape="rect" coords="36,0,66,31" href="url" title="Gifts"> <!-- 服务端处理  -->
+...
+</map>
+#+END_SRC
+** CSS Sprites
+<<CSS Sprite:Image Slicing's Kiss of Death>>
+** 内联图片
+data：[<mediatype>[;base64],<data>， url的数据会直接嵌入html, 而无需另外的http请求.
+缺点:
+- IE可能不支持
+- 内联的数据有大小限制, base64增加内容大小
+改进: 将内联图片放到CSS中, 这样多一个http请求, 但数据被缓存在CSS内.
+** 合并脚本和CSS
+注意合并时的组合分类， 方便模块管理.
+
+
+* 使用内容发布网络
+

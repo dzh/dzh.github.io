@@ -1,0 +1,77 @@
+#+STARTUP: showall
+* 概述
+scala在语言设计上参考了Java, C#, Erlang, Haskell等, 兼具OO和FP特性, 有点集众家之所长另立门派的味道, 我觉得scala的作者
+在OO方面视为JVM上的Java语言的升级版(无缝集成Java类库),
+本文的内容主要是我对<<Programming Scala>>书中, 面向对象内容的总结.
+
+* 构造器
+** 主构造器和辅助构造器
+** 编译器/解释器在构造器方面做了些什么?
+
+* 内部嵌套类
+
+* 
+
+* 可见性 P/97
+** 概述
+与Java不同, 在粒度和灵活性上都有提高
+** scala可见性特征
+** public
+表示类成员[fn:成员(Member)定义:指类型中定义的属性或者方法]或类型[fn:类型(Type)定义:在scala中指class, trait等, 简称'类'], 在任何地方都可见；
+不带任何修饰符时, 即表示public含义. *注意: scala没有public关键字*
+#+NAME: pulic示例
+#+BEGIN_SRC scala  
+
+
+#+END_SRC
+** protected
+- 类成员在定义类型(意指类自身), 衍生类(子类), 嵌套类可见
+- 类型在同级包和子包下可见
+- 等同于protected[package]
+** private
+- 类成员在定义类型, 嵌套类可见; 声明为private的成员也能在同类型的其他实例中被访问到.
+- 类型在同级包可见, 继承private类的子类必须是private类
+- 类成员等同于private[type], 类等同于private[this]
+** protected[scope]
+- scope = package|type|this, scala比java提供了更加细粒度的控制可见性的方式
+** private[scope]
+- scope = package|type|this
+** 可见性范围
+依据可见性范围从最大到最小
+默认(public) -> protected[package] -> protected[type] -> protected[this] -> private[package] -> private[type] -> private[this]
+
+* 关键字override
+- 不能重写final修饰的类, 方法
+
+* 统一访问原则[fn:统一访问原则:Uniform Access Principle]
+** 定义
+定义了一种统一格式的字段访问和写方法: 访问方法格式是无参数, 故可省略原括号的方法; 写方法格式是'字段名_=(参数...)'
+如字段var nam, 将生成def name = nam; def name_=(newName: String);
+** 后续如何处理呢
+- 访问方法很简洁, scala方法调用无参数方法时可以省略括号, 故类.name就能访问到属性;
+- 写方法scala将通过编译器实现简化的方法访问， 如类.name_("dzh"), 在编写代码时可以简写成:类.name = "dzh".
+-说明：
++ 编译器优化: scala有很多通过编译器优化而产生的语言编写优化, 这样实现了编写代码的简洁, 所以scala编译器比java编译器要智能的多.
+scala对这类处理称为 *syntactic sugar* (这种智能产生的潜规则设计方式, 是否好?)
++ scala的字段名和方法名在同一个命名空间中, 故2者不能重名. 上面的示例中字段名是'nam', 方法名是'name', 就是这个原因.
+
+* 伙伴对象[fn:伙伴对象:Companion Objects]
+** 定义
+类和对象在同一个文件中, 同一个包下, 并且具有相同的名称, 那么他们分别被称为伙伴类,伙伴对象.
+** 特性
+scala编译器对伙伴对象提供了“语法糖”, 具体处理是这样
+- 类或者其子类
+*** apply
+
+*** unapply
+在模式匹配时，分离出需要的参数
+*** 
+
+** 伙伴对象和静态方法的区别
+
+* case class P/136
+case关键字让编译器为class自动添加很多功能
+- 将class构造器参数默认转换为val参数, 否则var
+- 自动添加equals, hashCode, toString, 这些方法内容会根据构造器参数实现
+- 自动根据构造函数， 添加伙伴对象
+- copy根据传入参数, 生成新的对象

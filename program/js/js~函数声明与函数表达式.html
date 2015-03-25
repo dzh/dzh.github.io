@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>js~函数声明与函数表达式</title>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta name="title" content="js~函数声明与函数表达式"/>
+<meta name="generator" content="Org-mode"/>
+<meta name="generated" content="2013-04-30T17:42+0800"/>
+<meta name="author" content="dzh"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  html { font-family: Times, serif; font-size: 12pt; }
+  .title  { text-align: center; }
+  .todo   { color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #add8e6; font-weight:normal }
+  .target { }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
+  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
+  .center {margin-left:auto; margin-right:auto; text-align:center;}
+  p.verse { margin-left: 3% }
+  pre {
+	border: 1pt solid #AEBDCC;
+	background-color: #F3F5F7;
+	padding: 5pt;
+	font-family: courier, monospace;
+        font-size: 90%;
+        overflow:auto;
+  }
+  table { border-collapse: collapse; }
+  td, th { vertical-align: top;  }
+  th.right  { text-align:center;  }
+  th.left   { text-align:center;   }
+  th.center { text-align:center; }
+  td.right  { text-align:right;  }
+  td.left   { text-align:left;   }
+  td.center { text-align:center; }
+  dt { font-weight: bold; }
+  div.figure { padding: 0.5em; }
+  div.figure p { text-align: center; }
+  div.inlinetask {
+    padding:10px;
+    border:2px solid gray;
+    margin:10px;
+    background: #ffffcc;
+  }
+  textarea { overflow-x: auto; }
+  .linenr { font-size:smaller }
+  .code-highlighted {background-color:#ffff00;}
+  .org-info-js_info-navigation { border-style:none; }
+  #org-info-js_console-label { font-size:10px; font-weight:bold;
+                               white-space:nowrap; }
+  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
+                                 font-weight:bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012  Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+
+</head>
+<body>
+
+<div id="preamble">
+
+</div>
+
+<div id="content">
+<h1 class="title">js~函数声明与函数表达式</h1>
+
+
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1 概述</a></li>
+<li><a href="#sec-2">2 概念</a>
+<ul>
+<li><a href="#sec-2-1">2.1 函数声明</a></li>
+<li><a href="#sec-2-2">2.2 函数表达式</a></li>
+</ul>
+</li>
+<li><a href="#sec-3">3 示例</a></li>
+<li><a href="#sec-4">4 总结</a></li>
+<li><a href="#sec-5">5 参考</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> 概述</h2>
+<div class="outline-text-2" id="text-1">
+
+<p>js是一门动态语言，动态语言只有运行时的概念。运行时处理的一切都是对象，包括对象赋值、对象执行；这些对象是有区别的，如函数对象可以使用函数操作符'()'调用，而像{}、[]等就不能使用函数操作符。
+故在运行时，语言设计上的不同成份会有不同的处理方式。本文的关注点是运行时函数声明和函数表达式的不同处理。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> 概念</h2>
+<div class="outline-text-2" id="text-2">
+
+<p>js定义函数的方式有2种，一是函数声明，二是函数定义。
+</p>
+</div>
+
+<div id="outline-container-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 函数声明</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<p>独立的函数体定义，结尾不加分号；
+如，function 函数名称 () {函数体}
+</p></div>
+
+</div>
+
+<div id="outline-container-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 函数表达式</h3>
+<div class="outline-text-3" id="text-2-2">
+
+<p>在表达式中赋给变量，或者在对象中赋给对象属性；
+如，var 变量 = function [函数名称] () {}； //函数名称可以不定义，作为匿名函数
+</p>
+</div>
+</div>
+
+</div>
+
+<div id="outline-container-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> 示例</h2>
+<div class="outline-text-2" id="text-3">
+
+<p>测试环境： node.js v0.9.5-pre
+</p>
+
+
+<pre class="src src-javascript"><span style="color: #a8a8a8; font-weight: bold; font-style: italic;">/**</span>
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;"> * Auther: dzh &lt;<a href="mailto:dzh_11&#64;hotmail.com">dzh_11&#64;hotmail.com</a>&gt;</span>
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;"> * Version: t_func_expr_decl.js,v 1.0 2013/04/30 14:47:04</span>
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;"> * Runtime: node.js v0.9.5-pre</span>
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;"> */</span>
+
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;">/*&#20989;&#25968;&#22768;&#26126;*/</span>
+console.log(<span style="color: #10D010;">"------------Test 1-------------"</span>);
+<span style="color: #00BBBB;">function</span> <span style="color: #D0D000;">func_decl</span> () {
+    <span style="color: #00BBBB;">function</span> <span style="color: #D0D000;">func_decl_inner</span> () { <span style="color: #00BBBB;">return</span> <span style="color: #10D010;">"func_decl_inner"</span>;} <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#20989;&#25968;&#22768;&#26126;&#21487;&#20197;&#23884;&#22871;&#23450;&#20041;</span>
+    <span style="color: #00BBBB;">return</span> <span style="color: #10D010;">"func_decl"</span> + <span style="color: #10D010;">"&amp;"</span> + func_decl_inner.name;
+}
+console.log(func_decl.name) <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;func_decl&#8221;,&#35828;&#26126;&#20989;&#25968;&#22768;&#26126;&#20063;&#26159;&#23545;&#35937;</span>
+console.log(func_decl()); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;func_decl&amp;func_decl_inner&#8221;</span>
+
+console.log(<span style="color: #10D010;">"------------Test 2-------------"</span>);
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;">/*&#20989;&#25968;&#34920;&#36798;&#24335;*/</span>
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">func</span> = <span style="color: #00BBBB;">function</span> () {
+    <span style="color: #00BBBB;">function</span> <span style="color: #D0D000;">func_decl_inner</span> () { <span style="color: #00BBBB;">return</span> <span style="color: #10D010;">"func_decl_inner"</span>;} <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#20989;&#25968;&#34920;&#36798;&#24335;&#37324;&#21487;&#20197;&#23450;&#20041;&#20989;&#25968;&#22768;&#26126;</span>
+    <span style="color: #00BBBB;">return</span> <span style="color: #10D010;">"anonymous function"</span> + <span style="color: #10D010;">"&amp;"</span> + func_decl_inner.name;
+};
+console.log(func());  <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;anonymous function&amp;func_decl_inner&#8221;</span>
+
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// &#20316;&#20026;&#20989;&#25968;&#21442;&#25968;&#35843;&#29992;</span>
+console.log(<span style="color: #10D010;">"------------Test 3-------------"</span>);
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">func_invoked</span> = <span style="color: #00BBBB;">function</span> (<span style="color: #eeddaa;">func</span>) {
+    <span style="color: #00BBBB;">try</span>{
+        <span style="color: #00BBBB;">return</span> func();  
+    }<span style="color: #00BBBB;">catch</span> (e){
+        <span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">func_type</span> = <span style="color: #00BBBB;">typeof</span> func;
+        <span style="color: #00BBBB;">return</span> <span style="color: #10D010;">"func's type is "</span>+ func_type + <span style="color: #10D010;">", but it need function type. "</span> +  e.toString();
+    }
+};
+console.log(func_invoked(func)); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;anonymous function&amp;func_decl_inner&#8221;</span>
+console.log(func_invoked(func_decl)); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;func_decl&amp;func_decl_inner&#8221;</span>
+
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// &#36171;&#20540;&#32473;&#21464;&#37327;</span>
+console.log(<span style="color: #10D010;">"------------Test 4-------------"</span>);
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">func_ref</span> = func;
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">func_decl_ref</span> = func_decl; <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#20989;&#25968;&#22768;&#26126;&#36171;&#20540;&#32473;&#21464;&#37327;&#65292;&#24182;&#34987;&#20316;&#20026;&#20989;&#25968;&#35843;&#29992;</span>
+console.log(func_decl_ref()); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;func_decl&amp;func_decl_inner&#8221;</span>
+console.log(func_ref()); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;anonymous function&amp;func_decl_inner&#8221;</span>
+
+<span style="color: #a8a8a8; font-weight: bold; font-style: italic;">// &#36171;&#20540;&#32473;&#23545;&#35937;&#23646;&#24615;</span>
+console.log(<span style="color: #10D010;">"------------Test 5-------------"</span>);
+<span style="color: #00BBBB;">var</span> <span style="color: #eeddaa;">obj</span> = {
+    <span style="color: #10D010;">//  function func_decl () {return "func_dec"} /</span>/&#38169;&#35823;&#8220;SyntaxError: Unexpected identifier&#8221;&#65292;&#23545;&#35937;&#20869;&#37096;&#19981;&#33021;&#23450;&#20041;&#20989;&#25968;&#22768;&#26126;
+    <span style="color: #10D010;">func</span>: func,
+    <span style="color: #10D010;">func_decl</span>: func_decl, <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#20989;&#25968;&#22768;&#26126;&#21487;&#20197;&#36171;&#20540;&#32473;&#23545;&#35937;&#23646;&#24615;&#65292;&#24182;&#20316;&#20026;&#20989;&#25968;&#34987;&#35843;&#29992;</span>
+    <span style="color: #D0D000;">func_def</span>: <span style="color: #00BBBB;">function</span> func_def (){ <span style="color: #00BBBB;">return</span> <span style="color: #10D010;">"func_def"</span>;}
+};
+console.log(obj.func_decl()); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;func_decl&amp;func_decl_inner&#8220;</span>
+console.log(obj.func()); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;anonymous function&amp;func_decl_inner&#8221;</span>
+console.log(obj.func_def()); <span style="color: #a8a8a8; font-weight: bold; font-style: italic;">//&#36755;&#20986;&#8220;func_def&#8221;  </span>
+</pre>
+
+
+</div>
+
+</div>
+
+<div id="outline-container-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> 总结</h2>
+<div class="outline-text-2" id="text-4">
+
+<ul>
+<li>函数声明和函数表达式就实质而言没有不同，都是函数对象，都能赋给变量、对象属性和作为函数参数，然后用函数操作符调用执行。
+</li>
+</ul>
+
+<p>这点和《JavaScript Patterns》中译名《JavaScript模式》62页“声明Vs表达式: 名称和变量声明提升“中的”它们的定义不能分配给变量或属性，也不能以参数形式出现在函数调用中。“不符。
+我觉得这和js解释器有关系，但从语言设计角度，声明和表达式直接定义在处理上应该是保持一致的，因为它们都是函数对象。
+</p><ul>
+<li>函数声明只能出现在全局对象、函数声明中。函数声明中可以定义函数声明，内部声明的作用域是父函数对象。
+</li>
+</ul>
+
+<p>函数声明不能出现在其他对象定义中(如{})，我觉得原因是简化对象语法设计，{对象属性：函数表达式}的形式满足内部定义函数的需求，同时保持对象key:value形式的一致性。
+</p>
+</div>
+
+</div>
+
+<div id="outline-container-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 参考</h2>
+<div class="outline-text-2" id="text-5">
+
+<p>《JavaScript模式》 O'REILLY Stoyan Stefanov著 60-62页 “消除术语的歧义” “声明Vs表达式: 名称和变量声明提升“
+</p></div>
+</div>
+</div>
+
+<div id="postamble">
+<p class="date">Date: 2013-04-30T17:42+0800</p>
+<p class="author">Author: dzh</p>
+<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 23</p>
+<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
+
+</div>
+</body>
+</html>

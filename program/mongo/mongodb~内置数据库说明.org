@@ -1,0 +1,40 @@
+#+STARTUP: showall
+* 概述
+下文总结了mongodb内置的系统级数据库作用，和一些相关功能操作示例，主要内容来自《MongoDB权威指南》。
+
+* admin
+** sources
+
+* local
+local数据库特征如下：
+- 一个mongoDB服务器只有一个本地数据库，其内容不会被复制。
+- 存储主节点的操作记录(oplog)
+** local.oplog.$main
+- 在主节点
+** local.system.replset
+副本集（Replica Set）
+** local.slaves
+- 在主节点
+- 从节点连接上来后，存储从节点信息
+** local.me
+- 在从节点
+- 存放从节点唯一标识符
+** local.sources
+- 在从节点
+- 存放主节点信息
+** local.system.users
+- 主从
+- 从节点连接主节点，首先找“repl”用户，没有的时候用users里都第一个用户
+
+* config
+** shards
+存储片
+** databases
+片上的数据库列表
+** chunks
+块信息
+
+
+* 索引
+
+

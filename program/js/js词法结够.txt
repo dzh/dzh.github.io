@@ -1,0 +1,9 @@
+*字符集
+js程序用unicode编写,每个字符由2个字节表示
+
+*大小写
+js区别大小写,html不分,xhtml区分.
+注,js的方法通常是小写,如onclick,区别于html中的事件句柄onClick
+
+*合法字符
+和java相同,第一个字母是字母,_或$

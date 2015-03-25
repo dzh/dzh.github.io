@@ -1,0 +1,50 @@
+#+STARTUP: showall
+
+* 原理
+简单类型， 值传递
+实现Remote对象，远程引用传递
+对象，值传递
+
+* 代码
+** java.rmi
+定义客户端的类、接口、异常
+Remote
+RemoteException
+** java.rmi.server
+定义服务端的类、接口、异常
+UnicastRemoteObject 只在创建它的服务器运行时才存在
+java.rmi.activation.Activation 重新链接到服务器时，仍能访问相同的远程对象
+** java.rmi.registry
+定义查找和命名远程对象的类、接口和异常
+
+Naming.rebing() //产生一个非守护线程
+rmic 远程对象 or jdk1.5动态
+
+
+启动服务器
+- 启动注册表 默认端口1099
+rmiregistry [port]  & 或者start rmiregistry //
+- 客户端找服务
+Naming.lookup()
+
+
+* 示例
+编写Remote接口
+实现远程实现
+启动rmi服务器 
+启动远程实现的服务端, -Djava.rmi.server.codebase=url指定从url加载远程实现类（加载url下com、org目录里内容）
+
+客户端Naming找到服务
+
+
+
+
+
+* 参考
+
+* 问题
+句柄：双重间接指针
+
+
+
+

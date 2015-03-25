@@ -1,0 +1,12 @@
+* ftp
+1.客户端设置
+　　去掉 前面的复选框，让IE浏览器使用port（主动）模式，但是要对每个客户端进行设置比较麻烦。
+　　2.服务器端设置(以CentOS为例)
+　　修改vsftpd.conf配置文件让它支持Passive（被动）模式
+　　#vim /etc/vsftpd/vsftpd.conf 在最后一行添加如下内容：
+　　pasv_min_port=3000 （设置被动模式的端口范围）
+　　pasv_max_port=3010 （设置被动模式的端口范围）在防火墙配置文件iptables中添加端口
+　　#vim /etc/sysconfig/iptables
+　　-A RH-Firewall-1-INPUT -m state --state NEW -m tcp -p tcp --dport 3000:3010 -j ACCEPT重启服务使其生效
+　　#service vsftpd rstart
+　　#service iptables restart

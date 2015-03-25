@@ -1,0 +1,28 @@
+#+STARTUP: showall
+
+* 
+启动后的 instrument、本地代码（native code）instrument，以及动态改变 classpath 等等。
+这些改变，意味着 Java 具有了更强的动态控制、解释能力，它使得 Java 语言变得更加灵活多变。
+
+* jdk5 usage
+- Java包含如下方法
+public static void premain(String agentArgs, Instrumentation inst);
+public static void premain(String agentArgs);
+-  jar
+manifest属性，Premain-Class
+- java -javaagent:jar 文件的位置 [= 传入 premain 的参数 ] 
+
+* jdk6 usage
+- 
+ public static void agentmain (String agentArgs, Instrumentation inst);
+ public static void agentmain (String agentArgs); 
+- Agent-Class
+
+** 本地方法替换
+ if (!isNativeMethodPrefixSupported()){ 
+		 return; // 如果无法设置，则返回
+ } 
+ setNativeMethodPrefix(transformer,"another_")
+ Can-Set-Native-Method-Prefix:true 启用设置native函数的prefix功能
+
+

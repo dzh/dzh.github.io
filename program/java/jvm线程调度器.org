@@ -1,0 +1,13 @@
+#+STARTUP: showall
+
+
+抢占式
+协作式
+
+循环调度器 round-robin
+
+自己设计一个线程调度器
+
+
+
+

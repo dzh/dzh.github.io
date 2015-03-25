@@ -1,0 +1,19 @@
+
+
+* 生成证书
+openssl x509 -in aps_development.cer -inform der -out sharecarcert.pem
+openssl pkcs12 -nocerts -out sharecarkey.pem  -in Developer.p12
+openssl pkcs12 -export -in sharecarcert.pem -inkey sharecarkey.pem -name "sharecarcert" -out sharecar.p12
+
+http://blog.csdn.net/showhilllee/article/details/8631734
+
+
+
+* java-push
+
+
+
+
+
+
+

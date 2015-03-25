@@ -1,0 +1,15 @@
+#+STARTUP: showall
+
+* JVMTI
+- Java Virtual Machine Toolkit Interface replace  JVMPI(Java Virtual Machine Profiling)
+ and JVMDI(Java Virtual Machine Debugging Interface)
+- 通过 JVMTI 接口可以创建代理程序（Agent）以监视和控制 Java 应用程序，包括剖析、调试、监控、分析线程等
+
+* 
+java -agentlib:ThreadMonitor JavaThreadPoolApp
+java -agentpath:/<Path>/ThreadMonitor JavaThreadPoolApp
+
+
+
+* 参考
+http://www.ibm.com/developerworks/cn/java/j-lo-jvmti/

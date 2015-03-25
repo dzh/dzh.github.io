@@ -1,0 +1,36 @@
+#+STARTUP: showall
+
+如何编写国际化支持的C程序
+宏对标准函数国际化的影响 P403
+自己写的程序实现国际化支持
+setlocale(LC_ALL,NULL)的效果，返回所有类型的当前设置
+
+
+
+
+
+char *setlocale(int category, const char *locale)
+执行成功返回字符串与新地点的类型項关联，失败后返回NULL
+任何程序执行前，隐含执行setlocale(LC_ALL, "C"),
+locale = "C"|" ", "C"时程序库按正常方式执行," "时程序切换到native locale
+
+
+struct lconv *localeconv(void)
+目的获取当前地区的有效说明
+lconv具有静态存储期限， localeconv和setlocale可以修改此结构
+
+
+多字节
+
+多字节字符函数
+mblen
+mbtowc
+wctomb
+mbstowcs
+wcstombs
+
+
+宽字符
+类型wchar_t,所有字符有项目的字节数
+stddef.h
+stdlib.h
