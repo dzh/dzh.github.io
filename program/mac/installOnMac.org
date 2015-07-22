@@ -1,0 +1,66 @@
+#+STARTUP: showall
+
+* homebrew
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
+
+* memcached
+** memcached
+wget http://memcached.org/latest
+tar -zxvf memcached-1.x.x.tar.gz
+cd memcached-1.x.x
+./configure --prefix=/usr/local/memcached --with-libevent=/usr/local/libevent/
+./configure && make && make test && sudo make install
+/usr/bin/memcached -d -u dono -m 256 -p 11211 -l 127.0.0.1
+memcached -d -u root -m 64 -c 1024
+-d选项是启动一个守护进程
+-m分配给Memcache使用的内存数量，单位是MB
+-u运行Memcache的用户
+-l监听的服务器IP地址
+-p设置Memcache监听的端口,最好是1024以上的端口
+-c最大运行的并发连接数，默认是1024，按照你服务器的负载量来设定
+-P设置保存Memcache的pid文件
+** libevent
+https://github.com/downloads/libevent/libevent/libevent-2.0.21-stable.tar.gz
+./configure --prefix=/usr/local/libevent-2.0.22
+make  
+make install
+ln -s libevent-2.0.22 /usr/local/libevent  
+# ln -s /usr/local/libevent/lib/libevent-2.0.so.5  /lib64/libevent-2.0.so.5 
+sudo ln -s /usr/local/libevent/lib/libevent-2.0.5.dylib /usr/local/lib/libevent-2.0.5.dylib
+* mysql
+
+
+
+* redis 
+make
+make install
+
+
+* nodejs
+
+* nginx
+
+* lang
+
+
+** erlang
+./configure 
+make 
+sudo make install
+make docs
+sudo make install-docs
+http://www.erlang.org/doc/installation_guide/INSTALL.html#Advanced-configuration-and-build-of-ErlangOTP_Building_OS-X-Darwin
+
+
+
+*** otp
+
+
+** java
+
+
+
+
+
+

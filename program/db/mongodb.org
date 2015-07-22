@@ -1,0 +1,13 @@
+#+STARTUP: showall
+
+* 概述
+
+
+* 
+
+
+* 数据库设计
+** geohash的计算方法
+具体建立二维地理位置索引的命令如下：
+db.map.ensureIndex({point : "2d"}, {min : 0, max : 16, bits : 4})
+其中的bits参数就是划分几次，默认为26次。

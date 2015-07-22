@@ -9,6 +9,7 @@ redis-server /usr/local/etc/redis.conf
 sudo apt-get install redis-server
 sudo yum install redis
 
+** install on Mac
 
 
 

@@ -1,0 +1,7 @@
+#+STARTUP: showall
+
+* eclipse-nodejs-express
+** eclipse plugin
+nodejs - http://www.nodeclipse.org/updates/
+** js plugin
+js - http://download.eclipse.org/vjet/updates-0.10

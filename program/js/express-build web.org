@@ -1,0 +1,11 @@
+#+STARTUP: showall
+
+* install
+npm i -g express
+
+
+
+* build
+express -t ejs microblog
+cd microblog && npm install
+

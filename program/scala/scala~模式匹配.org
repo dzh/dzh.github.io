@@ -1,3 +1,4 @@
+#+STARTUP:showall
 * P/70
 
 

@@ -1,0 +1,8 @@
+#+STARTUP: showall
+
+* command
+
+
+
+
+

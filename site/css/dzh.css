@@ -1,1 +1,41 @@
-#more_info:target {background:#eee;}
+* {margin:0; padding:0; box-sizing:border-box;}
+
+
+
+body {font-family:helvetica, arial, sans-serif; font-size:1em; margin:0px;}
+
+h1, h2, h3, h4, h5, h6 {line-height:1.15em; margin-bottom:.1em;}
+
+p, ul, blockquote {line-height:1.15em; margin-bottom:.75em;}
+
+ul {margin-left:32px;}
+
+h1 {font-size:1.9em;}
+h2 {font-size:1.6em;}
+h3 {font-size:1.4em;}
+h4 {font-size:1.2em;}
+h5 {font-size:1em;}
+h6 {font-size:.9em;}
+
+p {font-size:.9em;}
+code {font-size:1.3em;}
+
+
+#head {background:#fff;}
+#body {margin:0 auto; border:1px solid; box-sizing:border-box;}
+#foot {clear:both; background:#fff}
+
+#mainmenu {width:150px; float:left; padding:10px 0px;}
+#content {float:left; background:#ffed53;}
+
+nav li { list-style-type:none; }
+
+
+
+
+
+
+
+
+
+

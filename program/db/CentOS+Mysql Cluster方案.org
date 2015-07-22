@@ -147,7 +147,7 @@ dump:
 mysqldump -uroot -p monitor > monitor.sql
 mysqldump -u wcnc -p smgp_apps_wcnc users> wcnc_users.sql
 mysqldump -u wcnc -p -d --add-drop-table smgp_apps_wcnc >d:\wcnc_db.sql
-mysqldump –no-data –databases databasename1 databasename2 databasename3 > structurebackupfile.sql
+mysqldump -–no-data --ignore-table=  –databases databasename1 databasename2 databasename3 > structurebackupfile.sql
 mysqldump –all-databases > allbackupfile.sql
 
 mysql -uroot -p montir < monitor.sql

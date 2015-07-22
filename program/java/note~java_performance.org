@@ -1,0 +1,16 @@
+#+STARTUP: showall
+
+* ch2 sys perf monitor
+** windows
+*** cmd
+typeperf "\Processor(_Total)\% Privileged Time" "\Processor(_Total)\% User Time"
+
+\Processor(_Total)\% Privileged Time
+\Processor(_Total)\% User Time
+typeperf -cf cpu-util.txt
+
+** linux
+*** cmd
+ 
+
+

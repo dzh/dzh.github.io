@@ -1,0 +1,73 @@
+#+STARTUP: showall
+
+* 概述
+  这篇文章的目标是把Java8的精粹做个总结，结合官方文档和示例作说明。语言是表达方式，是方法论引导解决问题的思路，语言特性＋开发工具＋类库＋运行时性能＋语言应用领域 -> 我学习语言的考量，
+人的时间有限，需要在深度和广度间有个平衡。Java综合上述因素，目前是应用级服务器端开发的很好选择。好的语言不如自己熟悉的语言，人只有学习应用新的事物才能不断突破自己的境界 ，我也在尝试新的语言开发。
+
+* Java Programming Language
+** Lambda
+*** jdk lambda
+| Interface         | Argument | Return  | Example |
+|-------------------+----------+---------+---------|
+| Predicate<T>      | T        | boolean |         |
+| Consumer<T>       | T        | void    |         |
+| Function<T,R>     | T        | R       |         |
+| Supplier<T>       | None     | T       |         |
+| UnaryOperator<T>  | T        | T       |         |
+| BinaryOperator<T> | (T,T)    | T       |         |
+|                   |          |         |         |
+
+*** lazy/eager 
+
+
+*** util class
+- Comparator
+- Collector
+- java.util.StringJoiner 
+- Collectors
+
+
+** Method references
+
+
+
+** Default method
+
+
+** Repeating Annotation
+
+
+** Type Annotations
+
+
+** Improved type inference
+
+
+** Method parameter reflection
+
+
+
+* Collections
+** java.util.stream 
+
+
+
+*** lazy
+
+
+*** eager
+
+
+* Tools
+
+
+* 总结
+** streams设计思想
+
+
+
+* 参考
+- Java 8 Lambdas: Pragmatic Functional Programming
+- Java 8 in Action_Lambdas,Streams,and Function
+- http://www.oracle.com/technetwork/java/javase/8-whats-new-2157071.html
+
