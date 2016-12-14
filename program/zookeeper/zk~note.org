@@ -3,10 +3,185 @@
 * install 
 
 
+* bin
+bin/zkServer.sh {start|start-foreground|stop|restart|status|upgrade|print-cmd} {conf/zoo.cfg}
+bin/zkCli.sh {-server ip:port,ip:port}
+
+* conf
+** zoo.cfg
+#+BEGIN_EXAMPLE
+# 网络相关
+# 默认3000 单位ms 服务端最小超时时间1个tick 客户端最小超时时间2个tick 
+tickTime=3000
+#
+clientPort=2181
+#clientPortAddress=192.168.1.1
+# 默认1000 zk待处理请求最大值
+#globalOutsstandingLimit＝1000 
+# 默认60 每隔ip的并发socket连接最大值
+maxClientCnxns=60
+# 默认tick的2倍 单位ms 客户端最小会话超时时间
+#minSessionTimeout=
+# 默认tick的20倍 单位ms 客户端最大会话超时时间
+#maxSessionTimeout=
+
+# 快照和id目录
+dataDir=/tmp/zookeeper
+# 事务日志 专用的日志存储设备
+dataLogDir=
+
+# 默认64MB 预分配事务日志大小 默认值偏大 snapCount*事务大小
+#preAllocSize=
+# 默认100000 每次快照事务数 实际事务数接近这个值的随机数
+#snapCount=
+# 默认值3 要求>=3 垃圾回收时保留的快照数
+#autopurge.snapRetainCount=3
+# 单位小时 垃圾回收时间间隔 0表示垃圾回收不会自动执行 需bin/zkCleanup.sh手动运行
+#autopurge.purgeInterval=1 
+# 默认1000 单位ms 存储同步的时间告警阀值
+#fsync.warningthresholdms=1000
+# 默认1 进行投票时的权重
+#weight.x=1
+# zk操作日志文件 默认文件名traceFile.year.month.day 除非设置requestTraceFile 否则跟踪不会启用 跟踪占用CPU和磁盘IO 和日志文件放在不同的存储设备
+#traceFile=
+
+
+# 集群相关
+# 单位tick倍数 追随者最初连接到群首时的超时值 没有默认值 zk数据量+网络延迟+吞吐量
+#initLimit= 10
+# 单位tick倍数 追随者和群首进行sync操作时的超时值 没有默认值 网络延迟+吞吐量
+#syncLimit= 5
+# 默认值yes 指示群首服务器是否为客户端提供服务
+#leaderServes=no
+# echo {1,2,3} > ./data/myid  server.x=[hostname]:n:n[:observer]
+#server.1=ip:election port:leader port
+#server.2=ip:election port:leader port
+#server.3=ip:election port:leader port
+# 默认5s 在群首选举打开一个新的连接的超时值
+#cnxTimeout=
+#选举算法 现在只使用默认值
+#electionAlg=
+
+# 默认值yes 是否将数据同步存储设备上
+# forceSync = yes
+# 跳过所有ACL检查
+# skipACL
+
+# 动态配置文件
+dynamicConfigFile = ./dyn.cfg
+
+#+END_EXAMPLE
+** system properties
+zoo.cfg优先-D
+#+BEGIN_EXAMPLE
+-Dzookeeper.propertyName=
+#+END_EXAMPLE
+*** root用户 跳过所有ACL
+- java -cp $ZK_CLASSPATH org.apache.zookeeper.server.auth.DigestAuthenticationProvider super:dzh #生成dzh摘要
+- -Dzookeeper.DigestAuthenticationProvider.superDigest=super:dzh摘要
+- zkServer.sh start
+- client addauth digest super:dzh
+*** jute.maxbuffer 
+一个请求的或响应的最大值，单位字节
+*** readonlymode.enabled
+只在canBeReadOnly=true时生效 
+** 观察者配置
+- peerType=observer 在自己的配置中
+- server.1:localhost:2181:3181:observer 在所有服务器配置文件中
+** 重配置 P/191
+*** reconfig 
+- 不允许独立模式,只在仲裁模式使用
+- 命令方式
+reconfig -remove 2,3 -add \
+    server.4=127.0.0.1:5555:5556:participant;2184,\
+    server.5=127.0.0.1:6666:6667:participant;2185
+删除服务器2，3，添加4，5
+- 文件方式
+reconfig -file[|members] [-v] newconf
+*** dyn.cfg
+#+BEGIN_EXAMPLE
+# role=participant|observer
+server.id=host:n:n[:role];[client_address:]client_port
+#+END_EXAMPLE
+
+* runtime
+** znode属性
+#+BEGIN_EXAMPLE
+
+#+END_EXAMPLE
+
 
 * client
+** Curator
+
+** command
+*** create [-es] path data
+
+*** ls path [true]
+*** get
+*** stat path [true]
+#+BEGIN_EXAMPLE
+[zk: localhost:2181(CONNECTED) 1] stat /zookeeper
+cZxid = 0x0
+ctime = Thu Jan 01 08:00:00 CST 1970
+mZxid = 0x0
+mtime = Thu Jan 01 08:00:00 CST 1970
+pZxid = 0x0
+cversion = -1
+dataVersion = 0
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 0
+numChildren = 1
+#+END_EXAMPLE
+*** 配额 /zookeeper/quota/appnode/zookeeper_stats|zookeeper_limits
+- setquota -b 字节 /node
+- listquota 
+*** ruok
+*** srvr 类似stat 没有链接信息
+*** dump 会话信息 只能在群首运行
+*** conf 服务器配置信息
+*** envi 各种各样的Java环境参数
+*** mntr 比stat详细的统计信息
+*** wchs 列出监视点摘要
+*** wchc 列出监视点详细信息 依据会话分组
+*** wchp 列出监视点详细信息 依据znode路径分组
+*** cons 连接信息
+*** crst 重置连接信息中的计数器为0
+*** addauth digest name:secret
+
+
+* 监控
+** jmx
+** telnet
+telnet ip port
+*** stat
+*** dump
+
+* 工具
+** 事务日志分析
+java -cp $ZK_LIBS org.apache.zookeeper.server.LogFormatter version-2 /log.******
+** 快照文件
+java -cp $ZK_LIBS org.apache.zookeeper.server.SnapshotFormatter version-2/snapshot.******
 
 
 
+* ACL
+** scheme 鉴权模式 -> auth 鉴权信息
+- world -> anyone
+- super - supername
+- digest - digestname
+java -cp $ZK_LIBS org.apache.zookeeper.server.auth.DigestAuthenticationProvider digestName:secret
+client addauth digest digestName:secret
+
+** SASL
+- kerberos
+
+** org.apache.zookeeper.server.auth.AuthenticationProvider 
+
+* QuorumPeer
+** FastLeaderElection
+
+* RequestProcessor
 
 

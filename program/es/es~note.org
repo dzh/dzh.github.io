@@ -1,0 +1,57 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: dzh_11@qq.com
+#+title: ES笔记
+
+* optimize
+configure garbage collector
+** avoid memory swapping
+- bootstrap.mlockall:true
+- /etc/security/limits.conf 
+elasticsearch - nofile 64000
+elasticsearch - memlock unlimited
+- /etc/pam.d/common-session
+session required pam_limits.so
+** IO,use to index and node
+*** index
+index.store.throttle.type: none                    none|merge|all  
+index.store.throttle.max_bytes_per_sec: 10mb 
+*** node
+indices.store.throttle.type:merge 
+indices.store.throttle.max_bytes_per_sec: 20mb 
+*** example
+**** all incluster
+curl -XPUT 'localhost:9200/_cluster/settings' -d '{
+     "persistent" : {
+       "indices.store.throttle.type" : "merge",
+       "indices.store.throttle.max_bytes_per_sec" : "50mb"
+     }
+     }'
+**** index payments
+curl -XPUT 'localhost:9200/payments/_settings' -d '{
+     "index.store.throttle.type" : "merge",
+     "index.store.throttle.max_bytes_per_sec" : "10mb"
+}'
+curl -XPOST 'localhost:9200/payments/_close'
+curl -XPOST 'localhost:9200/payments/_open'
+curl -XGET 'localhost:9200/payments/_settings?pretty'
+
+log garbage collector
+** merge segment
+max_num_segments:one
+POST /logstash-2014-10/_optimize?max_num_segments=1
+
+* yml
+monitor.jvm.gc.ParNew.warn: 1000ms
+monitor.jvm.gc.ParNew.info: 700ms
+monitor.jvm.gc.ParNew.debug: 400ms
+monitor.jvm.gc.ConcurrentMarkSweep.warn: 10s
+monitor.jvm.gc.ConcurrentMarkSweep.info: 5s
+monitor.jvm.gc.ConcurrentMarkSweep.debug: 2s
+
+bootstrap.mlockall:true
+
+* 启动脚本
+export JAVA_OPTS="-XX:+UseParNewGC -XX:+UseConcMarkSweepGC"
+
+

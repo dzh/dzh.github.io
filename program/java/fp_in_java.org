@@ -1,0 +1,22 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: 120803528@qq.com
+
+* 关于FP
+** 基本思想
+
+* java FP style
+
+
+
+
+
+
+* scala FP style
+
+
+
+
+
+
+

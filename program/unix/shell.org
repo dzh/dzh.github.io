@@ -1,0 +1,17 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: 120803528@qq.com
+#+TITLE: shell编程
+
+
+* 
+
+
+
+
+* 参考
+
+
+
+
+

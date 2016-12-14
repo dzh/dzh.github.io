@@ -1,0 +1,7 @@
+(defun last-elt (list)
+  (let* ((len (length list))
+         (last (nth len list)))
+    (break)
+    last))
+
+last-elt '(1 2 3 4))

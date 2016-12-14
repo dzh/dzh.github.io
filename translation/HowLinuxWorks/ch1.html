@@ -1,63 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-               "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<title>ch1</title>
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<meta name="title" content="ch1"/>
-<meta name="generator" content="Org-mode"/>
-<meta name="generated" content="2014-08-30T16:50+0800"/>
-<meta name="author" content="dzh"/>
-<meta name="description" content=""/>
-<meta name="keywords" content=""/>
+<title>原书名： How Linux Works-What Every Super-User Should Know</title>
+<!-- 2015-12-22 Tue 10:08 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="Brian Ward 翻译: 戴忠" />
 <style type="text/css">
  <!--/*--><![CDATA[/*><!--*/
-  html { font-family: Times, serif; font-size: 12pt; }
   .title  { text-align: center; }
-  .todo   { color: red; }
+  .todo   { font-family: monospace; color: red; }
   .done   { color: green; }
-  .tag    { background-color: #add8e6; font-weight:normal }
-  .target { }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
   .timestamp { color: #bebebe; }
   .timestamp-kwd { color: #5f9ea0; }
-  .right  {margin-left:auto; margin-right:0px;  text-align:right;}
-  .left   {margin-left:0px;  margin-right:auto; text-align:left;}
-  .center {margin-left:auto; margin-right:auto; text-align:center;}
-  p.verse { margin-left: 3% }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
   pre {
-	border: 1pt solid #AEBDCC;
-	background-color: #F3F5F7;
-	padding: 5pt;
-	font-family: courier, monospace;
-        font-size: 90%;
-        overflow:auto;
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
   }
-  table { border-collapse: collapse; }
-  td, th { vertical-align: top;  }
-  th.right  { text-align:center;  }
-  th.left   { text-align:center;   }
-  th.center { text-align:center; }
-  td.right  { text-align:right;  }
-  td.left   { text-align:left;   }
-  td.center { text-align:center; }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
   dt { font-weight: bold; }
-  div.figure { padding: 0.5em; }
-  div.figure p { text-align: center; }
-  div.inlinetask {
-    padding:10px;
-    border:2px solid gray;
-    margin:10px;
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
     background: #ffffcc;
   }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
   textarea { overflow-x: auto; }
-  .linenr { font-size:smaller }
-  .code-highlighted {background-color:#ffff00;}
-  .org-info-js_info-navigation { border-style:none; }
-  #org-info-js_console-label { font-size:10px; font-weight:bold;
-                               white-space:nowrap; }
-  .org-info-js_search-highlight {background-color:#ffff00; color:#000000;
-                                 font-weight:bold; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
   /*]]>*/-->
 </style>
 <script type="text/javascript">
@@ -65,7 +93,7 @@
 @licstart  The following is the entire license notice for the
 JavaScript code in this tag.
 
-Copyright (C) 2012  Free Software Foundation, Inc.
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
 
 The JavaScript code in this tag is free software: you can
 redistribute it and/or modify it under the terms of the GNU
@@ -106,246 +134,176 @@ for the JavaScript code in this tag.
  }
 /*]]>*///-->
 </script>
-
 </head>
 <body>
-
-<div id="preamble">
-
-</div>
-
 <div id="content">
-<h1 class="title">ch1</h1>
-
-
-
-
-
+<h1 class="title">原书名： How Linux Works-What Every Super-User Should Know</h1>
 <div id="table-of-contents">
 <h2>Table of Contents</h2>
 <div id="text-table-of-contents">
 <ul>
-<li><a href="#sec-1">1 基础</a>
+<li><a href="#sec-1">1. 基础</a>
 <ul>
-<li><a href="#sec-1-1">1.1 关于/bin/sh</a></li>
-<li><a href="#sec-1-2">1.2 使用Shell</a></li>
-<li><a href="#sec-1-3">1.3 基本命令</a></li>
-<li><a href="#sec-1-4">1.4 使用目录命令</a></li>
-<li><a href="#sec-1-5">1.5 中级命令</a></li>
-<li><a href="#sec-1-6">1.6 改变用户密码和Shell</a></li>
-<li><a href="#sec-1-7">1.7 点开头的文件</a></li>
-<li><a href="#sec-1-8">1.8 环境和Shell变量</a></li>
-<li><a href="#sec-1-9">1.9 命名路径</a></li>
-<li><a href="#sec-1-10">1.10 特殊字符</a></li>
-<li><a href="#sec-1-11">1.11 命令行编辑</a></li>
-<li><a href="#sec-1-12">1.12 文本编辑器</a></li>
-<li><a href="#sec-1-13">1.13 获取在线帮助</a></li>
-<li><a href="#sec-1-14">1.14 Shell的输入和输出</a></li>
-<li><a href="#sec-1-15">1.15 理解错误消息</a></li>
-<li><a href="#sec-1-16">1.16 进程</a></li>
-<li><a href="#sec-1-17">1.17 文件模式和权限</a></li>
-<li><a href="#sec-1-18">1.18 存档和压缩文件</a></li>
+<li><a href="#sec-1-1">1.1. 关于/bin/sh</a></li>
+<li><a href="#sec-1-2">1.2. 使用Shell</a></li>
+<li><a href="#sec-1-3">1.3. 基本命令</a></li>
+<li><a href="#sec-1-4">1.4. 使用目录命令</a></li>
+<li><a href="#sec-1-5">1.5. 中级命令</a></li>
+<li><a href="#sec-1-6">1.6. 改变用户密码和Shell</a></li>
+<li><a href="#sec-1-7">1.7. 点开头的文件</a></li>
+<li><a href="#sec-1-8">1.8. 环境和Shell变量</a></li>
+<li><a href="#sec-1-9">1.9. 命名路径</a></li>
+<li><a href="#sec-1-10">1.10. 特殊字符</a></li>
+<li><a href="#sec-1-11">1.11. 命令行编辑</a></li>
+<li><a href="#sec-1-12">1.12. 文本编辑器</a></li>
+<li><a href="#sec-1-13">1.13. 获取在线帮助</a></li>
+<li><a href="#sec-1-14">1.14. Shell的输入和输出</a></li>
+<li><a href="#sec-1-15">1.15. 理解错误消息</a></li>
+<li><a href="#sec-1-16">1.16. 进程</a></li>
+<li><a href="#sec-1-17">1.17. 文件模式和权限</a></li>
+<li><a href="#sec-1-18">1.18. 存档和压缩文件</a></li>
 </ul>
 </li>
 </ul>
 </div>
 </div>
 
-<div id="outline-container-1" class="outline-2">
+<div id="outline-container-sec-1" class="outline-2">
 <h2 id="sec-1"><span class="section-number-2">1</span> 基础</h2>
 <div class="outline-text-2" id="text-1">
-
-<p><b>概述</b>
+<p>
+<b>概述</b>
 </p>
 </div>
-
-<div id="outline-container-1-1" class="outline-3">
+<div id="outline-container-sec-1-1" class="outline-3">
 <h3 id="sec-1-1"><span class="section-number-3">1.1</span> 关于/bin/sh</h3>
 <div class="outline-text-3" id="text-1-1">
-
-<p>shell是unix系统最重要的部分之一。shell是运行命令的程序。例，shell的职责之一是运行用户键入的命令。shell也作为一个小的编程环境。
+<p>
+shell是unix系统最重要的部分之一。shell是运行命令的程序。例，shell的职责之一是运行用户键入的命令。shell也作为一个小的编程环境。
 Unix程序员通常依赖shell将任务分成小的组件去执行、合并结果。
 </p>
+
 <p>
 系统的很多重要部分实际上是shell脚本（包含shell命令的文本）。如果你用MS-DOS，shell脚本类似 <b>.BAT</b> 文件但更加强大。第七章将简单介绍
 shell脚本，你可以在完成本章后细读它。
 </p>
+
 <p>
-当你读完本书，你将学会如何用shell使用命令。关于shell最棒的一件事是如果你写错了，可以看到你输入的什么，哪里出错了，然后快速的重试一下。
+当你读完本书，将学会如何用shell使用命令。关于shell最棒的一件事是如果你写错了，可以看到你输入的什么，哪里出错了，然后快速的重试一下。
 不要害怕尝试新的东西，学习shell的唯一方式就是去使用它。
 </p>
+
 <p>
 有很多不同的unix shell，但它们的功能大部分来源于Bourne shell,*/bin/sh* 。通过本书你将看到每一个Unix系统需要Bourne shell去正常地工作。
 </p>
+
 <p>
 linux用加强版本的sh，叫做bash，the "Bourne-again" shell。对于大部分的linux发行版，bash是默认的shell，在linux系统上 <b>/bin/sh</b>
 常常是某个bash的连接。当运行本书里的例子时你应该使用 <b>bash</b> shell。
 </p>
+
 <p>
 当你是在某个机构里用一个非管理员帐号时，你可能没有 <b>bash</b> 。你可以用chsh改变你的shell，或找系统管理员帮助
-</p></div>
-
+</p>
+</div>
 </div>
 
-<div id="outline-container-1-2" class="outline-3">
+<div id="outline-container-sec-1-2" class="outline-3">
 <h3 id="sec-1-2"><span class="section-number-3">1.2</span> 使用Shell</h3>
 <div class="outline-text-3" id="text-1-2">
-
-<p>安装linux后，你已经设置了root密码，希望最好给自己创建一个普通账户。这章节你应该使用普通用户登录。
+<p>
+安装linux后，你已经设置了root密码，希望最好给自己创建一个普通账户。这章节你应该使用普通用户登录。
 </p>
+
 <p>
 登录后你首先需要启动一个shell窗口。shell启动后，可以看到在窗口的上方包含一个提示符，它通常以'$'结尾。在Red Hat Linux，提示符类似[name@host path]$。
 若你使用windows，你会发现shell窗口很像命令提示符。
 </p>
 
-
-
-<pre class="example">*注意* 你或许听到过称终端窗口为shell窗口。终端窗口是用户接口的一部分，它从windows系统接收按键，然后在屏幕上绘制字符。你可以把终端当成shell和用户之间的中间人。
+<pre class="example">
+*注意* 你或许听到过称终端窗口为shell窗口。终端窗口是用户接口的一部分，它从windows系统接收按键，然后在屏幕上绘制字符。你可以把终端当成shell和用户之间的中间人。
 </pre>
 
+<p>
+现在输入命令然后按回车:
+<b>cat /etc/passwd</b>
+</p>
 
+<p>
+这个命令输出一些用户名开头的行，然后输出shell提示符。如果输出的文字读着不舒服，修改你喜欢的字体设置。在此书中你将花一段美好的时间在shell上，你将会熟悉它。
+*car*命令最适合作为第一个命令开始，因为它是最简单的unix命令之一，它的语法如下:
+</p>
+
+<pre class="example">
+cat file1 file2 ...
+</pre>
+
+<p>
+当你执行它，cat打印(并连接)file1、file2，和其他的文件(&#x2026;表示)，然后结束。
+</p>
+</div>
 </div>
 
-</div>
 
-<div id="outline-container-1-3" class="outline-3">
+<div id="outline-container-sec-1-3" class="outline-3">
 <h3 id="sec-1-3"><span class="section-number-3">1.3</span> 基本命令</h3>
-<div class="outline-text-3" id="text-1-3">
-
 </div>
 
-</div>
 
-<div id="outline-container-1-4" class="outline-3">
+<div id="outline-container-sec-1-4" class="outline-3">
 <h3 id="sec-1-4"><span class="section-number-3">1.4</span> 使用目录命令</h3>
-<div class="outline-text-3" id="text-1-4">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-5" class="outline-3">
+<div id="outline-container-sec-1-5" class="outline-3">
 <h3 id="sec-1-5"><span class="section-number-3">1.5</span> 中级命令</h3>
-<div class="outline-text-3" id="text-1-5">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-6" class="outline-3">
+<div id="outline-container-sec-1-6" class="outline-3">
 <h3 id="sec-1-6"><span class="section-number-3">1.6</span> 改变用户密码和Shell</h3>
-<div class="outline-text-3" id="text-1-6">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-7" class="outline-3">
+<div id="outline-container-sec-1-7" class="outline-3">
 <h3 id="sec-1-7"><span class="section-number-3">1.7</span> 点开头的文件</h3>
-<div class="outline-text-3" id="text-1-7">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-8" class="outline-3">
+<div id="outline-container-sec-1-8" class="outline-3">
 <h3 id="sec-1-8"><span class="section-number-3">1.8</span> 环境和Shell变量</h3>
-<div class="outline-text-3" id="text-1-8">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-9" class="outline-3">
+<div id="outline-container-sec-1-9" class="outline-3">
 <h3 id="sec-1-9"><span class="section-number-3">1.9</span> 命名路径</h3>
-<div class="outline-text-3" id="text-1-9">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-10" class="outline-3">
+<div id="outline-container-sec-1-10" class="outline-3">
 <h3 id="sec-1-10"><span class="section-number-3">1.10</span> 特殊字符</h3>
-<div class="outline-text-3" id="text-1-10">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-11" class="outline-3">
+<div id="outline-container-sec-1-11" class="outline-3">
 <h3 id="sec-1-11"><span class="section-number-3">1.11</span> 命令行编辑</h3>
-<div class="outline-text-3" id="text-1-11">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-12" class="outline-3">
+<div id="outline-container-sec-1-12" class="outline-3">
 <h3 id="sec-1-12"><span class="section-number-3">1.12</span> 文本编辑器</h3>
-<div class="outline-text-3" id="text-1-12">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-13" class="outline-3">
+<div id="outline-container-sec-1-13" class="outline-3">
 <h3 id="sec-1-13"><span class="section-number-3">1.13</span> 获取在线帮助</h3>
-<div class="outline-text-3" id="text-1-13">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-14" class="outline-3">
+<div id="outline-container-sec-1-14" class="outline-3">
 <h3 id="sec-1-14"><span class="section-number-3">1.14</span> Shell的输入和输出</h3>
-<div class="outline-text-3" id="text-1-14">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-15" class="outline-3">
+<div id="outline-container-sec-1-15" class="outline-3">
 <h3 id="sec-1-15"><span class="section-number-3">1.15</span> 理解错误消息</h3>
-<div class="outline-text-3" id="text-1-15">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-16" class="outline-3">
+<div id="outline-container-sec-1-16" class="outline-3">
 <h3 id="sec-1-16"><span class="section-number-3">1.16</span> 进程</h3>
-<div class="outline-text-3" id="text-1-16">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-17" class="outline-3">
+<div id="outline-container-sec-1-17" class="outline-3">
 <h3 id="sec-1-17"><span class="section-number-3">1.17</span> 文件模式和权限</h3>
-<div class="outline-text-3" id="text-1-17">
-
 </div>
-
-</div>
-
-<div id="outline-container-1-18" class="outline-3">
+<div id="outline-container-sec-1-18" class="outline-3">
 <h3 id="sec-1-18"><span class="section-number-3">1.18</span> 存档和压缩文件</h3>
 <div class="outline-text-3" id="text-1-18">
-
-
-
-
 </div>
 </div>
 </div>
 </div>
-
-<div id="postamble">
-<p class="date">Date: 2014-08-30T16:50+0800</p>
-<p class="author">Author: dzh</p>
-<p class="creator"><a href="http://orgmode.org">Org</a> version 7.9.2 with <a href="http://www.gnu.org/software/emacs/">Emacs</a> version 23</p>
-<a href="http://validator.w3.org/check?uri=referer">Validate XHTML 1.0</a>
-
+<div id="postamble" class="status">
+<p class="author">Author: Brian Ward 翻译: 戴忠</p>
+<p class="date">Created: 2015-12-22 Tue 10:08</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
 </div>
 </body>
 </html>

@@ -1,0 +1,38 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: dzh_11@qq.com
+
+
+* command
+** lua [options] [script [args]]
+*** options
+-e
+-l
+-i
+
+* types
+** nil
+a global variable has a nil value by default
+can assign nil to a global variable to delete it
+** boolean
+*** true
+*** false
+nil is false
+
+** number
+
+** string
+
+** userdata
+
+** function
+
+** thread
+
+** table
+
+  
+
+
+
+

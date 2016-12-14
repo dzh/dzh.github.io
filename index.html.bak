@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	      <meta name="viewport" content="width=device-width">
+		      <link href="site/css/dzh.css" rel="stylesheet" type="text/css" />
+			      <title>忠の家 －走，喝一杯</title>
+				    </head>
+					  <body>
+					      <div id="head">
+						          <p>Head</p>
+								      </div>
+
+									      <div id="body">
+										        <nav id="mainmenu">
+													<ul>
+													          <li><a href="#">关于我</a></li>
+															            <li><a href="#">过去</a></li>
+																			  <li><a href="#">现在</a></li>
+																			  	  <li><a href="#">未来</a></li>
+																				  	</ul>
+																					      </nav>
+																						        <div id="content">
+																									
+																									      </div>
+																										        
+																												    </div>
+																													    
+																														    <div id="foot">
+																															      <div class="contact">
+																																          <p>
+																																		            <a href="http://www.cnblogs.com/bronte">一叶舟</a><br/>
+																																						  <a>围脖</a><br/>
+																																						  	  <a>QQ</a><br/>
+																																							          </p>
+																																									        </div>
+																																											    </div>
+
+																																												  </body>
+																																												  </html>
+
+																																												  <p>
+																																												    努力学习与实践，创作一些什么，做些帮助别人的事
+																																													  读书、旅行和爱，思考生活的目标，感受短暂生命的快乐
+																																													  </p>
+
+																																													  网站内容：
+																																													  过往 现在 未来
+
+																																													  联系方式
+

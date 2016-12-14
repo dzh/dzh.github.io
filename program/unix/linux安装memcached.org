@@ -1,4 +1,4 @@
-#+STARTUP 
+#+STARTUP: showall 
 
 * 概述
 在这论述2个问题

@@ -1,6 +1,23 @@
 #+STARTUP: showall
 
-* install sbt on ubuntu
+* install on mac
+- download [[http://www.scala-sbt.org/download.html][sbt]] and unzip to '/Applications/sbt'
+- edit ~/.bash_profile, add enviroment variable
+#+START_EXAMPLE
+export SCALA_HOME=/Applications/scala
+export SBT_HOME=/Applications/sbt
+export PATH=$SBT_HOME/bin:$SCALA_HOME/bin:$PATH
+#+END_EXAMPLE
 
+* ivy
 
-* 
+* Keys
+** Types
+- SettingKey[T]: a key for a value computed once (the value is computed when loading the project, and kept around).
+- TaskKey[T]: a key for a value, called a task, that has to be recomputed each time, potentially with side effects.
+- InputKey[T]: a key for a task that has command line arguments as input. Check out Input Tasks for more details.
+** Built-in Keys
+import sbt.Keys._
+** Custom Keys
+
+ 

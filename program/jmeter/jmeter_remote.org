@@ -1,0 +1,20 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: dzh_11@qq.com
+#+title: jmeter远程测试
+
+
+* 场景和目标
+
+
+* remote server(执行client发来的测试计划)
+
+
+* local client(控制server)
+
+
+* 参考
+http://jmeter.apache.org/usermanual/remote-test.html
+
+
+

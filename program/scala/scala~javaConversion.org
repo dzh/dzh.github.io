@@ -1,0 +1,27 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: 120803528@qq.com
+
+* Use Java in Scala
+import scala.collection.JavaConversions
+
+import scala.language.implicitConversions
+
+
+* Use Scala in Java
+
+scala注解产生java风格的class
+
+scala class的方法
+
+
+
+ArrayList和Buffer[_]
+import scala.collection.JavaConversions.bufferAsJavaList
+
+
+
+
+
+
+

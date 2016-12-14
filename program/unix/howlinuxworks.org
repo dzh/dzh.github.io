@@ -1,0 +1,144 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: dzh_11@qq.com
+
+* chapter 1 outline
+** 
+
+
+* chapter 11 shell
+** 变量
+- $# 参数数量
+- $@ 所有参数
+- $0 脚本名
+- $$ 进程号
+- $? 退出码
+** 条件判断
+*** if
+#+BEGIN_EXAMPLE
+# "$1"防止空参数语法错
+if ["$1" = hi]; then  
+  echo ''
+elif ["$2"=bye]; then
+else
+  echo ''
+  echo ''
+fi
+#+END_EXAMPLE
+*** && ||
+*** 测试条件 test(1)
+#+BEGIN_EXAMPLE
+# -a->and -o->or
+[-f file1 -a file2]  
+#+END_EXAMPLE
+*** case 模式匹配 
+遇到;;时跳转到esac
+#+BEGIN_EXAMPLE
+case $1 in
+   bye)
+     echo
+     ;;
+   hi|hello)
+     echo 
+     ;;
+   h?)
+     echo
+     ;;
+   *)
+     echo 
+     ;;
+esac
+#+END_EXAMPLE
+** 循环
+*** for
+#+BEGIN_EXAMPLE
+for str in one two three; do
+   echo $str
+done
+#+END_EXAMPLE
+*** while 支持break
+#+BEGIN_EXAMPLE
+while test; do
+  echo
+  ...
+done
+#+END_EXAMPLE
+** 命令替换 `命令` $(命令)
+#+BEGIN_EXAMPLE
+
+#+END_EXAMPLE
+** mktemp 无参数时默认创建/tmp/tmp.前缀文件
+#+BEGIN_EXAMPLE
+temp1=$(mktemp /tmp/t1.log)
+temp2=$(mktemp /tmp/t2.log)
+# 捕获ctrl-c信号
+trap "rm -f $temp1 temp2;exit 1" INT
+
+cat /proc/interrupts > $temp1
+sleep 2
+cat /proc/interruptes > $temp2
+diff $temp1 $temp2
+rm -f $temp1 $temp2
+#+END_EXAMPLE
+** here文档 将EOF之间的内容输给cat命令
+#+BEGIN_EXAMPLE
+DATE=$(date)
+cat <<EOF
+date: $DATE
+
+the output above is from the unix date command.
+It's note a very interesting command.
+EOF
+#+END_EXAMPLE
+** basename
+#+BEGIN_EXAMPLE
+for file in *.gif; do
+  if [! -f $file]; then
+    exit
+  fi
+  b=$(basename $file .gif)
+  echo converting $b.gif to $b.png
+  giftopnm $b.gif | pnmtopng > $b.png
+done
+#+END_EXAMPLE
+** awk
+#+BEGIN_EXAMPLE
+ls -l | awd '{print $5}'
+#+END_EXAMPLE
+** sed 
+#+BEGIN_EXAMPLE
+# s表示替换
+sed 's/exp/text' file
+
+# d表示删除 3,6是地址表示d作用的行范围
+sed 3,6d file 
+sed '/exp/d' 
+#+END_EXAMPLE
+** xargs 对输入流逐个执行命令 这样会启多个进程
+#+BEGIN_EXAMPLE
+# find xargs之间参数分界符是换行符
+find . -name "*.gif" -print | xargs file
+# 分界符是空字符
+find . -name "*.gif" -print | xargs -O file
+
+find . -name "*.gif" -exec file {} \;
+#+END_EXAMPLE
+** expr 算术操作
+** exec
+运行exec后，脚本和运行脚本的shell都被exec后的命令顶替
+** 子shell
+#+BEGIN_EXAMPLE
+# 将dir目录的内容打包后在target目录解压
+tar cf - dir | (cd target; tar xvf -)
+#+END_EXAMPLE
+** 脚本中包含其他文件
+#+BEGIN_EXAMPLE
+# 包含config.sh文件
+. config.sh
+#+END_EXAMPLE
+** read
+#+BEGIN_EXAMPLE
+# 将标准输入的内容读取到var变量中
+read var
+#+END_EXAMPLE
+

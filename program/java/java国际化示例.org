@@ -10,7 +10,7 @@ native2ascii -encoding 编码 source.properties target.properties
 * ListResourceBundle
 
 * eclipse
-Externalize String...
+  Externalize String...
 
 
 

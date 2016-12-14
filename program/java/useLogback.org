@@ -1,0 +1,13 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: 120803528@qq.com
+
+
+* 示例
+每天一个日志
+
+
+
+
+
+

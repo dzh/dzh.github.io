@@ -1,0 +1,754 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<title>An Introduction To Elasticsearch</title>
+<!-- 2016-12-14 Wed 18:10 -->
+<meta  http-equiv="Content-Type" content="text/html;charset=utf-8" />
+<meta  name="generator" content="Org-mode" />
+<meta  name="author" content="dzh" />
+<style type="text/css">
+ <!--/*--><![CDATA[/*><!--*/
+  .title  { text-align: center; }
+  .todo   { font-family: monospace; color: red; }
+  .done   { color: green; }
+  .tag    { background-color: #eee; font-family: monospace;
+            padding: 2px; font-size: 80%; font-weight: normal; }
+  .timestamp { color: #bebebe; }
+  .timestamp-kwd { color: #5f9ea0; }
+  .right  { margin-left: auto; margin-right: 0px;  text-align: right; }
+  .left   { margin-left: 0px;  margin-right: auto; text-align: left; }
+  .center { margin-left: auto; margin-right: auto; text-align: center; }
+  .underline { text-decoration: underline; }
+  #postamble p, #preamble p { font-size: 90%; margin: .2em; }
+  p.verse { margin-left: 3%; }
+  pre {
+    border: 1px solid #ccc;
+    box-shadow: 3px 3px 3px #eee;
+    padding: 8pt;
+    font-family: monospace;
+    overflow: auto;
+    margin: 1.2em;
+  }
+  pre.src {
+    position: relative;
+    overflow: visible;
+    padding-top: 1.2em;
+  }
+  pre.src:before {
+    display: none;
+    position: absolute;
+    background-color: white;
+    top: -10px;
+    right: 10px;
+    padding: 3px;
+    border: 1px solid black;
+  }
+  pre.src:hover:before { display: inline;}
+  pre.src-sh:before    { content: 'sh'; }
+  pre.src-bash:before  { content: 'sh'; }
+  pre.src-emacs-lisp:before { content: 'Emacs Lisp'; }
+  pre.src-R:before     { content: 'R'; }
+  pre.src-perl:before  { content: 'Perl'; }
+  pre.src-java:before  { content: 'Java'; }
+  pre.src-sql:before   { content: 'SQL'; }
+
+  table { border-collapse:collapse; }
+  caption.t-above { caption-side: top; }
+  caption.t-bottom { caption-side: bottom; }
+  td, th { vertical-align:top;  }
+  th.right  { text-align: center;  }
+  th.left   { text-align: center;   }
+  th.center { text-align: center; }
+  td.right  { text-align: right;  }
+  td.left   { text-align: left;   }
+  td.center { text-align: center; }
+  dt { font-weight: bold; }
+  .footpara:nth-child(2) { display: inline; }
+  .footpara { display: block; }
+  .footdef  { margin-bottom: 1em; }
+  .figure { padding: 1em; }
+  .figure p { text-align: center; }
+  .inlinetask {
+    padding: 10px;
+    border: 2px solid gray;
+    margin: 10px;
+    background: #ffffcc;
+  }
+  #org-div-home-and-up
+   { text-align: right; font-size: 70%; white-space: nowrap; }
+  textarea { overflow-x: auto; }
+  .linenr { font-size: smaller }
+  .code-highlighted { background-color: #ffff00; }
+  .org-info-js_info-navigation { border-style: none; }
+  #org-info-js_console-label
+    { font-size: 10px; font-weight: bold; white-space: nowrap; }
+  .org-info-js_search-highlight
+    { background-color: #ffff00; color: #000000; font-weight: bold; }
+  /*]]>*/-->
+</style>
+<script type="text/javascript">
+/*
+@licstart  The following is the entire license notice for the
+JavaScript code in this tag.
+
+Copyright (C) 2012-2013 Free Software Foundation, Inc.
+
+The JavaScript code in this tag is free software: you can
+redistribute it and/or modify it under the terms of the GNU
+General Public License (GNU GPL) as published by the Free Software
+Foundation, either version 3 of the License, or (at your option)
+any later version.  The code is distributed WITHOUT ANY WARRANTY;
+without even the implied warranty of MERCHANTABILITY or FITNESS
+FOR A PARTICULAR PURPOSE.  See the GNU GPL for more details.
+
+As additional permission under GNU GPL version 3 section 7, you
+may distribute non-source (e.g., minimized or compacted) forms of
+that code without the copy of the GNU GPL normally required by
+section 4, provided you include this license notice and a URL
+through which recipients can access the Corresponding Source.
+
+
+@licend  The above is the entire license notice
+for the JavaScript code in this tag.
+*/
+<!--/*--><![CDATA[/*><!--*/
+ function CodeHighlightOn(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(null != target) {
+     elem.cacheClassElem = elem.className;
+     elem.cacheClassTarget = target.className;
+     target.className = "code-highlighted";
+     elem.className   = "code-highlighted";
+   }
+ }
+ function CodeHighlightOff(elem, id)
+ {
+   var target = document.getElementById(id);
+   if(elem.cacheClassElem)
+     elem.className = elem.cacheClassElem;
+   if(elem.cacheClassTarget)
+     target.className = elem.cacheClassTarget;
+ }
+/*]]>*///-->
+</script>
+</head>
+<body>
+<div id="content">
+<h1 class="title">An Introduction To Elasticsearch</h1>
+<div id="table-of-contents">
+<h2>Table of Contents</h2>
+<div id="text-table-of-contents">
+<ul>
+<li><a href="#sec-1">1. ES介绍</a>
+<ul>
+<li><a href="#sec-1-1">1.1. ES=lucene+分布式+RestApi</a></li>
+<li><a href="#sec-1-2">1.2. ES使用场景</a></li>
+</ul>
+</li>
+<li><a href="#sec-2">2. ES架构</a>
+<ul>
+<li><a href="#sec-2-1">2.1. 系统划分</a></li>
+<li><a href="#sec-2-2">2.2. 基本概念</a>
+<ul>
+<li><a href="#sec-2-2-1">2.2.1. 索引(Index)</a></li>
+<li><a href="#sec-2-2-2">2.2.2. 节点角色(Node)</a></li>
+<li><a href="#sec-2-2-3">2.2.3. 分片(Shard)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#sec-3">3. ES使用</a>
+<ul>
+<li><a href="#sec-3-1">3.1. 集群配置 elasticsearch.yml</a></li>
+<li><a href="#sec-3-2">3.2. 启动脚本</a>
+<ul>
+<li><a href="#sec-3-2-1">3.2.1. 集群启动</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-3">3.3. 创建索引</a>
+<ul>
+<li><a href="#sec-3-3-1">3.3.1. 索引化名</a></li>
+<li><a href="#sec-3-3-2">3.3.2. 文档路由</a></li>
+</ul>
+</li>
+<li><a href="#sec-3-4">3.4. 本地演示 chrome Sense</a></li>
+<li><a href="#sec-3-5">3.5. ES插件</a></li>
+</ul>
+</li>
+<li><a href="#sec-4">4. ES使用总结</a>
+<ul>
+<li><a href="#sec-4-1">4.1. 一些建议</a></li>
+<li><a href="#sec-4-2">4.2. 问题与解答</a></li>
+</ul>
+</li>
+<li><a href="#sec-5">5. 学习链接</a></li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1"><span class="section-number-2">1</span> ES介绍</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+以下内容基于ESv2.x。ESv5.x有很多重构,包括新脚本语言<a href="https://www.elastic.co/blog/painless-a-new-scripting-language">painless</a> 、索引目录结构、启动vm配置等。<i>
+源码github</i> 
+<a href="https://www.elastic.co/start">下载download</a>
+</p>
+</div>
+
+<div id="outline-container-sec-1-1" class="outline-3">
+<h3 id="sec-1-1"><span class="section-number-3">1.1</span> ES=lucene+分布式+RestApi</h3>
+<div class="outline-text-3" id="text-1-1">
+<ul class="org-ul">
+<li>lucene
+<ul class="org-ul">
+<li>Java实现的搜索引擎基础库，单个lucene实例具备所有的搜索功能
+</li>
+</ul>
+</li>
+<li>分布式
+<ul class="org-ul">
+<li>解决单个lucene缺点
+<ul class="org-ul">
+<li>无法应付大数据量PB级的搜索和存储
+</li>
+<li>在update／delete频繁时search会很慢
+</li>
+</ul>
+</li>
+<li>集群discovery机制，自动发现新增／删除节点，并自动迁移数据，实现均衡负载
+</li>
+<li>主备(P/R)高可用，故障时自动切换。P/R可配置，R可灵活调整
+</li>
+</ul>
+</li>
+<li>RestApi 
+<ul class="org-ul">
+<li>提供http接口完成所有功能操作，如<a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/search.html">文档操作</a> 、 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/cluster.html">集群监控</a>， 文档中功能和示例十分齐全
+</li>
+</ul>
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/plugins/2.4/intro.html">plugin</a> 扩展功能 
+</li>
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/hadoop/5.1/arch.html">hadoop</a> 结合大数据
+</li>
+</ul>
+</div>
+</div>
+<div id="outline-container-sec-1-2" class="outline-3">
+<h3 id="sec-1-2"><span class="section-number-3">1.2</span> ES使用场景</h3>
+<div class="outline-text-3" id="text-1-2">
+<ul class="org-ul">
+<li>适合复杂结构文档的查询、统计
+</li>
+<li>不适合数据频繁更新，索引结构变化
+</li>
+<li><a href="https://www.elastic.co/">ELK</a> 日志分析方案
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2"><span class="section-number-2">2</span> ES架构</h2>
+<div class="outline-text-2" id="text-2">
+</div><div id="outline-container-sec-2-1" class="outline-3">
+<h3 id="sec-2-1"><span class="section-number-3">2.1</span> 系统划分</h3>
+<div class="outline-text-3" id="text-2-1">
+
+<div class="figure">
+<p><img src="./img/es_arch.png" alt="es_arch.png" />
+</p>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2" class="outline-3">
+<h3 id="sec-2-2"><span class="section-number-3">2.2</span> 基本概念</h3>
+<div class="outline-text-3" id="text-2-2">
+</div><div id="outline-container-sec-2-2-1" class="outline-4">
+<h4 id="sec-2-2-1"><span class="section-number-4">2.2.1</span> 索引(Index)</h4>
+<div class="outline-text-4" id="text-2-2-1">
+<ul class="org-ul">
+<li>示例 GET /weike10/member/<sub>count</sub> ，含义是统计索引weike10下member类型的文档数量
+<ul class="org-ul">
+<li>weike10表示索引
+</li>
+<li>member表示索引下的类型
+</li>
+<li>count告诉ES统计文档数量
+</li>
+</ul>
+</li>
+<li>与mysql概念对比，ES的索引-&gt;Mysql的数据库，ES的索引类型-&gt;Mysql的表
+</li>
+<li>索引决定了物理存储，可通过路由定制文档分布
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-2" class="outline-4">
+<h4 id="sec-2-2-2"><span class="section-number-4">2.2.2</span> 节点角色(Node)</h4>
+<div class="outline-text-4" id="text-2-2-2">
+<ul class="org-ul">
+<li>client
+<ul class="org-ul">
+<li>elasticsearch.yml配置"node.master: false node.data: false"
+</li>
+<li>分发请求到合适的node
+</li>
+<li>RestClient,http协议，默认端口9200，使用NIO，支持连接池，Sniffer
+</li>
+<li>TransportClient,tcp自定义协议，默认端口9300，使用NIO，支持Sniffer
+</li>
+</ul>
+</li>
+<li>master
+<ul class="org-ul">
+<li>elasticsearch.yml配置"node.master: true node.data: false"
+</li>
+<li>集群索引分布
+</li>
+<li>索引P/R节点分布
+</li>
+<li>文档路由规则
+</li>
+</ul>
+</li>
+<li>node
+<ul class="org-ul">
+<li>elasticsearch.yml配置"node.master: false node.data: true"
+</li>
+<li>执行存储、查询文档
+</li>
+<li>每个node都具备协同其他节点处理同一个请求的能力
+</li>
+<li>每个node包含不同索引的不同Shard，可配置一个node可以存储一个索引的shard个数
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-2-2-3" class="outline-4">
+<h4 id="sec-2-2-3"><span class="section-number-4">2.2.3</span> 分片(Shard)</h4>
+<div class="outline-text-4" id="text-2-2-3">
+<ul class="org-ul">
+<li>分片就是一个索引的存储单元
+</li>
+<li>分片由P/R组成
+<ul class="org-ul">
+<li>主分片(Primary)
+<ul class="org-ul">
+<li>增删改查
+</li>
+<li>增删改操作在P完成后，依据策略(consistency,多少副本同步成功)并行同步到R，最后返回
+</li>
+<li>不可动态配置
+</li>
+<li>P的数量决定了索引的数据分布能力，提升增删改查的能力
+</li>
+</ul>
+</li>
+<li>副本(Replica)
+<ul class="org-ul">
+<li>查询
+</li>
+<li>可动态配置
+</li>
+<li>R可以提升查询能力
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>索引在创建时指定P/R的个数
+</li>
+<li>分片均衡分布在ES集群的Node里
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3"><span class="section-number-2">3</span> ES使用</h2>
+<div class="outline-text-2" id="text-3">
+</div><div id="outline-container-sec-3-1" class="outline-3">
+<h3 id="sec-3-1"><span class="section-number-3">3.1</span> 集群配置 elasticsearch.yml</h3>
+<div class="outline-text-3" id="text-3-1">
+<pre class="example">
+network.host: 100.100.100.100
+
+cluster.name: weike
+# node configuration
+node.master: false
+node.data: true
+# 1台机器启动几个节点
+node.max_local_storage_nodes: 1
+# indices configuration
+index.number_of_shards: 8
+index.number_of_replicas: 1
+# 1个node放置一个索引的几个shard
+index.routing.allocation.total_shards_per_node: 1
+# instance paths
+path.conf: /home/admin/es/config
+path.plugins: /home/admin/es/plugins
+path.work: /data/es/work
+path.data: /data/es/data
+path.logs: /data/es/log
+# swapping
+bootstrap.mlockall: true
+#gateway
+#gateway.type: local
+gateway.recover_after_nodes: 8
+gateway.recover_after_master_nodes: 2
+gateway.recover_after_time: 5m
+gateway.expected_nodes: 8
+# recovery
+#cluster.routing.allocation.node_initial_primaries_recoveries: 4
+#cluster.routing.allocation.node_concurrent_recoveries: 1
+#indices.recovery.concurrent_streams: 5
+# discovery
+discovery.zen.minimum_master_nodes: 2
+discovery.zen.ping.multicast.enabled: false
+
+# 慢日志
+index.search.slowlog.level: INFO
+index.indexing.slowlog.level: INFO
+# search and fetch logging
+index.search.slowlog.threshold.query.warn: 10s
+index.search.slowlog.threshold.query.info: 5s
+index.search.slowlog.threshold.query.debug: 2s
+#index.search.slowlog.threshold.query.trace: 500ms
+
+index.search.slowlog.threshold.fetch.warn: 5s
+index.search.slowlog.threshold.fetch.info: 2s
+index.search.slowlog.threshold.fetch.debug: 1s
+index.search.slowlog.threshold.fetch.trace: 200ms
+
+index.indexing.slowlog.threshold.index.warn: 10s
+index.indexing.slowlog.threshold.index.info: 5s
+index.indexing.slowlog.threshold.index.debug: 2s
+index.indexing.slowlog.threshold.index.trace: 500ms
+
+# 查询条件的个数限制，默认1000
+indices.query.bool.max_clause_count: 10000
+
+index.cache.field.type: soft
+index.cache.field.expire: 10m
+index.fielddata.cache: soft
+indices.fielddata.cache.expire: 10m
+# 
+index.translog.flush_threshold_size: 1024mb
+# 默认刷新周期
+index.refresh_interval: 5s
+indices.store.throttle.max_bytes_per_sec: 100mb
+
+
+#indices.fielddata.cache.size: 50%
+#indices.cache.filter.size: 50%
+#index.cache.field.max_size: 50000
+#ssd
+#index.merge.scheduler.max_thread_count: 1
+
+# JVM gargabe collection work logging
+monitor.jvm.gc.ParNew.info: 2s
+monitor.jvm.gc.ParNew.debug: 1s
+monitor.jvm.gc.ConcurrentMarkSweep.info: 5s
+monitor.jvm.gc.ConcurrentMarkSweep.debug: 2s
+
+discovery.zen.ping.unicast.hosts: ["es.master.1","es.master.2","es.master.3"]
+
+#script.inline: sandbox
+#script.indexed: sandbox
+script.indexed: true
+script.inline: true
+script.stored: false
+script.file: true
+#script.update: false
+#script.plugin: false
+script.cache.expire: 60m
+#script.cache.max_size: 
+#max_size_in_bytes
+
+#action.auto_create_index: false
+action.disable_delete_all_indices: true
+#index.mapper.dynamic: false
+script.painless.regex.enabled: true
+
+script.engine.groovy.inline: true 
+script.engine.groovy.stored.search: true 
+script.engine.groovy.stored.aggs: true 
+
+script.engine.mustache.stored.search: true
+</pre>
+</div>
+</div>
+<div id="outline-container-sec-3-2" class="outline-3">
+<h3 id="sec-3-2"><span class="section-number-3">3.2</span> 启动脚本</h3>
+<div class="outline-text-3" id="text-3-2">
+<pre class="example">
+#! /bin/sh
+
+PID_PATH=/data/es/es.pid
+
+usage()
+{
+    echo "Usage: ${0##*/}  {start|stop} "
+    exit 1
+}
+
+start()
+{
+    if [ -f "${PID_PATH}" ]; then
+        echo "Application has started!"
+        exit 0
+    fi
+
+    export ES_HEAP_SIZE=4G
+    #export ES_HEAP_NEWSIZE=3g
+    #export ES_JAVA_OPTS="-XX:PermSize=128M -XX:MaxPermSize=512M"
+    bin/elasticsearch -Des.insecure.allow.root=true -d -p ${PID_PATH}
+    echo "Application start finished!"
+}
+
+stop()
+{
+    if [ -f "${PID_PATH}" ]; then
+	    PID=`cat ${PID_PATH}`
+	    kill ${PID}
+	    rm -rf ${PID_PATH}
+	    echo "Application shutdown finished!"
+    else
+	    echo "Not found pid file!"
+    fi
+}
+
+if [ "$1" = "start" ]; then
+    start
+elif [ "$1" = "stop" ]; then 
+    stop
+else
+    usage
+fi
+</pre>
+</div>
+<div id="outline-container-sec-3-2-1" class="outline-4">
+<h4 id="sec-3-2-1"><span class="section-number-4">3.2.1</span> 集群启动</h4>
+<div class="outline-text-4" id="text-3-2-1">
+<ul class="org-ul">
+<li>启动次序 master -&gt; node -&gt; client
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-3-3" class="outline-3">
+<h3 id="sec-3-3"><span class="section-number-3">3.3</span> 创建索引</h3>
+<div class="outline-text-3" id="text-3-3">
+<pre class="example">
+#! /bin/sh
+
+curl -XPUT 'http://ip:9200/weike10' -d '{"settings":{"index":{"number_of_shards":8,"number_of_replicas":1}},"mappings":{"member":{"properties":{"buyerNick":{"type":"string","index":"not_analyzed"}}}}}'
+
+curl -XPUT 'http://ip:9200/weike20' -d '{"settings":{"index":{"number_of_shards":4,"number_of_replicas":1}},"mappings":{"member":{"properties":{"buyerNick":{"type":"string","index":"not_analyzed"}}}}}'
+
+curl -XPUT 'http://ip:9200/weike21' -d '{"settings":{"index":{"number_of_shards":4,"number_of_replicas":1}},"mappings":{"member":{"properties":{"buyerNick":{"type":"string","index":"not_analyzed"}}}}}'
+
+curl -XPUT 'http://ip:9200/weike30' -d '{"settings":{"index":{"number_of_shards":8,"number_of_replicas":1}},"mappings":{"member":{"properties":{"buyerNick":{"type":"string","index":"not_analyzed"}}}}}'
+</pre>
+</div>
+
+<div id="outline-container-sec-3-3-1" class="outline-4">
+<h4 id="sec-3-3-1"><span class="section-number-4">3.3.1</span> <a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/indices-aliases.html">索引化名</a></h4>
+<div class="outline-text-4" id="text-3-3-1">
+<ul class="org-ul">
+<li>在业务层暴露花名，而不是索引名
+</li>
+<li>Alias的作用主要是封装使用索引的内部细节，方便在不影响上层业务同时修改ES数据操作。
+</li>
+<li>Alias可以指定search_ routing和index_ routing，为对应操作指定默认路由
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-3-3-2" class="outline-4">
+<h4 id="sec-3-3-2"><span class="section-number-4">3.3.2</span> 文档路由</h4>
+<div class="outline-text-4" id="text-3-3-2">
+<ul class="org-ul">
+<li>路由算法shard = hash(routing) % number_ of_ primary_ shards
+</li>
+<li>路由配置
+<ul class="org-ul">
+<li>默认文档id路由
+</li>
+<li>alias机制，可配置读/写路由index<sub>routing和search</sub><sub>routing</sub>
+</li>
+<li>API (get, index, delete, bulk, update, and mget) 配置routing参数
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3-4" class="outline-3">
+<h3 id="sec-3-4"><span class="section-number-3">3.4</span> 本地演示 <a href="https://chrome.google.com/webstore/detail/sense-beta/lhjgkmllcaadmopgmanpapmpjgmfcfig">chrome Sense</a></h3>
+<div class="outline-text-3" id="text-3-4">
+<pre class="example">
+PUT /demo
+{"settings":{"index":{"number_of_shards":1,"number_of_replicas":0}},"mappings":{"member":{"properties":{"name":{"type":"string","index":"not_analyzed"}}}}}
+
+POST /demo/usr/1
+{"name":"Yunpian","nick":"Yunpian","age":1214}
+
+GET /demo/usr/1
+
+POST /demo/usr/
+{"name":"Yunpian","nick":"Yunpian","age":1214}
+
+POST /demo/usr/1/_update
+{"script":{"inline":"ctx._source.age += count","params":{"count":4}}}
+
+GET /demo/usr/_search 
+{"query":{"term":{"name":"Yunpian"}}}
+
+GET /demo/usr/_search 
+{"query":{"term":{"nick":"yunpian"}}}
+
+GET /demo/usr/_count
+
+DELETE /demo
+</pre>
+</div>
+</div>
+
+<div id="outline-container-sec-3-5" class="outline-3">
+<h3 id="sec-3-5"><span class="section-number-3">3.5</span> ES插件</h3>
+<div class="outline-text-3" id="text-3-5">
+<ul class="org-ul">
+<li>插件使用
+<ul class="org-ul">
+<li>bin/plugin -h
+</li>
+<li>bin/plugin install 插件名， 如bin/plugin install lmenezes/elasticsearch-kopf
+</li>
+</ul>
+</li>
+<li><a href="https://github.com/lmenezes/elasticsearch-kopf">kopf</a>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4"><span class="section-number-2">4</span> ES使用总结</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1"><span class="section-number-3">4.1</span> 一些建议</h3>
+<div class="outline-text-3" id="text-4-1">
+<ul class="org-ul">
+<li>根据业务数据特性，设置索引的P/R的分配大小, 兼顾查询／更新性能。比如一个shard的单个查询总量控制在100w内(约数，由机器性能和查询性能要求定)
+</li>
+<li>索引名在内部使用，业务层提供的化名。化名就像指针可以实时定义具体访问内容，比如一个索引对应读／写化名就能在不改业务代码情况下完成数据迁移到另一个索引
+</li>
+<li>使用route，可以保证同样特性的数据在同一个P上，这样的查询效率会很高。注意，缺点是可能出现更新热点，导致单机压力过大
+</li>
+<li>创建索引时考虑好内容的Mapping类型和索引方式，方便以后的查询条件，比如大小写问题
+</li>
+<li>导入数据时，可以先将索引的R设置为0，导入后再恢复
+</li>
+<li>在频繁更新时，设置refresh<sub>interval为更大的间隔时间，ES的默认值为1s。降低了实时性，保证IO性能等</sub>
+</li>
+</ul>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2"><span class="section-number-3">4.2</span> 问题与解答</h3>
+<div class="outline-text-3" id="text-4-2">
+<ul class="org-ul">
+<li>查询大小写问题
+<ul class="org-ul">
+<li>现象是插入的内容是大写，而查询条件用大写却稍不到
+</li>
+<li>原因是没有指定内容的索引方式，ES默认的分析器会把内容统一转成小写（因为ES是一个搜索引擎）
+</li>
+<li>解决方法有几种
+<ul class="org-ul">
+<li>在内容首次index时指定索引方式为"not_ analyzed"
+</li>
+<li>将查询条件转成小写
+</li>
+<li>自定义分析器
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>高效的批量操作
+<ul class="org-ul">
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/docs-bulk.html">bulk</a> ES将按bulk里的次序由上到下执行
+</li>
+</ul>
+</li>
+<li>高效的查询操作
+<ul class="org-ul">
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/reference/2.4/search-request-scroll.html">scroll</a> 比分页更加高效
+</li>
+</ul>
+</li>
+<li>groovy脚本oom
+<ul class="org-ul">
+<li>oom原因在于groovy脚本编译后占用的内存不会释放,而update操作中的script脚本应变量导致ES一直编译脚本
+</li>
+<li>解决方法
+<ul class="org-ul">
+<li>ESv2.4使用groovy脚本更新文档内容时,inline内容尽量不变，通过params传参数
+</li>
+<li>ESv5.x开始默认painless
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+<div id="outline-container-sec-5" class="outline-2">
+<h2 id="sec-5"><span class="section-number-2">5</span> 学习链接</h2>
+<div class="outline-text-2" id="text-5">
+<ul class="org-ul">
+<li><a href="https://www.elastic.co/guide/en/elasticsearch/guide/2.x/index.html">官方文档 v2.x</a>
+</li>
+<li>Mastering Elasticsearch
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div id="postamble" class="status">
+<p class="author">Author: dzh</p>
+<p class="date">Created: 2016-12-14 Wed 18:10</p>
+<p class="creator"><a href="http://www.gnu.org/software/emacs/">Emacs</a> 24.4.1 (<a href="http://orgmode.org">Org</a> mode 8.2.10)</p>
+<p class="validation"><a href="http://validator.w3.org/check?uri=referer">Validate</a></p>
+</div>
+</body>
+</html>
