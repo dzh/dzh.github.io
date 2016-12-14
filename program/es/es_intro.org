@@ -155,7 +155,7 @@ monitor.jvm.gc.ParNew.debug: 1s
 monitor.jvm.gc.ConcurrentMarkSweep.info: 5s
 monitor.jvm.gc.ConcurrentMarkSweep.debug: 2s
 
-discovery.zen.ping.unicast.hosts: ["es.master.1","es.master.2","es.master.3"]
+discovery.zen.ping.unicast.hosts: ["es.master.x","es.master.y","es.master.z"]
 
 #script.inline: sandbox
 #script.indexed: sandbox
