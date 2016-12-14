@@ -244,8 +244,8 @@ curl -XPUT 'http://ip:9200/weike30' -d '{"settings":{"index":{"number_of_shards"
 
 #+END_EXAMPLE
 
-*** [[https://www.elastic.co/guide/en/elasticsearch/reference/2.4/indices-aliases.html][索引化名]]
-- 在业务层暴露花名，而不是索引名
+*** [[https://www.elastic.co/guide/en/elasticsearch/reference/2.4/indices-aliases.html][索引化名]](Alias)
+- 在业务层使用Alias，而不是索引名
 - Alias的作用主要是封装使用索引的内部细节，方便在不影响上层业务同时修改ES数据操作。
 - Alias可以指定search_ routing和index_ routing，为对应操作指定默认路由
 
