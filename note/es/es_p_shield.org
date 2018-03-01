@@ -1,0 +1,44 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: dzh_11@qq.com
+#+title: Using Shield in ES
+
+* Feature
+
+
+* Configuration
+
+
+* 
+
+
+
+
+bin/plugin install license
+bin/plugin install shield
+
+bin/plugin install file:///path/to/file/license-2.4.4.zip
+bin/plugin install file:///path/to/file/shield-2.4.4.zip
+
+bin/plugin remove shield
+
+esusers useradd <username>
+esusers useradd <username> -p <secret>
+esusers useradd jacknich -p theshining -r logstash,marvel
+
+
+curl -XPUT -u admin 'http://<host>:<port>/_license' -d @license.json
+
+https://www.elastic.co/guide/en/shield/current/license-management.html
+
+https://hc.apache.org/httpclient-3.x/authentication.html#Basic
+
+Credentials defaultcreds = new UsernamePasswordCredentials("username", "password");
+client.getState().setCredentials(new AuthScope("myhost", 80, AuthScope.ANY_REALM), defaultcreds);
+
+Credentials defaultcreds = new UsernamePasswordCredentials("username", "password");
+client.getState().setCredentials(AuthScope.ANY, defaultcreds);
+
+
+
+

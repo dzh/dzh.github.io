@@ -1,0 +1,19 @@
+#+STARTUP: showall
+#+author: dzh
+#+email: dzh_11@qq.com
+#+title: JavaCC Note
+
+* About jj
+
+#+BEGIN_EXAMPLE
+options {
+   STATIC = false;
+   DEBUG_PARSER = true;
+   UNICODE_INPUT = true;
+   JDK_VERISON = "1.7"
+}
+#+END_EXAMPLE
+
+
+
+
